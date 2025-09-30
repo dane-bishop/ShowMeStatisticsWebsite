@@ -1,15 +1,56 @@
 <!DOCTYPE html>
-<html>
-    <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowMeStatistics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+        }
+        nav {
+            margin: 20px 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #222;
+            margin: 0 15px;
+            padding: 10px 20px;
+            border: 1px solid #222;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #222;
+            color: white;
+        }
+        main {
+            margin: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ShowMeStatistics</h1>
+        <p>A new and improved version of Mizzou sports stats</p>
+    </header>
 
-    </head>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/teams">Teams</a>
+        <a href="/players">Players</a>
+        <a href="/scores">Scores</a>
+    </nav>
 
-    <body>
-
-    </body>
-
-
-    <footer>
-        
-    </footer>
+    <main>
+        <h2>{{ page }}</h2>
+        <p>Welcome to the {{ page }} section of ShowMeStatistics.</p>
+    </main>
+</body>
 </html>
