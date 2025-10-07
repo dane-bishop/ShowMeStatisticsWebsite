@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="profile">
+  <h2>Account</h2>
+  {% if has_account %}
+    <div class="card">
+      <div class="card-title">Welcome back!</div>
+      <div class="card-meta">Personalized content will appear here.</div>
+    </div>
+  {% else %}
+    <div class="card">
+      <div class="card-title">Create your account</div>
+      <div class="card-meta">Sign up to follow teams, get alerts, and more.</div>
+      <form class="auth-form">
+        <input type="email" placeholder="Email" disabled />
+        <input type="password" placeholder="Password" disabled />
+        <button type="button" disabled>Sign up (placeholder)</button>
+      </form>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
+
+

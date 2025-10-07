@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Scores • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="list-page">
+  <h2>Recent Scores</h2>
+  <div class="table">
+    <div class="row head">
+      <div>Sport</div>
+      <div>Opponent</div>
+      <div>Result</div>
+      <div>Date</div>
+    </div>
+    {% for s in scores %}
+    <div class="row">
+      <div>{{ s.sport }}</div>
+      <div>{{ s.opponent }}</div>
+      <div>{{ s.result }}</div>
+      <div>{{ s.date }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+

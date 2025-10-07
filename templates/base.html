@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}ShowMeStatistics{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-left">
+            <button class="menu-dropdown" id="menuDropdownBtn">☰</button>
+            <div class="dropdown" id="menuDropdown">
+                <a href="{{ url_for('teams') }}">Teams</a>
+                <a href="{{ url_for('players') }}">Players</a>
+                <a href="{{ url_for('scores') }}">Scores</a>
+            </div>
+            <a href="/" class="brand">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" onerror="this.style.display='none'" />
+                <span>ShowMeStatistics</span>
+            </a>
+        </div>
+        <form class="search" action="{{ url_for('search') }}" method="get">
+            <input type="text" name="q" placeholder="Search teams, players, scores..." value="{{ request.args.get('q','') }}" />
+            <button type="submit">Search</button>
+        </form>
+        <div class="topbar-right">
+            <a class="profile-btn" href="{{ url_for('profile') }}">Profile</a>
+        </div>
+    </header>
+
+    {% block banner %}{% endblock %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+    // simple dropdown toggle
+    const btn = document.getElementById('menuDropdownBtn');
+    const menu = document.getElementById('menuDropdown');
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.remove('open');
+        }
+      });
+    }
+    </script>
+</body>
+</html>
+
+

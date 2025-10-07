@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Search • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="list-page">
+  <h2>Search Results for "{{ query }}"</h2>
+  <div class="cards">
+    {% if team_results %}
+      {% for team in team_results %}
+      <a class="card" href="{{ url_for('team_detail', team_slug=team.slug) }}">
+        <div class="card-title">{{ team.name }}</div>
+        <div class="card-meta">Team</div>
+      </a>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">No results found.</div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+
+

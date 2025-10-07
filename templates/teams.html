@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Teams • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="list-page">
+  <h2>Teams</h2>
+  <div class="cards">
+    {% for team in teams %}
+      <a class="card" href="{{ url_for('team_detail', team_slug=team.slug) }}">
+        <div class="card-title">{{ team.name }}</div>
+        <div class="card-meta">Explore schedule, roster, stats</div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+

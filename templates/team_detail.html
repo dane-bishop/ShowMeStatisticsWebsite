@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ team.name }} • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="team-layout">
+  <div class="team-main">
+    <div class="team-tabs">
+      <a class="tab active" href="#scores">Scores</a>
+      <a class="tab" href="#roster">Roster</a>
+      <a class="tab" href="#stats">Stats</a>
+    </div>
+    <div class="calendar-card">
+      <div class="calendar-header">{{ team.name }} Schedule</div>
+      <div class="calendar-grid">
+        {% if events %}
+          {% for e in events %}
+          <div class="calendar-event">
+            <div class="event-date">{{ e.date }}</div>
+            <div class="event-title">{{ e.title }}</div>
+            <div class="event-meta">{{ e.sport }} • {{ e.location }}</div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">No upcoming events found (placeholder)</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <aside class="team-news">
+    <div class="news-header">Latest News</div>
+    <ul class="news-list">
+      {% for n in news %}
+      <li>
+        <div class="news-title">{{ n.title }}</div>
+        <div class="news-date">{{ n.date }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+</section>
+{% endblock %}
+
+

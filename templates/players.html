@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Players • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="list-page">
+  <h2>Players</h2>
+  <div class="cards three">
+    {% for p in players %}
+      <div class="card">
+        <div class="card-title">{{ p.name }}</div>
+        <div class="card-meta">{{ p.team }} • {{ p.position }}</div>
+      </div>
+    {% endfor %}
+  </div>
+  <p class="hint">This is placeholder data; wire to a database later.</p>
+{% endblock %}
+
+
