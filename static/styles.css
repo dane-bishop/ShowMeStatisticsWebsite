@@ -86,3 +86,31 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
   .filters, .team-news { position: static; }
 }
 
+/* Small phones */
+@media (max-width: 640px) {
+  .topbar { flex-wrap: wrap; gap: 10px; padding: 10px 12px; }
+  .topbar-left { width: 100%; justify-content: space-between; }
+  .topbar .search { order: 3; width: 100%; margin: 0; }
+  .topbar .profile-btn { order: 2; }
+  .menu-dropdown { padding: 8px 12px; }
+  .dropdown { left: 12px; top: 48px; }
+
+  .headline-banner { padding: 10px 12px; }
+  .headline-banner .headlines { grid-template-columns: 1fr; }
+
+  .container { padding: 0 12px; }
+  .calendar-grid { grid-template-columns: 1fr; padding: 12px; }
+  .calendar-event { padding: 12px; }
+
+  .filters { padding: 10px; }
+  .checkbox { padding: 8px 2px; }
+  .apply-btn { padding: 12px; }
+
+  /* Make scores table horizontally scrollable */
+  .table { overflow-x: auto; }
+  .table .row { min-width: 560px; }
+
+  /* Touch-friendly tabs */
+  .tab { padding: 10px 14px; }
+}
+
