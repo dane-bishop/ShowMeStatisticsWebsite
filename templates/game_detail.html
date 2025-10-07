@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Game Detail • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="game-detail">
+  <div class="game-hero">
+    <div class="game-meta">
+      <div class="pill">{{ game.sport }}</div>
+      <h2 class="matchup">Tigers vs {{ game.opponent_team }}</h2>
+      <div class="sub">{{ game.date }} • {{ game.location }}</div>
+    </div>
+  </div>
+
+  <div class="game-cards">
+    <div class="card">
+      <div class="card-title">Opponent</div>
+      <div class="card-meta">{{ game.opponent_name }}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Record</div>
+      <div class="card-meta">{{ game.opponent_record }}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Venue</div>
+      <div class="card-meta">{{ game.location }}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Date</div>
+      <div class="card-meta">{{ game.date }}</div>
+    </div>
+  </div>
+
+  <a class="profile-btn" href="{{ url_for('home') }}">Back to Home</a>
+</section>
+{% endblock %}
+
+

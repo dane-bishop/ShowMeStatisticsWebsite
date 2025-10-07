@@ -21,24 +21,24 @@
     <div class="calendar-header">Upcoming Events</div>
     <div class="calendar-grid">
       {% for e in events %}
-        <div class="calendar-event">
+        <a class="calendar-event" href="{{ url_for('game_detail', game_id=e.id) }}">
           <div class="event-date">{{ e.date }}</div>
           <div class="event-title">{{ e.title }}</div>
           <div class="event-meta">{{ e.sport }} • {{ e.location }}</div>
-        </div>
+        </a>
       {% endfor %}
     </div>
   </div>
   <aside class="filters">
     <div class="filters-header">Filter Sports</div>
-    <form>
+    <form method="get" action="/">
       {% for s in sports %}
       <label class="checkbox">
-        <input type="checkbox" checked />
+        <input type="checkbox" name="sports" value="{{ s }}" {% if not selected_sports or s in selected_sports %}checked{% endif %} />
         <span>{{ s }}</span>
       </label>
       {% endfor %}
-      <button type="button" class="apply-btn" disabled>Apply (placeholder)</button>
+      <button type="submit" class="apply-btn">Apply</button>
     </form>
   </aside>
 </section>
