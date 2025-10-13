@@ -2,11 +2,19 @@ from flask import Flask, render_template, url_for, redirect, request
 
 app = Flask(__name__)
 
-SPORTS = [
-    "Men's Basketball", "Baseball", "Men's Cross Country", "Football", "Men's Golf",
-    "Men's Swim & Dive", "Men's Track & Field", "Wrestling", "Women's Basketball",
-    "Women's Cross Country", "Women's Golf", "Gymnastics", "Women's Soccer",
-    "Softball", "Women's Swim & Dive", "Women's Tennis", "Women's Track & Field",
+# still like having seperate sections in the home page for mens and womens
+# but have to have sports prefixed with either men or woman bc otherwise the dropdowns
+# wont work properly bc itll read basketball as 1 and not mens and womens, atp you 
+# have to uncheck or check both for them to work properly
+MEN_SPORTS = [
+    "Men's Basketball", "Men's Baseball", "Men's Cross Country", "Men's Football",
+    "Men's Golf", "Men's Swim & Dive", "Men's Track & Field", "Men's Wrestling"
+]
+
+WOMEN_SPORTS = [
+    "Women's Basketball", "Women's Cross Country", "Women's Golf",
+    "Women's Gymnastics", "Women's Soccer", "Women's Softball",
+    "Women's Swim & Dive", "Women's Tennis", "Women's Track & Field",
     "Women's Volleyball"
 ]
 
@@ -24,7 +32,7 @@ SAMPLE_EVENTS = [
     {
         "id": 2,
         "date": "2025-10-10",
-        "sport": "Men's Basketball",
+        "sport": "Basketball",
         "title": "Tigers vs Bears",
         "location": "Mizzou Arena",
         "opponent_team": "Bears",
@@ -34,7 +42,7 @@ SAMPLE_EVENTS = [
     {
         "id": 3,
         "date": "2025-10-12",
-        "sport": "Women's Soccer",
+        "sport": "Soccer",
         "title": "Tigers vs Lions",
         "location": "Walton Stadium",
         "opponent_team": "Lions",
@@ -60,10 +68,10 @@ HEADLINE_ITEMS = [
 
 TEAMS = [
     {"name": s, "slug": s.lower().replace(" ", "-").replace("&", "and").replace("'", "")}
-    for s in SPORTS
+    for s in MEN_SPORTS + WOMEN_SPORTS
 ]
 
-
+#home page
 @app.route("/")
 def home():
     selected_sports = request.args.getlist("sports")
@@ -73,13 +81,15 @@ def home():
         filtered = SAMPLE_EVENTS
 
     return render_template(
-        "index.html",
-        sports=SPORTS,
-        events=filtered,
-        headlines=HEADLINE_ITEMS,
-        selected_sports=selected_sports,
-    )
+    "index.html",
+    men_sports=MEN_SPORTS,
+    women_sports=WOMEN_SPORTS,
+    events=filtered,
+    headlines=HEADLINE_ITEMS,
+    selected_sports=selected_sports,
+)
 
+#teams page
 @app.route("/teams")
 def teams():
     return render_template("teams.html", teams=TEAMS)
@@ -97,6 +107,7 @@ def team_detail(team_slug: str):
     ]
     return render_template("team_detail.html", team=team, events=team_events, news=news)
 
+#players page
 @app.route("/players")
 def players():
     sample_players = [
@@ -106,6 +117,7 @@ def players():
     ]
     return render_template("players.html", players=sample_players)
 
+#scores page
 @app.route("/scores")
 def scores():
     recent_scores = [
@@ -123,17 +135,24 @@ def game_detail(game_id: int):
     # Placeholder: derive home/away info etc. Here we show passed metadata
     return render_template("game_detail.html", game=game)
 
+#profile page
 @app.route("/profile")
 def profile():
     # Placeholder: not authenticated logic yet
     return render_template("profile.html", has_account=False)
 
+#search function
 @app.route("/search")
 def search():
     q = request.args.get("q", "").strip()
     # Simple placeholder search across team names
     team_results = [t for t in TEAMS if q.lower() in t["name"].lower()] if q else []
     return render_template("search_results.html", query=q, team_results=team_results)
+
+#news page
+@app.route("/news")
+def news():
+    return render_template("news.html", headlines=HEADLINE_ITEMS)
 
 if __name__ == "__main__":
     app.run(debug=True)
