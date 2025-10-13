@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}News • ShowMeStatistics{% endblock %}
+
+{% block content %}
+<section class="news">
+  <h2>Latest Mizzou Sports News</h2>
+
+  <div class="card">
+    <div class="card-title">Welcome to ShowMe News</div>
+    <div class="card-meta">
+      Stay updated on the latest headlines, stats, and stories in Mizzou athletics.
+      This page will feature articles, score recaps, and analysis soon.
+    </div>
+  </div>
+
+  <div class="news-list">
+    <div class="card">
+      <div class="card-title">🏈 Football season preview (placeholder)</div>
+      <div class="card-meta">October 12, 2025 • By ShowMe Staff</div>
+      <p>
+        Mizzou football looks to build on last season’s success with a promising new roster.
+        Full analysis coming soon.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏀 Men’s Basketball training updates (placeholder)</div>
+      <div class="card-meta">October 10, 2025 • By ShowMe Staff</div>
+      <p>
+        The Tigers hit the court for preseason training. Get early insights and roster news here soon.
+      </p>
+    </div>
+  </div>
+
+  {% if news_items %}
+    {% for article in news_items %}
+      <div class="card">
+        <div class="card-title">{{ article.title }}</div>
+        <div class="card-meta">{{ article.date }} • {{ article.author }}</div>
+        <p>{{ article.summary }}</p>
+        <a href="{{ url_for('view_article', article_id=article.id) }}">Read more →</a>
+      </div>
+    {% endfor %}
+  {% endif %}
+</section>
+{% endblock %}
