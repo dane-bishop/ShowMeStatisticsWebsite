@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, redirect, request
+from psycopg2.extras import RealDictCursor
 
 app = Flask(__name__)
 
@@ -107,6 +108,12 @@ def team_detail(team_slug: str):
     ]
     return render_template("team_detail.html", team=team, events=team_events, news=news)
 
+
+
+
+
+
+
 #players page
 @app.route("/players")
 def players():
@@ -116,6 +123,12 @@ def players():
         {"name": "Taylor Smith", "team": "Women's Soccer", "position": "FW"},
     ]
     return render_template("players.html", players=sample_players)
+
+
+
+
+
+
 
 #scores page
 @app.route("/scores")
