@@ -9,6 +9,10 @@
     <div class="team-main">
       <!-- Tabs -->
       <div class="team-tabs">
+        <a class="tab" href="{{ url_for('routes.players') }}"
+          onclick="if (document.referrer) { history.back(); return false; }">
+          ← Players
+        </a>
         <a class="tab active" href="#overview">Overview</a>
         <a class="tab" href="#gamelog">Game Log</a>
         <a class="tab" href="#highs">Season Highs</a>

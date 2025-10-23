@@ -8,11 +8,18 @@
   <div class="cards three">
     {% for p in players %}
 
-
-      <a class="card" href="{{ url_for('routes.player_detail', player_slug=p.player_slug) }}">
-        <div class="card-title">{{ p.full_name }}</div>
-        <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
-      </a>
+      {% if p.player_slug %}
+        <a class="card" href="{{ url_for('routes.player_detail', player_slug=p.player_slug) }}">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
+        </a>
+      
+      {% else %}
+        <div class="card is-disabled">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
   <!-- <p class="hint">This is placeholder data; wire to a database later.</p> -->

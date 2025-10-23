@@ -59,12 +59,12 @@ def player_detail(player_slug: str):
     pgb.sb, pgb.sba, pgb.cs,
     pgb.hbp, pgb.sh, pgb.sf, pgb.gdp, pgb.k,
     pgb.avg,
-    g.game_date        
+    g.game_date,        
     g.opponent_id   AS opponent_name   
     FROM player_game_batting pgb
     LEFT JOIN games g ON g.id = pgb.game_id
     WHERE pgb.player_id = %s
-    ORDER BY COALESCE(g.date, '1900-01-01') ASC, pgb.id ASC;
+    ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgb.id ASC;
     """
 
 

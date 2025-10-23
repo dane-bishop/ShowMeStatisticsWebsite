@@ -20,7 +20,8 @@ def players():
     JOIN team_seasons ts ON rm.team_season_id = ts.id
     JOIN teams t ON ts.team_id = t.id
     JOIN sports s ON t.sport_id = s.id
-    ORDER BY name;
+    WHERE p.player_slug IS NOT NULL AND p.player_slug <> ''
+    ORDER BY p.full_name;
     """
 
     conn = get_db_connection()
