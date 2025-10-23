@@ -1,5 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request
+
 from psycopg2.extras import RealDictCursor
+import psycopg2
 
 app = Flask(__name__)
 
@@ -119,13 +121,10 @@ def team_detail(team_slug: str):
 def players():
 
 
+    def get_db_connection():
+        return psycopg2.connect(host="localhost", database="capstone_db", user="danebishop",password="Bayloreagles20")
 
-    sample_players = [
-        {"name": "Alex Johnson", "team": "Football", "position": "QB"},
-        {"name": "Sam Lee", "team": "Men's Basketball", "position": "G"},
-        {"name": "Taylor Smith", "team": "Women's Soccer", "position": "FW"},
-    ]
-
+    
     sql = """
     SELECT DISTINCT
     p.id, p.full_name, s.name, rm.position
@@ -137,10 +136,11 @@ def players():
     ORDER BY name;
     """
 
+    conn = get_db_connection()
     with conn.cursor(cursor_factory=RealDictCursor) as cur:
         cur.execute(sql)
         players = cur.fetchall()
-
+    
     return render_template("players.html", players=players)
 
 

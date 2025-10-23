@@ -8,8 +8,8 @@
   <div class="cards three">
     {% for p in players %}
       <div class="card">
-        <div class="card-title">{{ p.name }}</div>
-        <div class="card-meta">{{ p.team }} • {{ p.position }}</div>
+        <div class="card-title">{{ p.full_name }}</div>
+        <div class="card-meta">{{ p.name }} • {{ p.position }}</div>
       </div>
     {% endfor %}
   </div>
