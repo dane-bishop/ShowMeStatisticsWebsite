@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ player.full_name }} • ShowMeStatistics{% endblock %}
+
+
+{% block content %}
+<section class="team-layout">
+    <div class="team-main">
+      <!-- Tabs -->
+      <div class="team-tabs">
+        <a class="tab active" href="#overview">Overview</a>
+        <a class="tab" href="#gamelog">Game Log</a>
+        <a class="tab" href="#highs">Season Highs</a>
+      </div>
+
+      <!-- Header / Bio -->
+    <div id="overview" class="calendar-card">
+        <div class="calendar-header">{{ player.full_name }}</div>
+        <div class="calendar-grid">
+          <div class="calendar-event">
+            <div class="event-title">
+              {{ player.sport_name }} • {{ player.position }}
+              {% if player.jersey %} • #{{ player.jersey }}{% endif %}
+            </div>
+            <div class="event-meta">
+              {{ player.school_name }} — Season {{ player.season_year }}
+            </div>
+            <div class="event-meta">
+              {% if player.class_year %}Class: {{ player.class_year }} • {% endif %}
+              {% if player.bats_throws %}B/T: {{ player.bats_throws }} • {% endif %}
+              {% if player.hometown %}Hometown: {{ player.hometown }}{% endif %}
+              {% if player.high_school %} • HS: {{ player.high_school }}{% endif %}
+            </div>
+          </div>
+
+
+          <!-- Quick highs summary (top 4 if available) -->
+        <div class="calendar-event">
+            <div class="event-title">Quick Season Highs</div>
+            {% if highs %}
+            <div class="cards two">
+              {% for h in highs[:4] %}
+              <div class="card">
+                <div class="card-title">{{ h.stat_name }}</div>
+                <div class="card-meta">
+                  {{ h.value }}
+                  {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
+                  {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">No season highs recorded.</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!-- Game Log -->
+    <div id="gamelog" class="calendar-card">
+        <div class="calendar-header">Game Log</div>
+        {% if gamelog %}
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Opponent</th>
+                <th>W/L</th>
+                <th>GS</th>
+                <th>AB</th>
+                <th>R</th>
+                <th>H</th>
+                <th>RBI</th>
+                <th>2B</th>
+                <th>3B</th>
+                <th>HR</th>
+                <th>BB</th>
+                <th>K</th>
+                <th>AVG</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for g in gamelog %}
+              <tr>
+                <td>{{ g.game_date or '' }}</td>
+                <td>{{ g.opponent_name or '' }}</td>
+                <td>{{ g.wl or '' }}</td>
+                <td>{{ g.gs or 0 }}</td>
+                <td>{{ g.ab or 0 }}</td>
+                <td>{{ g.r or 0 }}</td>
+                <td>{{ g.h or 0 }}</td>
+                <td>{{ g.rbi or 0 }}</td>
+                <td>{{ g.doubles or 0 }}</td>
+                <td>{{ g.triples or 0 }}</td>
+                <td>{{ g.hr or 0 }}</td>
+                <td>{{ g.bb or 0 }}</td>
+                <td>{{ g.k or 0 }}</td>
+                <td>{{ g.avg if g.avg is not none else '' }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No games logged for this player.</div>
+        {% endif %}
+      </div>
+
+
+
+      <!-- Season Highs (full) -->
+    <div id="highs" class="calendar-card">
+        <div class="calendar-header">Season Highs</div>
+        {% if highs %}
+        <div class="cards three">
+          {% for h in highs %}
+          <div class="card">
+            <div class="card-title">{{ h.stat_name }}</div>
+            <div class="card-meta">
+              {{ h.value }}
+              {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
+              {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">No season highs available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+
+    <!-- Sidebar (optional news or related items) -->
+  <aside class="team-news">
+    <div class="news-header">Player Notes</div>
+    <ul class="news-list">
+      <li>
+        <div class="news-title">{{ player.full_name }} — {{ player.sport_name }}</div>
+        <div class="news-date">Season {{ player.season_year }}</div>
+      </li>
+    </ul>
+  </aside>
+</section>
+
+
+
+{% endblock %}

@@ -2,19 +2,19 @@ from flask import render_template
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from .. import routes_bp
+from core.get_db_connection import get_db_connection
 
 
 @routes_bp.route("/players")
 def players():
 
 
-    def get_db_connection():
-        return psycopg2.connect(host="localhost", database="capstone_db", user="danebishop",password="Bayloreagles20")
+    
 
     
     sql = """
     SELECT DISTINCT
-    p.id, p.full_name, s.name, rm.position
+    p.id, p.full_name, s.name AS team_name, rm.position, p.player_slug
     FROM players p
     JOIN roster_memberships rm ON rm.player_id = p.id
     JOIN team_seasons ts ON rm.team_season_id = ts.id

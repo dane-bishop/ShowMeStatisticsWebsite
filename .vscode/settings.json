@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+      "**/__init__.py": false
+    },
+    "search.exclude": {
+      "**/__init__.py": true
+    },
+    "explorer.excludeGitIgnore": false
+  }
+  

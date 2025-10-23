@@ -1,1 +1,1 @@
-from . import players
+from . import players, player_detail
