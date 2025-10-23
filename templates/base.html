@@ -11,23 +11,23 @@
         <div class="topbar-left">
             <button class="menu-dropdown" id="menuDropdownBtn">☰</button>
             <div class="dropdown" id="menuDropdown">
-                <a href="{{ url_for('home') }}">Home</a>
-                <a href="{{ url_for('news') }}">News</a>
-                <a href="{{ url_for('teams') }}">Teams</a>
-                <a href="{{ url_for('players') }}">Players</a>
-                <a href="{{ url_for('scores') }}">Scores</a>
+                <a href="{{ url_for('routes.home') }}">Home</a>
+                <a href="{{ url_for('routes.news') }}">News</a>
+                <a href="{{ url_for('routes.teams') }}">Teams</a>
+                <a href="{{ url_for('routes.players') }}">Players</a>
+                <a href="{{ url_for('routes.scores') }}">Scores</a>
             </div>
             <a href="/" class="brand">
                 <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" onerror="this.style.display='none'" />
                 <span>ShowMeStatistics</span>
             </a>
         </div>
-        <form class="search" action="{{ url_for('search') }}" method="get">
+        <form class="search" action="{{ url_for('routes.search') }}" method="get">
             <input type="text" name="q" placeholder="Search teams, players, scores..." value="{{ request.args.get('q','') }}" />
             <button type="submit">Search</button>
         </form>
         <div class="topbar-right">
-            <a class="profile-btn" href="{{ url_for('profile') }}">Profile</a>
+            <a class="profile-btn" href="{{ url_for('routes.profile') }}">Profile</a>
         </div>
     </header>
 
