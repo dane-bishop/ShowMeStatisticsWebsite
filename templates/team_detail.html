@@ -10,7 +10,9 @@
           ← Teams
         </a>
       <a class="tab active" href="#scores">Scores</a>
-      <a class="tab" href="#roster">Roster</a>
+      <a class="tab" href="{{ url_for('routes.team_roster', team_slug=team.slug, team_year=2025) }}">
+        Roster
+      </a>
       <a class="tab" href="#stats">Stats</a>
     </div>
     <div class="calendar-card">

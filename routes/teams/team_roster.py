@@ -51,6 +51,8 @@ def team_roster(team_slug: str, team_year: int):
     JOIN sports        s  ON s.id  = t.sport_id
     WHERE t.site_slug = %s
       AND ts.year = %s
+      AND p.player_slug IS NOT NULL
+      AND p.player_slug <> ''
     ORDER BY
       -- Try jersey numerical sort when numeric, otherwise by name
       (CASE WHEN rm.jersey ~ '^[0-9]+$' THEN rm.jersey::int END) NULLS LAST,
@@ -62,8 +64,7 @@ def team_roster(team_slug: str, team_year: int):
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(TEAM_SQL, (team_slug,))
             team = cur.fetchone()
-            if not team:
-                abort(404)
+            
             
             cur.execute(ROSTER_SQL, (team_slug, team_year))
             roster = cur.fetchall()

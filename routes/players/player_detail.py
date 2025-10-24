@@ -1,5 +1,5 @@
 from .. import routes_bp
-from flask import render_template, abort
+from flask import render_template, abort, request, url_for
 from psycopg2.extras import RealDictCursor
 import psycopg2
 from core.get_db_connection import get_db_connection
@@ -89,8 +89,22 @@ def player_detail(player_slug: str):
             cur.execute(GAMELOG_SQL, (player["id"],))
             gamelog = cur.fetchall()
 
+
+            # Context-aware back URL
+            from_team = request.args.get("from_team")
+            from_year = request.args.get("year", type=int)
+
+            if from_team and from_year:
+                back_url = url_for("routes.team_roster", team_slug=from_team, team_year=from_year)
+
+            else:
+                ref = request.referrer or ""
+                if "/teams/" in ref:
+                    back_url = ref
+                else:
+                    back_url = url_for("routes.players")
         
-        return render_template("player_detail.html", player=player, highs=highs, gamelog=gamelog)
+        return render_template("player_detail.html", player=player, highs=highs, gamelog=gamelog, back_url=back_url)
     
     finally:
         conn.close()
