@@ -11,4 +11,5 @@ from .scores.scores import *
 from .scores.game_detail import *
 from .teams.teams import *
 from .teams.team_details import *
+from .teams.team_roster import *
 from .user.profile import *
