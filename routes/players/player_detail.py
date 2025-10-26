@@ -47,7 +47,7 @@ def player_detail(player_slug: str):
     """
 
 
-    GAMELOG_SQL = """
+    GAMELOG_HITTING_SQL = """
     SELECT
     pgb.id,
     pgb.source_game_id,
@@ -68,6 +68,22 @@ def player_detail(player_slug: str):
     ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgb.id ASC;
     """
 
+    GAMELOG_PITCHING_SQL = """
+    SELECT
+    pgp.id,
+    pgp.source_game_id,
+    pgp.wl,
+    pgp.ip, pgp.h, pgp.r, pgp.er, pgp.bb, pgp.so, pgp.doubles, pgp.triples,
+    pgp.hr, pgp.wp, pgp.bk, pgp.hbp, pgp.ibb, pgp.np, pgp.w, pgp.l, pgp.sv, pgp.gera, pgp.sera,
+    g.game_date,
+    o.name AS opponent_name
+    FROM player_game_pitching pgp
+    JOIN games g ON g.id = pgp.game_id
+    JOIN opponents o ON o.id = g.opponent_id
+    WHERE pgp.player_id = %s
+    ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgb.id ASC;
+    """
+
 
 
 
@@ -85,9 +101,13 @@ def player_detail(player_slug: str):
             cur.execute(SEASON_HIGHS_SQL, (player["id"],))
             highs = cur.fetchall()
 
-            # Game log
-            cur.execute(GAMELOG_SQL, (player["id"],))
-            gamelog = cur.fetchall()
+            # Game log hitting
+            cur.execute(GAMELOG_HITTING_SQL, (player["id"],))
+            gamelog_hitting = cur.fetchall()
+
+            # Game log pitching
+            cur.execute(GAMELOG_PITCHING_SQL, (player["id"],))
+            gamelog_pitching = cur.fetchall()
 
 
             # Context-aware back URL
@@ -104,7 +124,7 @@ def player_detail(player_slug: str):
                 else:
                     back_url = url_for("routes.players")
         
-        return render_template("player_detail.html", player=player, highs=highs, gamelog=gamelog, back_url=back_url)
+        return render_template("player_detail.html", player=player, highs=highs, gamelog_hitting=gamelog_hitting, gamelog_pitching=gamelog_pitching, back_url=back_url)
     
     finally:
         conn.close()
