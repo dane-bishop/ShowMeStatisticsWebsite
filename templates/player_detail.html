@@ -64,7 +64,7 @@
 
 
 
-      <!-- Game Log -->
+      <!-- Game Log Hitting -->
     <div id="gamelog" class="calendar-card">
         <div class="calendar-header">Game Log (Hitting)</div>
         {% if gamelog_hitting %}
@@ -111,11 +111,11 @@
           </table>
         </div>
         {% else %}
-        <div class="empty-state">No games logged for this player.</div>
+        <div class="empty-state">No hitting stats logged for this player.</div>
         {% endif %}
       </div>
 
-        <!-- Game Log -->
+        <!-- Game Log Pitching -->
     <div id="gamelog" class="calendar-card">
       <div class="calendar-header">Game Log (Pitching)</div>
       {% if gamelog_pitching %}
@@ -178,7 +178,7 @@
         </table>
       </div>
       {% else %}
-      <div class="empty-state">No games logged for this player.</div>
+      <div class="empty-state">No pitching stats logged for this player.</div>
       {% endif %}
     </div>
 
@@ -193,7 +193,7 @@
           <div class="card">
             <div class="card-title">{{ h.stat_name }}</div>
             <div class="card-meta">
-              {{ h.value }}
+              {{ '' if h.value is none else ('%.1f'|format(h.value|float)) if h.stat_name == 'IP' else ('{:g}'.format(h.value)) }}         
               {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
               {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
             </div>

@@ -81,7 +81,7 @@ def player_detail(player_slug: str):
     JOIN games g ON g.id = pgp.game_id
     JOIN opponents o ON o.id = g.opponent_id
     WHERE pgp.player_id = %s
-    ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgb.id ASC;
+    ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgp.id ASC;
     """
 
 
