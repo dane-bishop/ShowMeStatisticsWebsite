@@ -9,6 +9,8 @@ from psycopg2.extras import RealDictCursor
 
 @routes_bp.route("/teams/<team_slug>")
 def team_detail(team_slug: str):
+
+
     team_sql = """
     SELECT 
     t.site_slug AS slug,
@@ -19,29 +21,42 @@ def team_detail(team_slug: str):
     LIMIT 1;
     """
 
+    team_schedule_sql = """
+    SELECT 
+    o.name AS opponent_name,
+    g.game_date,
+    g.location,
+    g.result,
+    g.score_for,
+    g.score_against,
+    g.game_time,
+    g.game_number
+    FROM games g
+    JOIN opponents o ON o.id = g.opponent_id
+    JOIN team_seasons ts ON ts.id = g.team_season_id
+    JOIN teams t ON t.id = ts.team_id
+    WHERE t.site_slug = %s;
+
+    """
+
     conn = get_db_connection()
     try:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(team_sql, (team_slug,))
             team = cur.fetchone()
 
+            cur.execute(team_schedule_sql, (team_slug,))
+            team_schedule = cur.fetchall()
+
+        
+
 
     finally:
         conn.close()
-
-    
-    
-    SAMPLE_EVENTS = [
-        {"id": 1, "date": "2025-10-08", "sport": "Football", "title": "Tigers vs Wildcats", "location": "Memorial Stadium"},
-        {"id": 2, "date": "2025-10-10", "sport": "Basketball", "title": "Tigers vs Bears", "location": "Mizzou Arena"},
-        {"id": 3, "date": "2025-10-12", "sport": "Soccer", "title": "Tigers vs Lions", "location": "Walton Stadium"},
-        {"id": 4, "date": "2025-10-15", "sport": "Baseball", "title": "Tigers vs Hawks", "location": "Taylor Stadium"},
-    ]
-    team_events = SAMPLE_EVENTS  # keep placeholder logic
 
     news = [
         
     ]
     
 
-    return render_template("team_detail.html", team=team, events=team_events, news=news)
+    return render_template("team_detail.html", team=team, events=team_schedule, news=news)

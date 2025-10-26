@@ -166,7 +166,7 @@
               <td>{{ g.bk or 0 }}</td>
               <td>{{ g.hbp or 0}}</td>
               <td>{{ g.ibb or 0 }}</td>
-              <td>{{ g.np }}</td>
+              <td>{{ '' if g.np is none else g.np }}</td>
               <td>{{ g.w or 0 }}</td>
               <td>{{ g.l or 0 }}</td>
               <td>{{ g.sv or 0 }}</td>
@@ -193,7 +193,7 @@
           <div class="card">
             <div class="card-title">{{ h.stat_name }}</div>
             <div class="card-meta">
-              {{ '' if h.value is none else ('%.1f'|format(h.value|float)) if h.stat_name == 'IP' else ('{:g}'.format(h.value)) }}         
+              {{ 0 if h.value is none else ('%.1f'|format(h.value|float)) if h.stat_name == 'IP' else ('{:g}'.format(h.value)) }}         
               {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
               {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
             </div>
