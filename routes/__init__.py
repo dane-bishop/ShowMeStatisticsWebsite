@@ -6,7 +6,7 @@ from .home.home import *
 from .home.search import *
 from .news.news import *
 from .players.players import *
-from .players.player_detail import *
+from .players.player_detail_baseball import *
 from .scores.scores import *
 from .scores.game_detail import *
 from .teams.teams import *

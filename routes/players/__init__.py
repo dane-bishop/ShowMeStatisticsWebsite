@@ -1,1 +1,1 @@
-from . import players, player_detail
+from . import player_detail_baseball, players

@@ -7,7 +7,7 @@ from core.get_db_connection import get_db_connection
 
 
 @routes_bp.route("/players/<player_slug>")
-def player_detail(player_slug: str):
+def player_detail_baseball(player_slug: str):
 
     PLAYER_SQL = """
     SELECT
@@ -84,6 +84,19 @@ def player_detail(player_slug: str):
     ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgp.id ASC;
     """
 
+    GAMELOG_FIELDING_SQL = """
+    SELECT
+    pgf.id, pgf.source_game_id, pgf.wl,
+    pgf.c, pgf.po, pgf.a, pgf.e, pgf.fld, pgf.dp, pgf.sba, pgf.csb, pgf.pb, pgf.ci,
+    g.game_date,
+    o.name AS opponent_name
+    FROM player_game_fielding pgf
+    JOIN games g ON g.id = pgf.game_id
+    JOIN opponents o ON o.id = g.opponent_id
+    WHERE pgf.player_id = %s
+    ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgf.id ASC;
+    """
+
 
 
 
@@ -109,6 +122,10 @@ def player_detail(player_slug: str):
             cur.execute(GAMELOG_PITCHING_SQL, (player["id"],))
             gamelog_pitching = cur.fetchall()
 
+            # Game log fielding
+            cur.execute(GAMELOG_FIELDING_SQL, (player["id"],))
+            gamelog_fielding = cur.fetchall()
+
 
             # Context-aware back URL
             from_team = request.args.get("from_team")
@@ -124,7 +141,7 @@ def player_detail(player_slug: str):
                 else:
                     back_url = url_for("routes.players")
         
-        return render_template("player_detail.html", player=player, highs=highs, gamelog_hitting=gamelog_hitting, gamelog_pitching=gamelog_pitching, back_url=back_url)
+        return render_template("player_detail_baseball.html", player=player, highs=highs, gamelog_hitting=gamelog_hitting, gamelog_pitching=gamelog_pitching, gamelog_fielding=gamelog_fielding, back_url=back_url)
     
     finally:
         conn.close()
