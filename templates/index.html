@@ -38,39 +38,74 @@
 <div class="filters">
   <div class="filters-header">Filter Sports</div>
 
-    <div class="filter-buttons">
-      <button type="button" class="select-all-btn" onclick="document.querySelectorAll('.sports-filter input[type=checkbox]').forEach(cb => cb.checked = true)">Select All</button>
-      <button type="button" class="unselect-all-btn" onclick="document.querySelectorAll('.sports-filter input[type=checkbox]').forEach(cb => cb.checked = false)">Unselect All</button>
-    </div>
-
-  <form method="get" class="sports-filter">
-
-    <div class="filter-category">
-      <h4>Men's Sports</h4>
-      {% for sport in men_sports %}
-        <div class="checkbox">
-          <input type="checkbox" name="sports" value="{{ sport }}"
-                  {% if not selected_sports or sport in selected_sports %}checked{% endif %}>
-          <label>{{ sport }}</label>
-        </div>
-      {% endfor %}
-    </div>
-
-    <hr>
-
-    <div class="filter-category">
-      <h4>Women's Sports</h4>
-      {% for sport in women_sports %}
-        <div class="checkbox">
-          <input type="checkbox" name="sports" value="{{ sport }}"
-                  {% if not selected_sports or sport in selected_sports %}checked{% endif %}>
-          <label>{{ sport }}</label>
-        </div>
-      {% endfor %}
-    </div>
-
-    <button type="submit" class="apply-btn">Apply</button>
-  </form>
+<div class="filter-buttons">
+  <button type="button" class="select-all-btn">Select All</button>
+  <button type="button" class="unselect-all-btn">Unselect All</button>
 </div>
+
+<div id="calendar-toggles">
+  <label><input type="checkbox" id="deselect" value="ns2oeehslrirkrbokbtuvjnurqmdcn4g@import.calendar.google.com"></label>
+  <div><b>Men's Sports</b><br>
+  <label><input type="checkbox" unchecked value="bj9qdiod0jru3cdfr2pqiiip5kfbqscc@import.calendar.google.com">Baseball</label><br>
+  <label><input type="checkbox" unchecked value="j9611haqgh1laifppu4se588ptj1103l@import.calendar.google.com">Basketball</label><br>
+  <label><input type="checkbox" unchecked value="0fh97e1nhukttfu147jmjqe9la246k67@import.calendar.google.com">Football </label><br>
+  <label><input type="checkbox" unchecked value="c55sjlu2v262tqbgcvt2gdlk257r5vl6@import.calendar.google.com">Golf</label><br>
+  <label><input type="checkbox" unchecked value="vjmbuq444biivv2t7cquvm0m8uplkptj@import.calendar.google.com">Wrestling</label><br>
+    </div><div><b>Women's Sports</b><br>
+  <label><input type="checkbox" unchecked value="qmgv8hmk98ksg0e3ehccb7hnhnt365cd@import.calendar.google.com">Basketball</label><br>
+  <label><input type="checkbox" unchecked value="kr3b0kbe2ngceaiujhhaiaq50vvbpuh2@import.calendar.google.com">Golf</label><br>
+  <label><input type="checkbox" unchecked value="l07580io6aiok8t6cip21tvjvmeblged@import.calendar.google.com">Gymnastics</label><br>
+  <label><input type="checkbox" unchecked value="4vivneagabe1s7tlmobb26dr4619hei8@import.calendar.google.com">Soccer</label><br>
+  <label><input type="checkbox" unchecked value="calv12p4ilmlotlgfpi96b85nirqsn4k@import.calendar.google.com">Softball </label><br>
+  <label><input type="checkbox" unchecked value="17vpclce9eu181nbs768je97vhsetbad@import.calendar.google.com">Tennis</label><br>
+  <label><input type="checkbox" unchecked value="oefve0co9cs1bf2n5k9mmmu6mp14fjcd@import.calendar.google.com">Volleyball</label><br>
+    </div><div><b>Coeval Sports</b><br>
+  <label><input type="checkbox" unchecked value="1idqvl4ho0bodvmkh50jeta4r9a9b70u@import.calendar.google.com">Cross Country </label><br>
+  <label><input type="checkbox" unchecked value="1bklgfj3pg18rtvplisoi9g26g2a8tq1@import.calendar.google.com">Track and Field</label><br>
+  <label><input type="checkbox" unchecked value="t9cr8rrju838fpf768tp54u918j3pt0j@import.calendar.google.com">Swimming and Diving</label><br></div>
+</div>
+
+<script>
+
+const iframe = document.getElementById('gcal-frame');
+const checkboxes = document.querySelectorAll('#calendar-toggles input[type="checkbox"]');
+const selectAllBtn = document.querySelector('.select-all-btn');
+const unselectAllBtn = document.querySelector('.unselect-all-btn');
+
+const allBox = document.getElementById('deselect');   // “All” calendar
+
+function updateCalendar() {
+  const base = 'https://calendar.google.com/calendar/embed?ctz=America/Chicago';
+  const selected = Array.from(checkboxes)
+    .filter(cb => cb.checked)
+    .map(cb => '&src=' + encodeURIComponent(cb.value))
+    .join('');
+  iframe.src = base + selected;
+}
+
+// all
+selectAllBtn.addEventListener('click', () => {
+  checkboxes.forEach(cb => cb.checked = false);
+  allBox.checked = true;
+  updateCalendar();
+});
+
+// none
+unselectAllBtn.addEventListener('click', () => {
+  checkboxes.forEach(cb => cb.checked = false);
+  updateCalendar();
+});
+
+checkboxes.forEach(cb => cb.addEventListener('change', updateCalendar));
+
+updateCalendar();
+</script>
 </section>
+<!-- hide 'all' checkbox -->
+<style>
+  #deselect {
+    display: none;
+  }
+</style>
+
 {% endblock %}
