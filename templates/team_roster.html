@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ team.school_name }} {{ team.sport_name }} • {{ team_year }} Roster • ShowMeStatistics{% endblock %}
+
+{% block content %}
+
+<section class="team-layout">
+    <div class="team-main">
+
+
+
+      {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
+      {% set current_year = team_year %}
+      {% set years = range(2025, 1999, -1) %}
+      {% include "partials/team_tabs.html" %}
+
+  
+      <div class="calendar-card">
+        <div class="calendar-header">
+          {{ team.school_name }} {{ team.sport_name }} — {{ team_year }} Roster
+        </div>
+  
+        {% if roster %}
+        <div class="cards three">
+          {% for r in roster %}
+            <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
+              <div class="card-title">
+                {% if r.jersey %}#{{ r.jersey }} {% endif %}{{ r.full_name }}
+              </div>
+              <div class="card-meta">
+                {{ r.position or '—' }}
+                {% if r.class_year %} • {{ r.class_year }}{% endif %}
+                {% if r.bats_throws %} • {{ r.bats_throws }}{% endif %}
+              </div>
+              <div class="card-meta">
+                {% if r.height_raw %}Ht: {{ r.height_raw }}{% endif %}
+                {% if r.weight_lbs %} • Wt: {{ r.weight_lbs }}{% endif %}
+              </div>
+              {% if r.hometown or r.high_school %}
+              <div class="card-meta">
+                {% if r.hometown %}{{ r.hometown }}{% endif %}
+                {% if r.high_school %} • {{ r.high_school }}{% endif %}
+              </div>
+              {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+        {% else %}
+          <div class="empty-state">No roster found for {{ team_year }}.</div>
+        {% endif %}
+      </div>
+    </div>
+  
+    <aside class="team-news">
+      <div class="news-header">Team Notes</div>
+      <ul class="news-list">
+        {% for n in news %}
+        <li>
+          <div class="news-title">{{ n.title }}</div>
+          <div class="news-date">{{ n.date }}</div>
+        </li>
+        {% endfor %}
+      </ul>
+    </aside>
+  </section>
+
+{% endblock %}

@@ -5,15 +5,39 @@
 {% block content %}
 <section class="list-page">
   <h2>Players</h2>
+  <h3>Men's Players</h3>
   <div class="cards three">
-    {% for p in players %}
-      <div class="card">
-        <div class="card-title">{{ p.name }}</div>
-        <div class="card-meta">{{ p.team }} • {{ p.position }}</div>
-      </div>
+    {% for p in players if p.gender == 'men' %}
+      {% if p.player_slug %}
+        <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+        </a>
+      {% else %}
+        <div class="card is-disabled">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+        </div>
+      {% endif %}
     {% endfor %}
   </div>
-  <p class="hint">This is placeholder data; wire to a database later.</p>
+  <h3>Women's Players</h3>
+  <div class="cards three">
+    {% for p in players if p.gender == 'women' %}
+      {% if p.player_slug %}
+        <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+        </a>
+      {% else %}
+        <div class="card is-disabled">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <!-- <p class="hint">This is placeholder data; wire to a database later.</p> -->
 {% endblock %}
 
 

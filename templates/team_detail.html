@@ -5,20 +5,26 @@
 {% block content %}
 <section class="team-layout">
   <div class="team-main">
-    <div class="team-tabs">
-      <a class="tab active" href="#scores">Scores</a>
-      <a class="tab" href="#roster">Roster</a>
-      <a class="tab" href="#stats">Stats</a>
-    </div>
+
+    
+    {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
+    {% set current_year = team_year if team_year is defined else 2025 %}
+    {% set years = range(2025, 1999, -1) %}
+    {% include "partials/team_tabs.html" %}
+
+
+    <!-- Team Schedule -->
     <div class="calendar-card">
       <div class="calendar-header">{{ team.name }} Schedule</div>
       <div class="calendar-grid">
         {% if events %}
           {% for e in events %}
           <div class="calendar-event">
-            <div class="event-date">{{ e.date }}</div>
-            <div class="event-title">{{ e.title }}</div>
-            <div class="event-meta">{{ e.sport }} • {{ e.location }}</div>
+            <div class="event-date">VS {{ e.opponent_name }}</div>
+            <div class="event-title">{{ e.game_date }}</div>
+            <div class="event-meta">{{ e.location }} • {{ e.result }}</div>
+            <div class="event-meta">{{ e.score_for }} - {{ e.score_against }}</div>
+            <div class="event-meta">{{ e.game_time }} • {{ '' if e.game_number is none else e.game_number }}</div>
           </div>
           {% endfor %}
         {% else %}
@@ -27,6 +33,10 @@
       </div>
     </div>
   </div>
+
+
+
+  <!-- Team News-->
   <aside class="team-news">
     <div class="news-header">Latest News</div>
     <ul class="news-list">
@@ -39,6 +49,10 @@
     </ul>
   </aside>
 </section>
+
+
+
+
 {% endblock %}
 
 

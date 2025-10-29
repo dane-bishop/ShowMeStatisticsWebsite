@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ player.full_name }} • ShowMeStatistics{% endblock %}
+
+
+{% block content %}
+<section class="team-layout">
+    <div class="team-main">
+      <!-- Tabs -->
+      <div class="team-tabs">
+        <a class="tab" href="{{ back_url }}">
+          ← Players
+        </a>
+        <a class="tab active" href="#overview">Overview</a>
+        <a class="tab" href="#gamelog">Game Log</a>
+        <a class="tab" href="#highs">Season Highs</a>
+      </div>
+
+      <!-- Header / Bio -->
+    <div id="overview" class="calendar-card">
+        <div class="calendar-header">{{ player.full_name }}</div>
+        <div class="calendar-grid">
+          <div class="calendar-event">
+            <div class="event-title">
+              {{ player.sport_name }} • {{ player.position }}
+              {% if player.jersey %} • #{{ player.jersey }}{% endif %}
+            </div>
+            <div class="event-meta">
+              {{ player.school_name }} — Season {{ player.season_year }}
+            </div>
+            <div class="event-meta">
+              {% if player.class_year %}Class: {{ player.class_year }} • {% endif %}
+              {% if player.bats_throws %}B/T: {{ player.bats_throws }} • {% endif %}
+              {% if player.hometown %}Hometown: {{ player.hometown }}{% endif %}
+              {% if player.high_school %} • HS: {{ player.high_school }}{% endif %}
+            </div>
+          </div>
+
+
+          <!-- Quick highs summary (top 4 if available) -->
+        <div class="calendar-event">
+            <div class="event-title">Quick Season Highs</div>
+            {% if highs %}
+            <div class="cards two">
+              {% for h in highs[:4] %}
+              <div class="card">
+                <div class="card-title">{{ h.stat_name }}</div>
+                <div class="card-meta">
+                  {{ h.value }}
+                  {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
+                  {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">No season highs recorded.</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <!-- Game Log Hitting -->
+    <div id="gamelog" class="calendar-card">
+        <div class="calendar-header">Game Log (Hitting)</div>
+        {% if gamelog_hitting %}
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Opponent</th>
+                <th>W/L</th>
+                <th>GS</th>
+                <th>AB</th>
+                <th>R</th>
+                <th>H</th>
+                <th>RBI</th>
+                <th>2B</th>
+                <th>3B</th>
+                <th>HR</th>
+                <th>BB</th>
+                <th>K</th>
+                <th>AVG</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for g in gamelog_hitting %}
+              <tr>
+                <td>{{ g.game_date or '' }}</td>
+                <td>{{ g.opponent_name or '' }}</td>
+                <td>{{ g.wl or '' }}</td>
+                <td>{{ g.gs or 0 }}</td>
+                <td>{{ g.ab or 0 }}</td>
+                <td>{{ g.r or 0 }}</td>
+                <td>{{ g.h or 0 }}</td>
+                <td>{{ g.rbi or 0 }}</td>
+                <td>{{ g.doubles or 0 }}</td>
+                <td>{{ g.triples or 0 }}</td>
+                <td>{{ g.hr or 0 }}</td>
+                <td>{{ g.bb or 0 }}</td>
+                <td>{{ g.k or 0 }}</td>
+                <td>{{ g.avg if g.avg is not none else '' }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state">No hitting stats logged for this player.</div>
+        {% endif %}
+      </div>
+
+        <!-- Game Log Pitching -->
+    <div id="gamelog" class="calendar-card">
+      <div class="calendar-header">Game Log (Pitching)</div>
+      {% if gamelog_pitching %}
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Opponent</th>
+              <th>W/L</th>
+              <th>IP</th>
+              <th>H</th>
+              <th>R</th>
+              <th>ER</th>
+              <th>BB</th>
+              <th>SO</th>
+              <th>2B</th>
+              <th>3B</th>
+              <th>HR</th>
+              <th>WP</th>
+              <th>BK</th>
+              <th>HBP</th>
+              <th>IBB</th>
+              <th>NP</th>
+              <th>W</th>
+              <th>L</th>
+              <th>SV</th>
+              <th>G-ERA</th>
+              <th>S-ERA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for g in gamelog_pitching %}
+            <tr>
+              <td>{{ g.game_date or '' }}</td>
+              <td>{{ g.opponent_name or '' }}</td>
+              <td>{{ g.wl or '' }}</td>
+              <td>{{ g.ip or 0 }}</td>
+              <td>{{ g.h or 0 }}</td>
+              <td>{{ g.r or 0 }}</td>
+              <td>{{ g.er or 0 }}</td>
+              <td>{{ g.bb or 0 }}</td>
+              <td>{{ g.so or 0 }}</td>
+              <td>{{ g.doubles or 0 }}</td>
+              <td>{{ g.triples or 0 }}</td>
+              <td>{{ g.hr or 0 }}</td>
+              <td>{{ g.wp or 0 }}</td>
+              <td>{{ g.bk or 0 }}</td>
+              <td>{{ g.hbp or 0}}</td>
+              <td>{{ g.ibb or 0 }}</td>
+              <td>{{ '' if g.np is none else g.np }}</td>
+              <td>{{ g.w or 0 }}</td>
+              <td>{{ g.l or 0 }}</td>
+              <td>{{ g.sv or 0 }}</td>
+              <td>{{ g.gera or '' }}</td>
+              <td>{{ g.sera or '' }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty-state">No pitching stats logged for this player.</div>
+      {% endif %}
+    </div>
+
+     <!-- Game Log Fielding -->
+     <div id="gamelog" class="calendar-card">
+      <div class="calendar-header">Game Log (Fielding)</div>
+      {% if gamelog_fielding %}
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Opponent</th>
+              <th>W/L</th>
+              <th>C</th>
+              <th>PO</th>
+              <th>A</th>
+              <th>E</th>
+              <th>FLD%</th>
+              <th>DP</th>
+              <th>SBA</th>
+              <th>CSB</th>
+              <th>PB</th>
+              <th>CI</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for g in gamelog_fielding %}
+            <tr>
+              <td>{{ g.game_date or '' }}</td>
+              <td>{{ g.opponent_name or '' }}</td>
+              <td>{{ g.wl or '' }}</td>
+              <td>{{ g.c or 0}}</td>
+              <td>{{ g.po or 0 }}</td>
+              <td>{{ g.a or 0 }}</td>
+              <td>{{ g.e or 0 }}</td>
+              <td>{{ g.fld if g.fld is not none else '' }}</td>
+              <td>{{ g.dp or 0 }}</td>
+              <td>{{ g.sba or 0 }}</td>
+              <td>{{ g.csb or 0 }}</td>
+              <td>{{ g.pb or 0 }}</td>
+              <td>{{ g.ci or 0 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <div class="empty-state">No fielding stats logged for this player.</div>
+      {% endif %}
+    </div>
+
+
+
+      <!-- Season Highs (full) -->
+    <div id="highs" class="calendar-card">
+        <div class="calendar-header">Season Highs</div>
+        {% if highs %}
+        <div class="cards three">
+          {% for h in highs %}
+          <div class="card">
+            <div class="card-title">{{ h.stat_name }}</div>
+            <div class="card-meta">
+              {{ 0 if h.value is none else ('%.1f'|format(h.value|float)) if h.stat_name == 'IP' else ('{:g}'.format(h.value)) }}         
+              {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
+              {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">No season highs available.</div>
+        {% endif %}
+      </div>
+    </div>
+
+
+    <!-- Sidebar (optional news or related items) -->
+  <aside class="team-news">
+    <div class="news-header">Player Notes</div>
+    <ul class="news-list">
+      <li>
+        <div class="news-title">{{ player.full_name }} — {{ player.sport_name }}</div>
+        <div class="news-date">Season {{ player.season_year }}</div>
+      </li>
+    </ul>
+  </aside>
+</section>
+
+
+
+{% endblock %}
