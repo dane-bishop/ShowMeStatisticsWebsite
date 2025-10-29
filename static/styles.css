@@ -78,6 +78,14 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 
 .team-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
 .team-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+
+.team-tabs.tabs-compact{display:flex;align-items:center;gap:.5rem;min-height:44px;padding:.5rem 0;border-bottom:1px solid #eee;overflow-x:auto;flex-wrap:nowrap}
+.team-tabs .tab{display:inline-flex;align-items:center;justify-content:center;padding:.4rem .75rem;border-radius:999px;white-space:nowrap;font-weight:600;flex:0 0 auto;text-decoration:none}
+.team-tabs .tab.active{background:#f5f5f5}
+.tab.select-wrapper select{padding:.35rem .6rem;border:1px solid #ddd;border-radius:.5rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+@media (max-width:640px){.team-tabs.tabs-compact{gap:.25rem}}
+
 .tab { text-decoration: none; color: var(--black); padding: 8px 12px; border: 1px solid var(--grey-200); border-radius: 999px; background: var(--white); font-weight: 700; }
 .tab.active { background: var(--yellow); border-color: var(--yellow); }
 .team-news { background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px; padding: 12px; position: sticky; top: 76px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }

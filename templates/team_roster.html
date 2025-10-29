@@ -6,12 +6,14 @@
 
 <section class="team-layout">
     <div class="team-main">
-      <div class="team-tabs">
-        <a class="tab" href="{{ url_for('routes.teams') }}">← Teams</a>
-        <a class="tab" href="{{ url_for('routes.team_detail', team_slug=team.site_slug) }}">Scores</a>
-        <a class="tab active" href="#">Roster ({{ team_year }})</a>
-        <a class="tab" href="#stats" onclick="return false;">Stats</a>
-      </div>
+
+
+
+      {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
+      {% set current_year = team_year %}
+      {% set years = range(2025, 1999, -1) %}
+      {% include "partials/team_tabs.html" %}
+
   
       <div class="calendar-card">
         <div class="calendar-header">

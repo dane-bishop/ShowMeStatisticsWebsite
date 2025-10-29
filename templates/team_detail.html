@@ -6,38 +6,11 @@
 <section class="team-layout">
   <div class="team-main">
 
-    <!-- Top Tabs -->
-    {# Resolve common values used by both pages #}
+    
     {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
     {% set current_year = team_year if team_year is defined else 2025 %}
-
-    <div class="team-tabs tabs-compact">
-      <a class="tab" href="{{ url_for('routes.teams') }}">← Teams</a>
-
-      {# Mark the active tab based on current endpoint #}
-      <a class="tab {% if request.endpoint == 'routes.team_detail' %}active{% endif %}"
-        href="{{ url_for('routes.team_detail', team_slug=slug) }}">
-        Scores
-      </a>
-
-      <a class="tab {% if request.endpoint == 'routes.team_roster' %}active{% endif %}"
-        href="{{ url_for('routes.team_roster', team_slug=slug, team_year=current_year) }}">
-        Roster
-      </a>
-
-      <a class="tab" href="#stats" onclick="return false;">Stats</a>
-
-      {# Persistent year picker, visible on every visit #}
-      <div class="tab select-wrapper">
-        <label for="yearPick" class="sr-only">Roster year</label>
-        <select id="yearPick" aria-label="Roster year">
-          {# Years 2025..2000 descending; adjust start/end as needed #}
-          {% for y in range(2025, 1999, -1) %}
-            <option value="{{ y }}" {% if y == current_year %}selected{% endif %}>{{ y }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    </div>
+    {% set years = range(2025, 1999, -1) %}
+    {% include "partials/team_tabs.html" %}
 
 
     <!-- Team Schedule -->
@@ -80,41 +53,6 @@
 
 
 
-<script>
-  (function(){
-    var sel = document.getElementById('yearPick');
-    if(!sel) return;
-    sel.addEventListener('change', function(){
-      var y = this.value;
-      // Build URL for the roster route using the same slug; replace the dummy year
-      var base = "{{ url_for('routes.team_roster', team_slug=slug, team_year=0) }}";
-      window.location.href = base.replace('/0', '/' + y);
-    });
-  })();
-  </script>
-
-
-
-<style>
-  .team-tabs.tabs-compact{
-    display:flex; align-items:center; gap:.5rem;
-    min-height:44px; padding:.5rem 0;
-    border-bottom:1px solid #eee;
-    overflow-x:auto; flex-wrap:nowrap;
-  }
-  .team-tabs .tab{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:.4rem .75rem; border-radius:999px;
-    white-space:nowrap; font-weight:600; flex:0 0 auto;
-    text-decoration:none;
-  }
-  .team-tabs .tab.active{ background:#f5f5f5 }
-  .tab.select-wrapper select{
-    padding:.35rem .6rem; border:1px solid #ddd; border-radius:.5rem;
-  }
-  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
-  @media (max-width:640px){ .team-tabs.tabs-compact{ gap:.25rem } }
-</style>
 {% endblock %}
 
 
