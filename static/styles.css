@@ -24,8 +24,8 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 
 .filter-buttons { display: flex; gap: 10px; margin: 12px 0 16px 0; }
 .filter-buttons button { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
-.select-all-btn { background: #4CAF50; color: white; }
-.unselect-all-btn { background: #f44336; color: white; }
+.select-all-btn { background: var(--yellow); color: var(--black); }
+.unselect-all-btn { background: var(--black); color: var(--white); }
 
 .menu-dropdown { background: transparent; color: var(--white); border: 1px solid var(--grey-700); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
 .dropdown { position: absolute; top: 52px; left: 16px; display: none; flex-direction: column; background: var(--grey-900); border: 1px solid var(--grey-700); border-radius: 8px; min-width: 160px; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
