@@ -4,7 +4,7 @@
   <a class="tab" href="{{ url_for('routes.teams') }}">← Teams</a>
 
   <a class="tab {% if request.endpoint == 'routes.team_detail' %}active{% endif %}"
-     href="{{ url_for('routes.team_detail', team_slug=slug) }}">
+     href="{{ url_for('routes.team_detail', team_slug=slug, team_year=current_year) }}">
     Scores
   </a>
 
@@ -25,14 +25,20 @@
   </div>
 </div>
 
+{% set year_base = url_for(
+  request.endpoint if request.endpoint in ['routes.team_roster','routes.team_detail']
+  else 'routes.team_detail',
+  team_slug=slug, team_year=0
+) %}
+
 <script>
 (function(){
   var sel = document.getElementById('yearPick');
   if(!sel) return;
+  var base = "{{ year_base }}";
   sel.addEventListener('change', function(){
-    var y = this.value;
-    var base = "{{ url_for('routes.team_roster', team_slug=slug, team_year=0) }}";
-    window.location.href = base.replace('/0', '/' + y);
+    window.location.href = base.replace('/0', '/' + this.value);
   });
 })();
 </script>
+  

@@ -4,7 +4,7 @@ from psycopg2.extras import RealDictCursor
 from core.get_db_connection import get_db_connection
 
 
-@routes_bp.route("/teams/<team_slug>/<int:team_year>")
+@routes_bp.route("/teams/<team_slug>/<int:team_year>/roster")
 def team_roster(team_slug: str, team_year: int):
     TEAM_SQL = """
     SELECT
