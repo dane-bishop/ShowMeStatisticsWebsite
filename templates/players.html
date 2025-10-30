@@ -23,7 +23,7 @@
   </div>
   <h3>Women's Players</h3>
   <div class="cards three">
-    {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf'] %}
+    {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
       {% if p.player_slug %}
         <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
           <div class="card-title">{{ p.full_name }}</div>

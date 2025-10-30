@@ -35,7 +35,8 @@ def team_detail(team_slug: str):
     JOIN opponents o ON o.id = g.opponent_id
     JOIN team_seasons ts ON ts.id = g.team_season_id
     JOIN teams t ON t.id = ts.team_id
-    WHERE t.site_slug = %s;
+    WHERE t.site_slug = %s
+    ORDER BY "game_date" desc;
 
     """
 

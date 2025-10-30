@@ -16,7 +16,7 @@
   </div>
   <h3>Women's Teams</h3>
   <div class="cards">
-    {% for team in teams if team.slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf'] %}
+    {% for team in teams if team.slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
       <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug) }}">
         <div class="card-title">{{ team.name }}</div>
         <div class="card-meta">Explore schedule, roster, stats</div>
