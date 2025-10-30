@@ -7,7 +7,7 @@
   <h2>Teams</h2>
   <h3>Men's Teams</h3>
   <div class="cards">
-    {% for team in teams if team.gender == 'men' %}
+    {% for team in teams if team.slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
       <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug) }}">
         <div class="card-title">{{ team.name }}</div>
         <div class="card-meta">Explore schedule, roster, stats</div>
@@ -16,7 +16,7 @@
   </div>
   <h3>Women's Teams</h3>
   <div class="cards">
-    {% for team in teams if team.gender == 'women' %}
+    {% for team in teams if team.slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf'] %}
       <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug) }}">
         <div class="card-title">{{ team.name }}</div>
         <div class="card-meta">Explore schedule, roster, stats</div>

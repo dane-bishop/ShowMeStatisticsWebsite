@@ -7,32 +7,32 @@
   <h2>Players</h2>
   <h3>Men's Players</h3>
   <div class="cards three">
-    {% for p in players if p.gender == 'men' %}
+    {% for p in players if p.team_slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
       {% if p.player_slug %}
         <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
           <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
         </a>
       {% else %}
         <div class="card is-disabled">
           <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
         </div>
       {% endif %}
     {% endfor %}
   </div>
   <h3>Women's Players</h3>
   <div class="cards three">
-    {% for p in players if p.gender == 'women' %}
+    {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf'] %}
       {% if p.player_slug %}
         <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
           <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
         </a>
       {% else %}
         <div class="card is-disabled">
           <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} 2 {{ p.position }}</div>
+          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
         </div>
       {% endif %}
     {% endfor %}

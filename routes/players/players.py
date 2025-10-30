@@ -14,7 +14,7 @@ def players():
     
     sql = """
     SELECT DISTINCT
-    p.id, p.full_name, s.name AS team_name, rm.position, p.player_slug
+    p.id, p.full_name, s.name AS team_name, rm.position, p.player_slug, s.key AS team_slug
     FROM players p
     JOIN roster_memberships rm ON rm.player_id = p.id
     JOIN team_seasons ts ON rm.team_season_id = ts.id
