@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title%}Sign In{% endblock %}
+{% block content%}
+
+
+<section class="form-card">
+    <h2>Sign in</h2>
+    <form method="post" action="{{ url_for('auth.login_submit') }}">
+      <label>Email <input type="email" name="email" required></label>
+      <label>Password <input type="password" name="password" required></label>
+      <button type="submit" class="btn">Sign in</button>
+    </form>
+    <p class="hint">No account? <a href="{{ url_for('auth.register_form') }}">Create one</a>.</p>
+  </section>
+
+
+{% endblock %}

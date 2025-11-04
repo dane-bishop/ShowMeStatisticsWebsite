@@ -52,6 +52,27 @@
       });
     }
     </script>
+
+<script>
+    document.addEventListener('click', async (e)=>{
+      const btn = e.target.closest('.favorite-btn');
+      if(!btn) return;
+      e.preventDefault();
+      const type = btn.dataset.type;
+      const id   = btn.dataset.id;
+      try {
+        const res = await fetch(`/favorites/toggle/${type}/${id}`, { method: 'POST', headers: { 'X-Requested-With':'fetch' }});
+        if(!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        // naive toggle of icon/text
+        btn.textContent = data.status === 'favorited' ? '♥' : '♡';
+      } catch(err) {
+        console.error(err);
+        alert('Could not update favorite.');
+      }
+    });
+    </script>
+    
 </body>
 </html>
 
