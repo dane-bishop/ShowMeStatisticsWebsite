@@ -60,7 +60,7 @@ def register_form():
 def register_submit():
     email = (request.form.get("email") or "").strip().lower()
     password = request.form.get("password") or ""
-    display_name = (request.form.get("display_name") or "").strip() or None
+    username = (request.form.get("username") or "").strip() or None
 
     if not email or not password:
         flash("Email and password are required.", "error")
@@ -76,7 +76,7 @@ def register_submit():
                     INSERT INTO users (email, password_hash, display_name)
                     VALUES (%s, %s, %s)
                     RETURNING id, email, display_name, is_active
-                """, (email, pw_hash, display_name))
+                """, (email, pw_hash, username))
                 urow = cur.fetchone()
         user = _row_to_user(urow)
         login_user(user)

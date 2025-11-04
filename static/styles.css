@@ -111,6 +111,18 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 .game-detail .sub { opacity: .85; }
 .game-detail .game-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 14px 0 20px; }
 
+
+
+
+.user-chip { margin-right: .5rem; opacity:.85; }
+.linklike { background:none; border:none; padding:0; cursor:pointer; color:inherit; text-decoration:underline; }
+.profile .grid.two { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-card .auth-form label, .card .auth-form label { display:block; margin:.5rem 0; }
+.card .list { list-style:none; padding:0; margin:0; }
+.card .list-row { display:flex; justify-content:space-between; padding:.4rem 0; border-bottom:1px solid rgba(0,0,0,.06); }
+
+
+
 /* Small phones */
 @media (max-width: 640px) {
   .topbar { flex-wrap: wrap; gap: 10px; padding: 10px 12px; }

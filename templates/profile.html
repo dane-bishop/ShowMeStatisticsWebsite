@@ -5,22 +5,73 @@
 {% block content %}
 <section class="profile">
   <h2>Account</h2>
-  {% if has_account %}
+
+  <div class="grid two">
+    <!-- Left: Account card -->
     <div class="card">
-      <div class="card-title">Welcome back!</div>
-      <div class="card-meta">Personalized content will appear here.</div>
-    </div>
-  {% else %}
-    <div class="card">
-      <div class="card-title">Create your account</div>
-      <div class="card-meta">Sign up to follow teams, get alerts, and more.</div>
-      <form class="auth-form">
-        <input type="email" placeholder="Email" disabled />
-        <input type="password" placeholder="Password" disabled />
-        <button type="button" disabled>Sign up (placeholder)</button>
+      <div class="card-title">Your Account</div>
+      <div class="card-meta">Email: {{ user.email }}</div>
+      <div class="card-meta">Member since: {{ user.created_at.strftime('%b %d, %Y') if user.created_at else '—' }}</div>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('routes.profile_update_display_name') }}" class="auth-form">
+        <label>Display name
+          <input type="text" name="display_name" value="{{ user.display_name or '' }}" placeholder="Your name">
+        </label>
+        <button type="submit" class="btn">Update Name</button>
+      </form>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('routes.profile_change_password') }}" class="auth-form">
+        <label>Current password
+          <input type="password" name="current_password" required>
+        </label>
+        <label>New password
+          <input type="password" name="new_password" required>
+        </label>
+        <button type="submit" class="btn">Change Password</button>
+      </form>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('auth.logout_submit') }}">
+        <button type="submit" class="btn btn-secondary">Sign out</button>
       </form>
     </div>
-  {% endif %}
+
+    <!-- Right: Favorites -->
+    <div class="card">
+      <div class="card-title">Favorites</div>
+      {% if favorites %}
+        <ul class="list">
+          {% for f in favorites %}
+            <li class="list-row">
+              <div class="row-main">
+                {% if f.entity_type == 'player' %}
+                  <strong>Player:</strong>
+                  {{ labels.player.get(f.entity_id, 'Player #' ~ f.entity_id) }}
+                {% elif f.entity_type == 'team' %}
+                  <strong>Team:</strong>
+                  {{ labels.team.get(f.entity_id, 'Team #' ~ f.entity_id) }}
+                {% elif f.entity_type == 'game' %}
+                  <strong>Game:</strong> #{{ f.entity_id }}
+                {% elif f.entity_type == 'stat_high' %}
+                  <strong>Stat High:</strong> #{{ f.entity_id }}
+                {% else %}
+                  <strong>{{ f.entity_type }}:</strong> #{{ f.entity_id }}
+                {% endif %}
+              </div>
+              <div class="row-meta">{{ f.created_at.strftime('%Y-%m-%d %H:%M') if f.created_at }}</div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="card-meta">No favorites yet. Find a player or team and tap the ♥ icon.</div>
+      {% endif %}
+    </div>
+  </div>
 </section>
 {% endblock %}
 
