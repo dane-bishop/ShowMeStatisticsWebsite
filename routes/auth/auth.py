@@ -37,6 +37,17 @@ def _row_to_user(row):
     )
 
 
+
+def load_user_by_id(user_id: str):
+    conn = get_db_connection()
+    try:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("SELECT id, email, display_name, is_active FROM users WHERE id = %s", (user_id,))
+            return _row_to_user(cur.fetchone())
+    finally:
+        conn.close()
+
+
 # ----- Routers -------
 @auth_bp.get("/register")
 def register_form():
