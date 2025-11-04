@@ -23,7 +23,7 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 .topbar-left { display: flex; align-items: center; gap: 12px; }
 
 .filter-buttons { display: flex; gap: 10px; margin: 12px 0 16px 0; }
-.filter-buttons button { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
+.filter-buttons button { flex: 1; height: 50px; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
 .select-all-btn { background: var(--yellow); color: var(--black); }
 .unselect-all-btn { background: var(--black); color: var(--white); }
 
@@ -44,22 +44,22 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 .headline-item { background: rgba(255,255,255,0.05); border: 1px solid var(--grey-700); border-left: 6px solid var(--yellow); border-radius: 8px; padding: 10px 12px; }
 .headline-date { opacity: .7; margin-right: 8px; }
 
-.container { width: min(1200px, 100%); margin: 20px auto; padding: 0 16px; }
+.container { display: flex; width: min(1200px, 100%); margin: 20px auto; padding: 0 16px; }
 
 .layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
 .calendar-card { background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
 .calendar-header { background: var(--black); color: var(--white); padding: 12px 16px; font-weight: 700; border-bottom: 4px solid var(--yellow); }
 .calendar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; padding: 16px; }
 .calendar-event { border: 1px solid var(--grey-200); border-radius: 10px; padding: 12px; background: var(--grey-100); }
+.calendar-calendar {display: flex; }
 .event-date { font-weight: 700; color: var(--black); }
 .event-title { margin-top: 6px; font-size: 15px; }
 .event-meta { margin-top: 4px; color: #555; font-size: 13px; }
 
 .filters { background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px; padding: 12px; position: sticky; top: 76px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
 .filters-header { font-weight: 800; padding: 8px 10px 12px; border-bottom: 2px solid var(--grey-200); }
-.checkbox { display: flex; align-items: center; gap: 10px; padding: 8px 6px; }
+.checkbox { gap: 10px; padding: 8px 6px; }
 .checkbox input { width: 16px; height: 16px; }
-.apply-btn { width: 100%; margin-top: 10px; padding: 10px; border-radius: 8px; background: var(--yellow); border: none; font-weight: 700; cursor: pointer}
 
 .list-page h2 { margin: 10px 0 16px; }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
@@ -129,7 +129,6 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 
   .filters { padding: 10px; }
   .checkbox { padding: 8px 2px; }
-  .apply-btn { padding: 12px; }
 
   /* Make scores table horizontally scrollable */
   .table { overflow-x: auto; }
@@ -138,4 +137,3 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
   /* Touch-friendly tabs */
   .tab { padding: 10px 14px; }
 }
-
