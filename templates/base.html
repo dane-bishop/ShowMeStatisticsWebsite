@@ -64,24 +64,34 @@
     </script>
 
 <script>
-    document.addEventListener('click', async (e)=>{
-      const btn = e.target.closest('.favorite-btn');
-      if(!btn) return;
-      e.preventDefault();
-      const type = btn.dataset.type;
-      const id   = btn.dataset.id;
-      try {
-        const res = await fetch(`/favorites/toggle/${type}/${id}`, { method: 'POST', headers: { 'X-Requested-With':'fetch' }});
-        if(!res.ok) throw new Error(await res.text());
-        const data = await res.json();
-        // naive toggle of icon/text
-        btn.textContent = data.status === 'favorited' ? '♥' : '♡';
-      } catch(err) {
-        console.error(err);
-        alert('Could not update favorite.');
-      }
-    });
-    </script>
+  document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.favorite-btn');
+    if (!btn || btn.classList.contains('hint')) return;
+  
+    e.preventDefault();
+    const type = btn.dataset.type;
+    const id = parseInt(btn.dataset.id, 10);
+    if (!type || !id) return;
+  
+    try {
+      const res = await fetch('{{ url_for("favorites.toggle_favorite") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, id })
+      });
+      if (!res.ok) throw new Error('Request failed');
+  
+      const data = await res.json(); // { ok: true, favorited: bool }
+      const on = !!data.favorited;
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.textContent = on ? '♥' : '♡';
+    } catch (err) {
+      console.error(err);
+      // optional: show a toast/flash
+    }
+  });
+  </script>
+  
     
 </body>
 </html>

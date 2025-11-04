@@ -118,10 +118,12 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 .linklike { background:none; border:none; padding:0; cursor:pointer; color:inherit; text-decoration:underline; }
 .profile .grid.two { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .form-card .auth-form label, .card .auth-form label { display:block; margin:.5rem 0; }
-.card .list { list-style:none; padding:0; margin:0; }
-.card .list-row { display:flex; justify-content:space-between; padding:.4rem 0; border-bottom:1px solid rgba(0,0,0,.06); }
 
-
+.favorite-btn {
+  position: absolute; top: .5rem; right: .5rem;
+  border: 0; background: transparent; font-size: 1.25rem; cursor: pointer;
+}
+.favorite-btn.hint { position: absolute; top: .5rem; right: .5rem; text-decoration: none; }
 
 /* Small phones */
 @media (max-width: 640px) {

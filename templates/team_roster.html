@@ -24,6 +24,9 @@
         <div class="cards three">
           {% for r in roster %}
             <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
+              
+              
+        
               <div class="card-title">
                 {% if r.jersey %}#{{ r.jersey }} {% endif %}{{ r.full_name }}
               </div>
@@ -42,18 +45,11 @@
                 {% if r.high_school %} • {{ r.high_school }}{% endif %}
               </div>
               {% endif %}
+              
             </a>
-
-
-            {% if current_user.is_authenticated %}
-              <button class="favorite-btn" data-type="player" data-id="{{ r.player_id }}" aria-label="Favorite">
-                ♡
-              </button>
-            {% else %}
-              <a class="favorite-btn hint" href="{{ url_for('auth.login_form') }}">Sign in to favorite</a>
-            {% endif %}
           {% endfor %}
         </div>
+        
         {% else %}
           <div class="empty-state">No roster found for {{ team_year }}.</div>
         {% endif %}
