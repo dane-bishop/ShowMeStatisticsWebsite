@@ -6,7 +6,11 @@
     <title>{% block title %}ShowMeStatistics{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
+
+
+
 <body>
+    <!-- Top Left Dropdown Bar -->
     <header class="topbar">
         <div class="topbar-left">
             <button class="menu-dropdown" id="menuDropdownBtn">☰</button>
@@ -22,10 +26,15 @@
                 <span>ShowMeStatistics</span>
             </a>
         </div>
+
+        <!-- Search Bar -->
         <form class="search" action="{{ url_for('routes.search') }}" method="get">
             <input type="text" name="q" placeholder="Search teams, players, scores..." value="{{ request.args.get('q','') }}" />
             <button type="submit">Search</button>
         </form>
+
+
+        <!-- Profile -->
         <div class="topbar-right">
             {% if current_user.is_authenticated %}
               <span class="user-chip">Hi, {{ current_user.display_name or current_user.email }}</span>
@@ -63,36 +72,12 @@
     }
     </script>
 
-<script>
-  document.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.favorite-btn');
-    if (!btn || btn.classList.contains('hint')) return;
+
+
+
+
   
-    e.preventDefault();
-    const type = btn.dataset.type;
-    const id = parseInt(btn.dataset.id, 10);
-    if (!type || !id) return;
-  
-    try {
-      const res = await fetch('{{ url_for("favorites.toggle_favorite") }}', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type, id })
-      });
-      if (!res.ok) throw new Error('Request failed');
-  
-      const data = await res.json(); // { ok: true, favorited: bool }
-      const on = !!data.favorited;
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      btn.textContent = on ? '♥' : '♡';
-    } catch (err) {
-      console.error(err);
-      // optional: show a toast/flash
-    }
-  });
-  </script>
-  
-    
+{% block scripts %}{% endblock %}
 </body>
 </html>
 

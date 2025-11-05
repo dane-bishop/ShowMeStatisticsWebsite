@@ -6,36 +6,37 @@ from psycopg2.extras import RealDictCursor
 from core.get_db_connection import get_db_connection
 
 
+
 class User(UserMixin):
-    def __init__(self, id, email, display_name, is_active=True):
-        self.id = str(id)                # must be str for flask-login
+    def __init__(self, id, email, password_hash, display_name, is_active, created_at, updated_at):
+        self.id = id
         self.email = email
+        self.password_hash = password_hash
         self.display_name = display_name
-        self._active = is_active
-    def is_active(self):
-        return bool(self._active)
-    
-def _row_to_user(row):
-    if not row:
-        return None
-    return User(
-        id=row["id"],
-        email=row["email"],
-        display_name=row.get("display_name"),
-        is_active=row.get("is_active", True),
-    )
+        self._is_active = bool(is_active)  # ensure bool
+        self.created_at = created_at
+        self.updated_at = updated_at
+
+        @property
+        def is_active(self) -> bool:          # <-- override the read-only property
+            return self._is_active
+
 
 
 def _row_to_user(row):
     if not row:
         return None
+    # Prefer .get("...") for nullable fields; [] for required fields
     return User(
         id=row["id"],
         email=row["email"],
+        password_hash=row.get("password_hash"),
         display_name=row.get("display_name"),
-        is_active=row.get("is_active", True),
+        # support either column name
+        is_active=row.get("is_active"),
+        created_at=row.get("created_at"),
+        updated_at=row.get("updated_at"),
     )
-
 
 
 def load_user_by_id(user_id: str):
@@ -114,7 +115,7 @@ def login_submit():
             flash("Invalid email or password.", "error")
             return redirect(url_for("auth.login_form"))
         user = _row_to_user(row)
-        if not user.is_active():
+        if not user.is_active:
             flash("This account is disabled.", "error")
             return redirect(url_for("auth.login_form"))
         login_user(user, remember=True)

@@ -125,6 +125,56 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 }
 .favorite-btn.hint { position: absolute; top: .5rem; right: .5rem; text-decoration: none; }
 
+/* Heart favorite button — clean, no circle */
+.calendar-header .favorite-btn {
+  all: unset;                 /* wipe browser default button look */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  color: var(--white);        /* header is dark; white outline heart when off */
+  transition: transform .08s ease, color .15s ease, opacity .15s ease;
+}
+
+/* If your header is dark, this is good; if not, you can override per context */
+.calendar-card:not(:has(.calendar-header)) .favorite-btn { color: var(--black); }
+
+/* Hover/tap feedback */
+.calendar-header .favorite-btn:hover { transform: scale(1.06); }
+.calendar-header .favorite-btn:active { transform: scale(0.96); }
+
+/* Filled (favorited) state */
+.calendar-header .favorite-btn.on,
+.calendar-header .favorite-btn[aria-pressed="true"] {
+  color: #e11d48;             /* rose-600-ish */
+  text-shadow: 0 0 0 currentColor; /* crisper glyph rendering */
+  /* keep background transparent so it looks like a clean heart, not a pill */
+}
+
+/* Optional: tone down the off state slightly */
+.calendar-header .favorite-btn[aria-pressed="false"] { opacity: 0.9; }
+.calendar-header .favorite-btn[aria-pressed="false"]:hover { opacity: 1; }
+
+
+.panel {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  margin-top: 16px;           /* spacing from previous block */
+}
+
+.panel-header {
+  font-weight: 800;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--grey-200);
+  margin-bottom: 10px;
+}
+
 /* Small phones */
 @media (max-width: 640px) {
   .topbar { flex-wrap: wrap; gap: 10px; padding: 10px 12px; }
@@ -150,4 +200,5 @@ html, body { margin: 0; padding: 0; font-family: system-ui, -apple-system, Segoe
 
   /* Touch-friendly tabs */
   .tab { padding: 10px 14px; }
+  .panel { padding: 10px; }
 }

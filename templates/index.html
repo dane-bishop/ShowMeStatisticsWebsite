@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
+{% from "components/player_card.html" import player_card %}
 
 {% block title %}Home • ShowMeStatistics{% endblock %}
 
 {% block banner %}
+
+<!-- News Banner -->
 <section class="headline-banner">
   <a href="{{ url_for('routes.news') }}" class="news-btn">News</a>
   <div class="headlines">
@@ -17,6 +20,8 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- Main Card -->
 <section class="layout">
   <div class="calendar-card">
     <div class="calendar-header">Upcoming Events</div>
@@ -34,7 +39,10 @@
   <iframe id="gcal-frame" src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago&showPrint=0&src=MWlkcXZsNGhvMGJvZHZta2g1MGpldGE0cjlhOWI3MHVAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=MGZoOTdlMW5odWt0dGZ1MTQ3am1qcWU5bGEyNDZrNjdAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=NHZpdm5lYWdhYmUxczd0bG1vYmIyNmRyNDYxOWhlaThAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=Y2FsdjEycDRpbG1sb3RsZ2ZwaTk2Yjg1bmlycXNuNGtAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=MWJrbGdmajNwZzE4cnR2cGxpc29pOWcyNmcyYTh0cTFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=b2VmdmUwY285Y3MxYmYybjVrOW1tbXU2bXAxNGZqY2RAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=ajk2MTFoYXFnaDFsYWlmcHB1NHNlNTg4cHRqMTEwM2xAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=YzU1c2psdTJ2MjYydHFiZ2N2dDJnZGxrMjU3cjV2bDZAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=dDljcjhycmp1ODM4ZnBmNzY4dHA1NHU5MThqM3B0MGpAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=MTd2cGNsY2U5ZXUxODFuYnM3NjhqZTk3dmhzZXRiYWRAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=cW1ndjhobWs5OGtzZzBlM2VoY2NiN2huaG50MzY1Y2RAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=a3IzYjBrYmUybmdjZWFpdWpoaGFpYXE1MHZ2YnB1aDJAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=dmptYnVxNDQ0YmlpdnYydDdjcXV2bTBtOHVwbGtwdGpAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=Ymo5cWRpb2QwanJ1M2NkZnIycHFpaWlwNWtmYnFzY2NAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=bDA3NTgwaW82YWlvazh0NmNpcDIxdHZqdm1lYmxnZWRAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&src=bnMyb2VlaHNscmlya3Jib2tidHV2am51cnFtZGNuNGdAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23e67c73&color=%23ad1457&color=%23ef6c00&color=%23f6bf26&color=%23d81b60&color=%23f6bf26&color=%23d50000&color=%239e69af&color=%233f51b5&color=%234285f4&color=%234285f4&color=%233f51b5&color=%239e69af&color=%239e69af&color=%23d81b60&color=%23e4c441" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
     </div>
   </div>
-  </div>
+</div>
+
+
+<!-- Filter Sports Section -->
 <div class="filters">
   <div class="filters-header">Filter Sports</div>
 
@@ -64,6 +72,32 @@
   <label><input type="checkbox" unchecked value="1bklgfj3pg18rtvplisoi9g26g2a8tq1@import.calendar.google.com">Track and Field</label><br>
   <label><input type="checkbox" unchecked value="t9cr8rrju838fpf768tp54u918j3pt0j@import.calendar.google.com">Swimming and Diving</label><br></div>
 </div>
+
+</div>
+
+
+<!-- Add favorite players here -->
+{% set fps = fav_players | default([]) %}
+
+
+<!-- Favorite Players as its own section with similar design -->
+<section class="panel">
+  <div class="panel-header">Favorite Players</div>
+
+  {% set fps = fav_players | default([]) %}
+  {% if fps %}
+    <div class="cards three">
+      {% for p in fps %}
+        {{ player_card(p) }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card-meta">No favorite players yet. Find a player and tap the ♥ icon.</div>
+  {% endif %}
+</section>
+
+
+
 
 <script>
 

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from "components/player_card.html" import player_card %}
 
 {% block title %}Players • ShowMeStatistics{% endblock %}
 
@@ -6,42 +7,31 @@
 
 
 <section class="list-page">
-  <h2>Players</h2>
+
+  
+  <!-- Men's Players -->
+  <h1>Players</h1>
   <h3>Men's Players</h3>
+
+
   <div class="cards three">
     {% for p in players if p.team_slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
-      {% if p.player_slug %}
-        <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
-          <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
-        </a>
-      {% else %}
-        <div class="card is-disabled">
-          <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
-        </div>
-      {% endif %}
+      
+      {{ player_card(p) }}
     {% endfor %}
   </div>
 
 
+  <!-- Women's Players -->
   <h3>Women's Players</h3>
+
+
   <div class="cards three">
     {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
-      {% if p.player_slug %}
-        <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
-          <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
-        </a>
-      {% else %}
-        <div class="card is-disabled">
-          <div class="card-title">{{ p.full_name }}</div>
-          <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
-        </div>
-      {% endif %}
+      {{ player_card(p) }}
     {% endfor %}
   </div>
-  <!-- <p class="hint">This is placeholder data; wire to a database later.</p> -->
+
 {% endblock %}
 
 

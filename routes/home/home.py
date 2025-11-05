@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
+from flask_login import current_user
 from .. import routes_bp
+from routes.favorites.queries import fetch_favorite_players
+from core.get_db_connection import get_db_connection
 
 MEN_SPORTS = [
     "Men's Basketball", "Men's Baseball", "Men's Cross Country", "Men's Football",
@@ -66,17 +69,33 @@ HEADLINE_ITEMS = [
 
 @routes_bp.route("/")
 def home():
-    selected_sports = request.args.getlist("sports")
-    if selected_sports:
-        filtered = [e for e in SAMPLE_EVENTS if e["sport"] in selected_sports]
-    else:
-        filtered = SAMPLE_EVENTS
+    conn = get_db_connection()
+    try:
+        
+        selected_sports = request.args.getlist("sports")
+        if selected_sports:
+            filtered = [e for e in SAMPLE_EVENTS if e["sport"] in selected_sports]
+        else:
+            filtered = SAMPLE_EVENTS
 
-    return render_template(
-    "index.html",
-    men_sports=MEN_SPORTS,
-    women_sports=WOMEN_SPORTS,
-    events=filtered,
-    headlines=HEADLINE_ITEMS,
-    selected_sports=selected_sports,
-)
+
+        
+
+        fav_players = []
+        if current_user.is_authenticated:
+            fav_players = fetch_favorite_players(conn, current_user.id, limit=24)
+        
+
+
+        return render_template(
+        "index.html",
+        men_sports=MEN_SPORTS,
+        women_sports=WOMEN_SPORTS,
+        events=filtered,
+        headlines=HEADLINE_ITEMS,
+        selected_sports=selected_sports,
+        fav_players=fav_players)
+    
+
+    finally:
+        conn.close()

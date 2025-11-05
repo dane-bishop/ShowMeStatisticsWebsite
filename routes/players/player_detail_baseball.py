@@ -3,6 +3,7 @@ from flask import render_template, abort, request, url_for
 from psycopg2.extras import RealDictCursor
 import psycopg2
 from core.get_db_connection import get_db_connection
+from flask_login import current_user
 
 
 
@@ -97,6 +98,13 @@ def player_detail_baseball(player_slug: str):
     ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgf.id ASC;
     """
 
+    IS_FAVORITE_SQL = """
+    SELECT 1 
+    FROM favorites
+    WHERE user_id = %s AND entity_type = 'player' AND entity_id = %s
+    LIMIT 1
+    """
+
 
 
 
@@ -126,6 +134,13 @@ def player_detail_baseball(player_slug: str):
             cur.execute(GAMELOG_FIELDING_SQL, (player["id"],))
             gamelog_fielding = cur.fetchall()
 
+            # Is player favorite
+            is_favorited = False
+            if current_user.is_authenticated:
+                cur.execute(IS_FAVORITE_SQL, (int(current_user.id), player["id"]))
+                is_favorited = cur.fetchone() is not None
+
+
 
             # Context-aware back URL
             from_team = request.args.get("from_team")
@@ -141,7 +156,7 @@ def player_detail_baseball(player_slug: str):
                 else:
                     back_url = url_for("routes.players")
         
-        return render_template("player_detail_baseball.html", player=player, highs=highs, gamelog_hitting=gamelog_hitting, gamelog_pitching=gamelog_pitching, gamelog_fielding=gamelog_fielding, back_url=back_url)
+        return render_template("player_detail_baseball.html", player=player, highs=highs, gamelog_hitting=gamelog_hitting, gamelog_pitching=gamelog_pitching, gamelog_fielding=gamelog_fielding, is_favorited=is_favorited, back_url=back_url)
     
     finally:
         conn.close()

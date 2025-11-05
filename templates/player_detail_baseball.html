@@ -9,17 +9,39 @@
     <div class="team-main">
       <!-- Tabs -->
       <div class="team-tabs">
-        <a class="tab" href="{{ back_url }}">
-          ← Players
-        </a>
+        <a class="tab" href="{{ back_url }}">← Players</a>
         <a class="tab active" href="#overview">Overview</a>
         <a class="tab" href="#gamelog">Game Log</a>
         <a class="tab" href="#highs">Season Highs</a>
       </div>
+      
 
-      <!-- Header / Bio -->
-    <div id="overview" class="calendar-card">
-        <div class="calendar-header">{{ player.full_name }}</div>
+      {# Header / Bio #}
+      <div id="overview" class="calendar-card">
+        <div class="calendar-header" style="display:flex; align-items:center; gap:.5rem;">
+          <div style="font-weight:600; flex:1 1 auto;">
+            {{ player.full_name }}
+          </div>
+
+          {% if current_user.is_authenticated %}
+            <button
+              class="favorite-btn{% if is_favorited %} on{% endif %}"
+              data-type="player"
+              data-id="{{ player.id }}"
+              aria-pressed="{{ 'true' if is_favorited else 'false' }}"
+              aria-label="{{ 'Unfavorite' if is_favorited else 'Favorite' }} {{ player.full_name }}"
+              title="{{ 'Unfavorite' if is_favorited else 'Favorite' }} {{ player.full_name }}"
+              style="border:1px solid #ddd; border-radius:999px; width:2rem; height:2rem;"
+
+            >{{ '♥' if is_favorited else '♡' }}</button>
+          {% else %}
+            <a class="favorite-btn"
+              href="{{ url_for('auth.login_form', next=request.full_path) }}"
+              style="text-decoration:none;"
+              title="Sign in to favorite players">♡</a>
+          {% endif %}
+        </div>
+
         <div class="calendar-grid">
           <div class="calendar-event">
             <div class="event-title">
@@ -37,9 +59,7 @@
             </div>
           </div>
 
-
-          <!-- Quick highs summary (top 4 if available) -->
-        <div class="calendar-event">
+          <div class="calendar-event">
             <div class="event-title">Quick Season Highs</div>
             {% if highs %}
             <div class="cards two">
@@ -60,6 +80,7 @@
           </div>
         </div>
       </div>
+
 
 
 
@@ -267,6 +288,64 @@
     </ul>
   </aside>
 </section>
+
+
+
+{% block scripts %}
+<script>
+// bind exactly once, even if this block is included multiple times
+if (!window.__favHandlerBound) {
+  document.addEventListener('click', onFavClick, { passive: false });
+  window.__favHandlerBound = true;
+}
+
+async function onFavClick(e) {
+  const btn = e.target.closest('.favorite-btn');
+  if (!btn || btn.classList.contains('hint')) return;
+
+  e.preventDefault();
+
+  // prevent double-clicks / re-entrancy
+  if (btn.dataset.busy === '1') return;
+  btn.dataset.busy = '1';
+
+  const type = btn.dataset.type;
+  const id = parseInt(btn.dataset.id, 10);
+  if (!type || !id) { delete btn.dataset.busy; return; }
+
+  try {
+    const res = await fetch('{{ url_for("favorites.toggle_favorite") }}', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin', // ensure session cookie is sent
+      body: JSON.stringify({ type, id })
+    });
+
+    if (res.redirected) { window.location.href = res.url; return; }
+    if (!res.ok) {
+      // optional: read text for debugging
+      // const text = await res.text(); console.error('Favorite failed', res.status, text);
+      alert('Favorite failed: ' + res.status);
+      return;
+    }
+
+    const data = await res.json();           // { favorited: true|false }
+    const on = !!data.favorited;
+
+    // reflect state in UI
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? '♥' : '♡';
+    btn.classList.toggle('on', on);
+  } catch (err) {
+    console.error('Favorite error', err);
+    alert('Favorite error—check console');
+  } finally {
+    delete btn.dataset.busy;
+  }
+}
+</script>
+{% endblock %}
+
 
 
 
