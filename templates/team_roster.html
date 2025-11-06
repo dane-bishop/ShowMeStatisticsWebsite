@@ -4,29 +4,32 @@
 
 {% block content %}
 
+
 <section class="team-layout">
     <div class="team-main">
-
-
 
       {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
       {% set current_year = team_year %}
       {% set years = range(2025, 1999, -1) %}
       {% include "partials/team_tabs.html" %}
 
-  
+
       <div class="calendar-card">
         <div class="calendar-header">
-          {{ team.school_name }} {{ team.sport_name }} — {{ team_year }} Roster
+          <div class="header-row">
+            <h3 class="title">
+              {{ team.school_name }} {{ team.sport_name }}
+              <span class="subtitle">— {{ team_year }} Roster</span>
+            </h3>
+          </div>
         </div>
-  
+
+
         {% if roster %}
         <div class="cards three">
           {% for r in roster %}
             <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
               
-              
-        
               <div class="card-title">
                 {% if r.jersey %}#{{ r.jersey }} {% endif %}{{ r.full_name }}
               </div>
@@ -56,6 +59,10 @@
       </div>
     </div>
   
+
+
+
+
     <aside class="team-news">
       <div class="news-header">Team Notes</div>
       <ul class="news-list">
