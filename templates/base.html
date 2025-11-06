@@ -43,8 +43,8 @@
                 <button class="linklike" type="submit">Sign out</button>
               </form>
             {% else %}
-              <a class="profile-btn" href="{{ url_for('auth.login_form') }}">Sign in</a>
-              <a class="profile-btn" href="{{ url_for('auth.register_form') }}">Register</a>
+              <a class="profile-btn" href="{{ url_for('auth.login_form') }}">Sign in/Register</a>
+              <!--<a class="profile-btn" href="{{ url_for('auth.register_form') }}">Register</a>-->
             {% endif %}
           </div>
           

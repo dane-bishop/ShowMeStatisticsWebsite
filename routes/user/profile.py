@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from psycopg2.extras import RealDictCursor
 from werkzeug.security import generate_password_hash, check_password_hash
 from core.get_db_connection import get_db_connection
+from routes.favorites.queries import fetch_favorite_players
 
 @routes_bp.get("/profile")
 @login_required
@@ -20,44 +21,18 @@ def profile():
             """, (int(current_user.id),))
             user = cur.fetchone()
 
-            # Pull a few recent favorites, grouped a bit
-            cur.execute("""
-                SELECT entity_type, entity_id, created_at
-                FROM favorites
-                WHERE user_id = %s
-                ORDER BY created_at DESC
-                LIMIT 50
-            """, (int(current_user.id),))
-            favs = cur.fetchall() or []
 
-        # Optional: pre-enrich some labels (example shows players/teams)
-        # Do tiny lookups to name the entities (keep it simple & safe):
-        players = [f["entity_id"] for f in favs if f["entity_type"] == "player"]
-        teams   = [f["entity_id"] for f in favs if f["entity_type"] == "team"]
+        fav_players = []
+        if current_user.is_authenticated:
+            fav_players = fetch_favorite_players(conn, current_user.id, limit=24)
+        
 
-        labels = {"player": {}, "team": {}}
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            if players:
-                cur.execute(
-                    "SELECT id, full_name FROM players WHERE id = ANY(%s)",
-                    (players,))
-                for r in cur.fetchall() or []:
-                    labels["player"][r["id"]] = r["full_name"]
 
-            if teams:
-                cur.execute("""
-                    SELECT t.id, CONCAT(t.school_name, ' ', s.name) AS label
-                    FROM teams t
-                    JOIN sports s ON s.id = t.sport_id
-                    WHERE t.id = ANY(%s)
-                """, (teams,))
-                for r in cur.fetchall() or []:
-                    labels["team"][r["id"]] = r["label"]
+        
 
         return render_template("profile.html",
                                user=user,
-                               favorites=favs,
-                               labels=labels)
+                               fav_players=fav_players)
     finally:
         conn.close()
 

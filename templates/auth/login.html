@@ -1,17 +1,39 @@
 {% extends 'base.html' %}
-{% block title%}Sign In{% endblock %}
-{% block content%}
-
+{% block title %}Sign In{% endblock %}
+{% block content %}
 
 <section class="form-card">
-    <h2>Sign in</h2>
-    <form method="post" action="{{ url_for('auth.login_submit') }}">
-      <label>Email <input type="email" name="email" required></label>
-      <label>Password <input type="password" name="password" required></label>
-      <button type="submit" class="btn">Sign in</button>
-    </form>
-    <p class="hint">No account? <a href="{{ url_for('auth.register_form') }}">Create one</a>.</p>
-  </section>
+  <h2 style="margin:0 0 .25rem 0;">Welcome back</h2>
+  <p class="hint" style="margin:.25rem 0 1rem;">Sign in to continue</p>
 
+  <form method="post" action="{{ url_for('auth.login_submit') }}" class="auth-form" novalidate>
+    <label>
+      Email
+      <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+    </label>
+
+    <label>
+      Password
+      <input type="password" name="password" required minlength="8" autocomplete="current-password" placeholder="••••••••">
+    </label>
+
+    <div style="display: flex; align-items:center; justify-content:space-between; gap:12px;">
+      <label class="checkbox">
+        
+        <span>Remember me</span>
+        <input type="checkbox" name="remember">
+      </label>
+  
+      <a class="hint" href="#">Forgot password?</a>
+    </div>
+
+    <button type="submit" class="btn">Sign in</button>
+  </form>
+
+  <p class="hint" style="margin-top:12px;">
+    No account?
+    <a href="{{ url_for('auth.register_form') }}">Create one</a>.
+  </p>
+</section>
 
 {% endblock %}

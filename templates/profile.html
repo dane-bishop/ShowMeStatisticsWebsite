@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from "components/player_card.html" import player_card %}
 
 {% block title %}Profile • ShowMeStatistics{% endblock %}
 
@@ -42,35 +43,25 @@
     </div>
 
     <!-- Right: Favorites -->
-    <div class="card">
-      <div class="card-title">Favorites</div>
-      {% if favorites %}
-        <ul class="list">
-          {% for f in favorites %}
-            <li class="list-row">
-              <div class="row-main">
-                {% if f.entity_type == 'player' %}
-                  <strong>Player:</strong>
-                  {{ labels.player.get(f.entity_id, 'Player #' ~ f.entity_id) }}
-                {% elif f.entity_type == 'team' %}
-                  <strong>Team:</strong>
-                  {{ labels.team.get(f.entity_id, 'Team #' ~ f.entity_id) }}
-                {% elif f.entity_type == 'game' %}
-                  <strong>Game:</strong> #{{ f.entity_id }}
-                {% elif f.entity_type == 'stat_high' %}
-                  <strong>Stat High:</strong> #{{ f.entity_id }}
-                {% else %}
-                  <strong>{{ f.entity_type }}:</strong> #{{ f.entity_id }}
-                {% endif %}
-              </div>
-              <div class="row-meta">{{ f.created_at.strftime('%Y-%m-%d %H:%M') if f.created_at }}</div>
-            </li>
+    <!-- Add favorite players here -->
+    {% set fps = fav_players | default([]) %}
+
+
+    <!-- Favorite Players as its own section with similar design -->
+    <section class="panel">
+      <div class="panel-header">Favorite Players</div>
+
+      {% set fps = fav_players | default([]) %}
+      {% if fps %}
+        <div class="cards three">
+          {% for p in fps %}
+            {{ player_card(p) }}
           {% endfor %}
-        </ul>
+        </div>
       {% else %}
-        <div class="card-meta">No favorites yet. Find a player or team and tap the ♥ icon.</div>
+        <div class="card-meta">No favorite players yet. Find a player and tap the ♥ icon.</div>
       {% endif %}
-    </div>
+    </section>
   </div>
 </section>
 {% endblock %}
