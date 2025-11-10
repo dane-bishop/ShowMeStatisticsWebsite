@@ -1,6 +1,6 @@
 {# templates/components/player_card.html #}
 {% macro player_card(p) -%}
-  <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=p.player_slug) }}">
+  <a class="card" href="{{ url_for('routes.player_detail', player_slug=p.player_slug) }}">
     <div class="card-title">{{ p.full_name }}</div>
     <div class="card-meta">{{ p.team_name }} • {{ p.position }}</div>
   </a>

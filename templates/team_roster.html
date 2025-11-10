@@ -28,7 +28,7 @@
         {% if roster %}
         <div class="cards three">
           {% for r in roster %}
-            <a class="card" href="{{ url_for('routes.player_detail_baseball', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
+            <a class="card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
               
               <div class="card-title">
                 {% if r.jersey %}#{{ r.jersey }} {% endif %}{{ r.full_name }}

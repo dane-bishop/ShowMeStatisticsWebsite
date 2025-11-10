@@ -1,0 +1,44 @@
+{% if gamelog_pitching %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th><th>W/L</th>
+        <th>IP</th><th>H</th><th>R</th><th>ER</th><th>BB</th><th>SO</th>
+        <th>2B</th><th>3B</th><th>HR</th><th>WP</th><th>BK</th><th>HBP</th><th>IBB</th><th>NP</th>
+        <th>W</th><th>L</th><th>SV</th><th>G-ERA</th><th>S-ERA</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_pitching %}
+      <tr>
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.wl or '' }}</td>
+        <td>{{ g.ip or 0 }}</td>
+        <td>{{ g.h or 0 }}</td>
+        <td>{{ g.r or 0 }}</td>
+        <td>{{ g.er or 0 }}</td>
+        <td>{{ g.bb or 0 }}</td>
+        <td>{{ g.so or 0 }}</td>
+        <td>{{ g.doubles or 0 }}</td>
+        <td>{{ g.triples or 0 }}</td>
+        <td>{{ g.hr or 0 }}</td>
+        <td>{{ g.wp or 0 }}</td>
+        <td>{{ g.bk or 0 }}</td>
+        <td>{{ g.hbp or 0 }}</td>
+        <td>{{ g.ibb or 0 }}</td>
+        <td>{{ '' if g.np is none else g.np }}</td>
+        <td>{{ g.w or 0 }}</td>
+        <td>{{ g.l or 0 }}</td>
+        <td>{{ g.sv or 0 }}</td>
+        <td>{{ g.gera or '' }}</td>
+        <td>{{ g.sera or '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No pitching stats logged for this player.</div>
+{% endif %}

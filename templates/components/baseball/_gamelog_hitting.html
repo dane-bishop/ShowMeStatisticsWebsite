@@ -1,0 +1,35 @@
+{% if gamelog_hitting %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th><th>W/L</th><th>GS</th>
+        <th>AB</th><th>R</th><th>H</th><th>RBI</th>
+        <th>2B</th><th>3B</th><th>HR</th><th>BB</th><th>K</th><th>AVG</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_hitting %}
+      <tr>
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.wl or '' }}</td>
+        <td>{{ g.gs or 0 }}</td>
+        <td>{{ g.ab or 0 }}</td>
+        <td>{{ g.r or 0 }}</td>
+        <td>{{ g.h or 0 }}</td>
+        <td>{{ g.rbi or 0 }}</td>
+        <td>{{ g.doubles or 0 }}</td>
+        <td>{{ g.triples or 0 }}</td>
+        <td>{{ g.hr or 0 }}</td>
+        <td>{{ g.bb or 0 }}</td>
+        <td>{{ g.k or 0 }}</td>
+        <td>{{ g.avg if g.avg is not none else '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No hitting stats logged for this player.</div>
+{% endif %}

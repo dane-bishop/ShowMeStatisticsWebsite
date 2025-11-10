@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ player.full_name }} • ShowMeStatistics{% endblock %}
+{% block styles %}{% endblock %}
+
+{% block content %}
+
+<!-- Team Tabs -->
+<section class="team-layout">
+  <div class="team-main">
+    <div class="team-tabs">
+      <a class="tab" href="{{ back_url }}">← Players</a>
+      <a class="tab active" href="#overview">Overview</a>
+      {% block tabs_extra %}
+        <a class="tab" href="#gamelog-1">Game Log</a>
+        <a class="tab" href="#highs">Season Highs</a>
+      {% endblock %}
+    </div>
+
+    <!-- Player Top Tab -->
+    <div id="overview" class="calendar-card">
+      <div class="calendar-header" style="display:flex; align-items:center; gap:.5rem;">
+        <div style="font-weight:600; flex:1 1 auto;">
+          {{ player.full_name }}
+        </div>
+        {% include 'components/_favorite_btn.html' %}
+      </div>
+
+      <div class="calendar-grid">
+        <div class="calendar-event">
+          <div class="event-title">
+            {{ player.sport_name }} • {{ player.position }}
+            {% if player.jersey %} • #{{ player.jersey }}{% endif %}
+          </div>
+          <div class="event-meta">
+            {{ player.school_name }} — Season {{ player.season_year }}
+          </div>
+          <div class="event-meta">
+            {% if player.class_year %}Class: {{ player.class_year }} • {% endif %}
+            {% if player.bats_throws %}B/T: {{ player.bats_throws }} • {% endif %}
+            {% if player.hometown %}Hometown: {{ player.hometown }}{% endif %}
+            {% if player.high_school %} • HS: {{ player.high_school }}{% endif %}
+          </div>
+        </div>
+
+        <!-- Player Season Highs -->
+        <div class="calendar-event">
+          <div class="event-title">Quick Season Highs</div>
+          {% block quick_highs %}
+            {% if highs %}
+              <div class="cards two">
+                {% for h in highs[:4] %}
+                <div class="card">
+                  <div class="card-title">{{ h.stat_name }}</div>
+                  <div class="card-meta">
+                    {{ h.value }}
+                    {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
+                    {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="empty-state">No season highs recorded.</div>
+            {% endif %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Gamelog Stats -->
+    {% block gamelog_sections %}
+      <div id="gamelog-1" class="calendar-card">
+        <div class="calendar-header">Game Log</div>
+        <div class="empty-state">No game log available for this sport.</div>
+      </div>
+    {% endblock %}
+
+    <div id="highs" class="calendar-card">
+      <div class="calendar-header">Season Highs</div>
+      {% block highs_full %}
+        {% if highs %}
+          <div class="cards three">
+            {% for h in highs %}
+              <div class="card">
+                <div class="card-title">{{ h.stat_name }}</div>
+                <div class="card-meta">
+                  {{ 0 if h.value is none else ('%.1f'|format(h.value|float)) if h.stat_name == 'IP' else ('{:g}'.format(h.value)) }}
+                  {% if h.game_datetime %} • {{ h.game_datetime.strftime("%Y-%m-%d") }}{% endif %}
+                  {% if h.opponent_text %} • {{ h.opponent_text }}{% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="empty-state">No season highs available.</div>
+        {% endif %}
+      {% endblock %}
+    </div>
+  </div>
+
+  <!-- Player Notes -->
+  <aside class="team-news">
+    <div class="news-header">Player Notes</div>
+    <ul class="news-list">
+      <li>
+        <div class="news-title">{{ player.full_name }} — {{ player.sport_name }}</div>
+        <div class="news-date">Season {{ player.season_year }}</div>
+      </li>
+    </ul>
+  </aside>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script>
+    if (!window.__favHandlerBound) {
+      document.addEventListener('click', onFavClick, { passive: false });
+      window.__favHandlerBound = true;
+    }
+    async function onFavClick(e) {
+      const btn = e.target.closest('.favorite-btn');
+      if (!btn || btn.classList.contains('hint')) return;
+      e.preventDefault();
+      if (btn.dataset.busy === '1') return;
+      btn.dataset.busy = '1';
+      const type = btn.dataset.type;
+      const id = parseInt(btn.dataset.id, 10);
+      if (!type || !id) { delete btn.dataset.busy; return; }
+      try {
+        const res = await fetch('{{ url_for("favorites.toggle_favorite") }}', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ type, id })
+        });
+        if (res.redirected) { window.location.href = res.url; return; }
+        if (!res.ok) { alert('Favorite failed: ' + res.status); return; }
+        const data = await res.json();
+        const on = !!data.favorited;
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.textContent = on ? '♥' : '♡';
+        btn.classList.toggle('on', on);
+      } catch (err) {
+        console.error('Favorite error', err);
+        alert('Favorite error—check console');
+      } finally {
+        delete btn.dataset.busy;
+      }
+    }
+  </script>
+{% endblock %}
