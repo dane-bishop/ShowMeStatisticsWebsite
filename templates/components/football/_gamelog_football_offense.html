@@ -1,0 +1,50 @@
+{% if gamelog_football_offense %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th>
+        <th>CMP</th><th>ATT</th><th>INT</th><th>%</th><th>YDS</th><th>TD</th><th>LONG</th>
+        <th>ATT</th><th>YDS</th><th>TDS</th><th>LONG</th>
+        <th>ATT</th><th>YDS</th><th>TDS</th><th>LONG</th>
+        <th>ATT</th><th>YDS</th><th>TDS</th><th>LONG</th>
+        <th>ATT</th><th>YDS</th><th>TDS</th><th>LONG</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_football_offense %}
+      <tr>
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.pass_comp or 0 }}</td>
+        <td>{{ g.pass_att or 0 }}</td>
+        <td>{{ g.pass_int or 0 }}</td>
+        <td>{{ g.pass_pct or 0 }}</td>
+        <td>{{ g.pass_yds or 0 }}</td>
+        <td>{{ g.pass_tds or 0 }}</td>
+        <td>{{ g.pass_lng or 0 }}</td>
+        <td>{{ g.rush_att or 0 }}</td>
+        <td>{{ g.rush_yds or 0 }}</td>
+        <td>{{ g.rush_tds or 0 }}</td>
+        <td>{{ g.rush_lng or 0 }}</td>
+        <td>{{ g.rec or 0 }}</td>
+        <td>{{ g.rec_yds or 0 }}</td>
+        <td>{{ g.rec_tds or 0 }}</td>
+        <td>{{ g.rec_lng or 0 }}</td>
+        <td>{{ g.kr_ret or 0 }}</td>
+        <td>{{ g.kr_yds or 0 }}</td>
+        <td>{{ g.kr_tds or 0 }}</td>
+        <td>{{ g.kr_lng or 0 }}</td>
+        <td>{{ g.pr_ret or 0 }}</td>
+        <td>{{ g.pr_yds or 0 }}</td>
+        <td>{{ g.pr_tds or 0 }}</td>
+        <td>{{ g.pr_lng or 0 }}</td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No offensive stats logged for this player.</div>
+{% endif %}

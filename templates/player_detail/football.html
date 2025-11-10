@@ -1,0 +1,21 @@
+{% extends 'player_detail/base.html' %}
+
+{% block tabs_extra %}
+  <a class="tab" href="#gamelog-football-offense">Offense</a>
+  <a class="tab" href="#gamelog-football-defense">Defense</a>
+  <a class="tab" href="#highs">Season Highs</a>
+{% endblock %}
+
+{% block gamelog_sections %}
+  <div id="gamelog-football-offense" class="calendar-card">
+    <div class="calendar-header">Game Log (Offense)</div>
+    {% include 'components/football/_gamelog_football_offense.html' %}
+  </div>
+
+  <div id="gamelog-football-defense" class="calendar-card">
+    <div class="calendar-header">Game Log (Defense)</div>
+    {% include 'components/football/_gamelog_football_defense.html' %}
+  </div>
+
+
+{% endblock %}

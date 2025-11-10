@@ -33,6 +33,33 @@ def player_detail(player_slug: str):
             cur.execute(SEASON_HIGHS_SQL, (player["id"],))
             highs = cur.fetchall()
 
+            # Is player favorite
+            is_favorited = False
+            if current_user.is_authenticated:
+                cur.execute(IS_FAVORITE_SQL, (int(current_user.id), player["id"]))
+                is_favorited = cur.fetchone() is not None
+
+            # Context-aware back URL
+            from_team = request.args.get("from_team")
+            from_year = request.args.get("year", type=int)
+
+            if from_team and from_year:
+                back_url = url_for("routes.team_roster", team_slug=from_team, team_year=from_year)
+
+            else:
+                ref = request.referrer or ""
+                if "/teams/" in ref:
+                    back_url = ref
+                else:
+                    back_url = url_for("routes.players")
+
+
+            context = {
+                "player": player,
+                "highs": highs,
+                "is_favorited": is_favorited,
+                "back_url": back_url,
+            }
 
 
             sport_name = (player.get("sport_name"))
@@ -53,6 +80,14 @@ def player_detail(player_slug: str):
                 cur.execute(GAMELOG_FIELDING_SQL, (player["id"],))
                 gamelog_fielding = cur.fetchall()
 
+                context.update(
+                    gamelog_hitting=gamelog_hitting,
+                    gamelog_pitching=gamelog_pitching,
+                    gamelog_fielding=gamelog_fielding
+                )
+
+                template_name = "player_detail/baseball.html"
+
             
             if sport_name == "Football":
 
@@ -64,39 +99,15 @@ def player_detail(player_slug: str):
                 cur.execute(GAMELOG_FOOTBALL_DEFENSE_SQL, (player["id"],))
                 gamelog_football_defense = cur.fetchall()
 
+                context.update(
+                    gamelog_football_offense=gamelog_football_offense,
+                    gamelog_football_defense=gamelog_football_defense,
+                )
+
+                template_name = "player_detail/football.html"
 
 
-            # Is player favorite
-            is_favorited = False
-            if current_user.is_authenticated:
-                cur.execute(IS_FAVORITE_SQL, (int(current_user.id), player["id"]))
-                is_favorited = cur.fetchone() is not None
-
-
-
-            # Context-aware back URL
-            from_team = request.args.get("from_team")
-            from_year = request.args.get("year", type=int)
-
-            if from_team and from_year:
-                back_url = url_for("routes.team_roster", team_slug=from_team, team_year=from_year)
-
-            else:
-                ref = request.referrer or ""
-                if "/teams/" in ref:
-                    back_url = ref
-                else:
-                    back_url = url_for("routes.players")
-
-            
-        template_map = {
-            "Baseball": "player_detail/baseball.html",
-            "Football": "player_detail/football.html"
-        }
-
-        tpl = template_map.get(sport_name, "player_detail/generic.html")
-        
-        return render_template(tpl, player=player, highs=highs, gamelog_hitting=gamelog_hitting, gamelog_pitching=gamelog_pitching, gamelog_fielding=gamelog_fielding, is_favorited=is_favorited, back_url=back_url)
+        return render_template(template_name, **context)
     
     finally:
         conn.close()

@@ -1,4 +1,4 @@
-GAMELOG_FOOTBALL_OFFENSE_SQL = """
+GAMELOG_FOOTBALL_DEFENSE_SQL = """
     SELECT 
     pgfd.id,
     pgfd.source_game_id,
@@ -13,5 +13,5 @@ GAMELOG_FOOTBALL_OFFENSE_SQL = """
     LEFT JOIN games g ON g.id = pgfd.game_id
     JOIN opponents o ON o.id = g.opponent_id
     WHERE pgfd.player_id = %s
-    ORDER BY COALESCE(g.game_date, '1900-01-01) ASC, pgfd.id ASC;
+    ORDER BY COALESCE(g.game_date, '1900-01-01') ASC, pgfd.id ASC;
 """

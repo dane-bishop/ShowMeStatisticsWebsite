@@ -1,0 +1,43 @@
+{% if gamelog_football_defense %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th>
+        <th>SOLO</th><th>AST</th><th>TOT</th><th>TFL</th><th>YDS</th>
+        <th>SACK</th><th>YDS</th>
+        <th>FF</th><th>FR</th><th>YDS</th>
+        <th>INTS</th><th>YDS</th>
+        <th>QBH</th><th>BRK</th>
+        <th>KICK</th><th>SAF</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_football_defense %}
+      <tr>
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.solo or 0 }}</td>
+        <td>{{ g.ast or 0 }}</td>
+        <td>{{ g.ttot or 0 }}</td>
+        <td>{{ g.tfl or 0 }}</td>
+        <td>{{ g.tyds or 0 }}</td>
+        <td>{{ g.stot or 0 }}</td>
+        <td>{{ g.syds or 0 }}</td>
+        <td>{{ g.ff or 0 }}</td>
+        <td>{{ g.fr or 0 }}</td>
+        <td>{{ g.fyds or 0 }}</td>
+        <td>{{ g.ints or 0 }}</td>
+        <td>{{ g.int_yds or 0 }}</td>
+        <td>{{ g.qbh or 0 }}</td>
+        <td>{{ g.brk or 0 }}</td>
+        <td>{{ g.kick or 0 }}</td>
+        <td>{{ g.saf or 0 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No defensive stats logged for this player.</div>
+{% endif %}
