@@ -5,18 +5,49 @@
 {% block content %}
 <section class="list-page">
   <h2>Search Results for "{{ query }}"</h2>
+
+  <!-- Player Results -->
+  <h3 style="margin-top:1rem;">Players</h3>
   <div class="cards">
-    {% if team_results %}
-      {% for team in team_results %}
-      <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug, team_year=2025) }}">
-        <div class="card-title">{{ team.name }}</div>
-        <div class="card-meta">Team</div>
-      </a>
+    {% if player_results %}
+      {% for p in player_results %}
+        <a class="card" href="{{ url_for('routes.player_detail', player_slug=p.player_slug) }}">
+          <div class="card-title">{{ p.full_name }}</div>
+          <div class="card-meta">
+            {{ p.school_name }} • {{ p.sport_name }}{% if p.season_year %} • {{ p.season_year }}{% endif %}
+          </div>
+        </a>
+
       {% endfor %}
     {% else %}
-      <div class="empty-state">No results found.</div>
+        <div class="empty-state">No matching players.</div>
     {% endif %}
   </div>
+
+
+  <!-- Team Results -->
+  <h3 style="margin-top:2rem;">Teams</h3>
+  <div class="cards">
+    {% if team_results %}
+      {% for t in team_results %}
+        <a class="card" href="{{ url_for('routes.team_roster', team_slug=t.team_slug, team_year=t.year or 2025) }}">
+          <div class="card-title">{{ t.school_name }}</div>
+          <div class="card-meta">{{ t.sport_name }}{% if t.year %} • {{ t.year }}{% endif %}</div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <div class="empty-state">No matching teams.</div>
+    {% endif %}
+  </div>
+
+
+  {% if more_players or more_teams %}
+    <div style="margin-top:1rem;">
+      <a class="button" href="{{ url_for('routes.search', q=query, page=page+1) }}">More results →</a>
+    </div>
+  {% endif %}
+
+
 </section>
 {% endblock %}
 

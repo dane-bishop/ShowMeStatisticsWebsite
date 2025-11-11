@@ -1,72 +1,57 @@
 from .. import routes_bp
 from flask import request, render_template
+from routes.home.queries.player_search import PLAYER_SEARCH_SQL
+from routes.home.queries.team_search import TEAM_SEARCH_SQL
+from core.get_db_connection import get_db_connection
+from psycopg2.extras import RealDictCursor
 
-MEN_SPORTS = [
-    "Men's Basketball", "Men's Baseball", "Men's Cross Country", "Men's Football",
-    "Men's Golf", "Men's Swim & Dive", "Men's Track & Field", "Men's Wrestling"
-]
-
-WOMEN_SPORTS = [
-    "Women's Basketball", "Women's Cross Country", "Women's Golf",
-    "Women's Gymnastics", "Women's Soccer", "Women's Softball",
-    "Women's Swim & Dive", "Women's Tennis", "Women's Track & Field",
-    "Women's Volleyball"
-]
-
-SAMPLE_EVENTS = [
-    {
-        "id": 1,
-        "date": "2025-10-08",
-        "sport": "Football",
-        "title": "Tigers vs Wildcats",
-        "location": "Memorial Stadium",
-        "opponent_team": "Wildcats",
-        "opponent_record": "4-1",
-        "opponent_name": "Kansas State Wildcats",
-    },
-    {
-        "id": 2,
-        "date": "2025-10-10",
-        "sport": "Basketball",
-        "title": "Tigers vs Bears",
-        "location": "Mizzou Arena",
-        "opponent_team": "Bears",
-        "opponent_record": "2-0",
-        "opponent_name": "Missouri State Bears",
-    },
-    {
-        "id": 3,
-        "date": "2025-10-12",
-        "sport": "Soccer",
-        "title": "Tigers vs Lions",
-        "location": "Walton Stadium",
-        "opponent_team": "Lions",
-        "opponent_record": "3-2-1",
-        "opponent_name": "Lindenwood Lions",
-    },
-    {
-        "id": 4,
-        "date": "2025-10-15",
-        "sport": "Baseball",
-        "title": "Tigers vs Hawks",
-        "location": "Taylor Stadium",
-        "opponent_team": "Hawks",
-        "opponent_record": "5-3",
-        "opponent_name": "Saint Joseph Hawks",
-    },
-]
-
-
-TEAMS = [
-    {"name": s, "slug": s.lower().replace(" ", "-").replace("&", "and").replace("'", "")}
-    for s in MEN_SPORTS + WOMEN_SPORTS
-]
 
 @routes_bp.route("/search")
 def search():
     q = request.args.get("q", "").strip()
-    # Simple placeholder search across team names
-    team_results = [t for t in TEAMS if q.lower() in t["name"].lower()] if q else []
-    return render_template("search_results.html", query=q, team_results=team_results)
+    
+    page = max(int(request.args.get("page", 1)), 1)
+    limit = 25
+    offset = (page - 1) * limit
+    if not q:
+        return render_template(
+            "search_results.html",
+            query=q,
+            player_results=[],
+            team_results=[],
+            page=page,
+            more_players=False,
+            more_teams=False,
+        )
+    
+    pat = f"%{q}%"
+
+    conn = get_db_connection()
+    try:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(PLAYER_SEARCH_SQL, {"pat": pat, "limit": limit, "offset": offset})
+            player_results = cur.fetchall()
+
+            cur.execute(TEAM_SEARCH_SQL, {"pat": pat, "limit": limit, "offset": offset})
+            team_results = cur.fetchall()
+
+        more_players = len(player_results) == limit
+        more_teams = len(team_results) == limit
+
+        return render_template(
+            "search_results.html",
+            query=q,
+            player_results=player_results,
+            team_results=team_results,
+            page=page,
+            more_players=more_players,
+            more_teams=more_teams,
+        )
 
 
+    finally:
+        conn.close()
+
+    
+
+    
