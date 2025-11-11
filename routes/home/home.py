@@ -3,6 +3,9 @@ from flask_login import current_user
 from .. import routes_bp
 from routes.favorites.queries import fetch_favorite_players
 from core.get_db_connection import get_db_connection
+from zoneinfo import ZoneInfo
+from datetime import datetime, timedelta
+from psycopg2.extras import RealDictCursor
 
 MEN_SPORTS = [
     "Men's Basketball", "Men's Baseball", "Men's Cross Country", "Men's Football",
@@ -16,48 +19,7 @@ WOMEN_SPORTS = [
     "Women's Volleyball"
 ]
 
-SAMPLE_EVENTS = [
-    {
-        "id": 1,
-        "date": "2025-10-08",
-        "sport": "Football",
-        "title": "Tigers vs Wildcats",
-        "location": "Memorial Stadium",
-        "opponent_team": "Wildcats",
-        "opponent_record": "4-1",
-        "opponent_name": "Kansas State Wildcats",
-    },
-    {
-        "id": 2,
-        "date": "2025-10-10",
-        "sport": "Basketball",
-        "title": "Tigers vs Bears",
-        "location": "Mizzou Arena",
-        "opponent_team": "Bears",
-        "opponent_record": "2-0",
-        "opponent_name": "Missouri State Bears",
-    },
-    {
-        "id": 3,
-        "date": "2025-10-12",
-        "sport": "Soccer",
-        "title": "Tigers vs Lions",
-        "location": "Walton Stadium",
-        "opponent_team": "Lions",
-        "opponent_record": "3-2-1",
-        "opponent_name": "Lindenwood Lions",
-    },
-    {
-        "id": 4,
-        "date": "2025-10-15",
-        "sport": "Baseball",
-        "title": "Tigers vs Hawks",
-        "location": "Taylor Stadium",
-        "opponent_team": "Hawks",
-        "opponent_record": "5-3",
-        "opponent_name": "Saint Joseph Hawks",
-    },
-]
+
 
 HEADLINE_ITEMS = [
     {"headline": "Tigers upset #5 Wildcats in overtime thriller", "date": "2025-10-06"},
@@ -71,30 +33,61 @@ HEADLINE_ITEMS = [
 def home():
     conn = get_db_connection()
     try:
-        
+
+
+        today_ct = datetime.now(ZoneInfo("America/Chicago")).date()
+        start_date = today_ct
+        end_date = today_ct + timedelta(days=4)
+
         selected_sports = request.args.getlist("sports")
+
+        EVENTS_SQL = """
+        SELECT
+            g.id,
+            g.game_date,
+            s.name AS sport_name,
+            t.school_name,
+            o.name AS opponent_name,
+            g.location,
+            g.source_game_id
+        FROM games g
+        JOIN team_seasons ts ON ts.id = g.team_season_id
+        JOIN teams t ON t.id = ts.team_id
+        JOIN sports s ON s.id = t.sport_id
+        LEFT JOIN opponents o ON o.id = g.opponent_id
+        WHERE g.game_date >= %s AND g.game_date <= %s
+        """
+
+        params = [start_date, end_date]
+
         if selected_sports:
-            filtered = [e for e in SAMPLE_EVENTS if e["sport"] in selected_sports]
-        else:
-            filtered = SAMPLE_EVENTS
+            EVENTS_SQL += " And s.name = ANY(%s)"
+            params.append(selected_sports)
 
+        EVENTS_SQL += " ORDER BY g.game_date ASC, g.id ASC LIMIT 500;"
 
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(EVENTS_SQL, params)
+            events = cur.fetchall()
         
 
-        fav_players = []
-        if current_user.is_authenticated:
-            fav_players = fetch_favorite_players(conn, current_user.id, limit=24)
-        
+            fav_players = []
+            if current_user.is_authenticated:
+                fav_players = fetch_favorite_players(conn, current_user.id, limit=24)
+            
 
 
         return render_template(
-        "index.html",
-        men_sports=MEN_SPORTS,
-        women_sports=WOMEN_SPORTS,
-        events=filtered,
-        headlines=HEADLINE_ITEMS,
-        selected_sports=selected_sports,
-        fav_players=fav_players)
+            "index.html",
+            men_sports=MEN_SPORTS,
+            women_sports=WOMEN_SPORTS,
+            events=events,
+            headlines=HEADLINE_ITEMS,
+            selected_sports=selected_sports,
+            fav_players=fav_players,
+            start_date=start_date,
+            end_date=end_date,
+        )
     
 
     finally:
