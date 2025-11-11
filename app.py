@@ -12,8 +12,6 @@ import os
 
 def create_app():
     app = Flask(__name__)
-    FLASK_SECRET_KEY = "yumyumyum"
-    secret = FLASK_SECRET_KEY
 
     secret = os.environ.get("SECRET_KEY")
     if not secret:
