@@ -1,0 +1,17 @@
+  /* =========================================================
+     12) Game Detail
+     ========================================================= */
+     .game-detail .game-hero {
+        background: linear-gradient(180deg, var(--black), var(--grey-900));
+        color: var(--white); border-radius: 12px; padding: 18px;
+        border: 1px solid var(--grey-700); margin-bottom: 14px;
+      }
+      .game-detail .pill {
+        display: inline-block; background: var(--yellow); color: var(--black);
+        font-weight: 800; padding: 4px 10px; border-radius: 999px;
+      }
+      .game-detail .matchup { margin: 10px 0 4px; }
+      .game-detail .sub { opacity: .85; }
+      .game-detail .game-cards {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 14px 0 20px;
+      }

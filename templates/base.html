@@ -4,7 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}ShowMeStatistics{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+
+
+    <!-- All Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/top_bar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/page_layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/calendar_favorites.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/cards.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/headline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/filters_sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/filter_buttons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/calendar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/team/team_tabs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game/game_detail.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile/responsive.css') }}" />
+
+
+
         <!-- Optional dark mode stylesheet (loaded dynamically) -->
     <link id="dark-theme" rel="stylesheet" href="{{ url_for('static', filename='dark.css') }}" disabled>
 

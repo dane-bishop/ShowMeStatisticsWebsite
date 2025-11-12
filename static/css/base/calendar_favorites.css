@@ -1,0 +1,26 @@
+  /* =========================================================
+     8) Favorites (Heart) in Calendar Header
+     ========================================================= */
+     .favorite-btn {
+        position: absolute; top: .5rem; right: .5rem;
+        border: 0; background: transparent; font-size: 1.25rem; cursor: pointer;
+      }
+      .favorite-btn.hint { position: absolute; top: .5rem; right: .5rem; text-decoration: none; }
+      
+      /* Heart favorite button — clean, no circle */
+      .calendar-header .favorite-btn {
+        all: unset;
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer; font-size: 20px; line-height: 1; padding: 0; color: var(--white);
+        transition: transform .08s ease, color .15s ease, opacity .15s ease;
+      }
+      .calendar-card:not(:has(.calendar-header)) .favorite-btn { color: var(--black); } /* context override */
+      .calendar-header .favorite-btn:hover { transform: scale(1.06); }
+      .calendar-header .favorite-btn:active { transform: scale(0.96); }
+      .calendar-header .favorite-btn.on,
+      .calendar-header .favorite-btn[aria-pressed="true"] {
+        color: #e11d48; text-shadow: 0 0 0 currentColor;
+      }
+      .calendar-header .favorite-btn[aria-pressed="false"] { opacity: 0.9; }
+      .calendar-header .favorite-btn[aria-pressed="false"]:hover { opacity: 1; }
+      

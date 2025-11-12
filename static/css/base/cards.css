@@ -1,0 +1,32 @@
+  /* =========================================================
+     9) Cards / Lists / Tables
+     ========================================================= */
+     .list-page h2 { margin: 10px 0 16px; }
+  
+     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+     .cards.three { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+     
+     .card {
+       display: block; background: var(--white); border: 1px solid var(--grey-200);
+       border-radius: 12px; padding: 14px; text-decoration: none; color: inherit;
+       box-shadow: 0 2px 8px rgba(0,0,0,.05);
+     }
+   
+     .card:hover {
+       border-color: var(--yellow); box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-1px);
+     }
+     .card-title { font-weight: 800; }
+     .card-meta { margin-top: 6px; color: #666; font-size: 13px; }
+     
+     .table {
+       background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px; overflow: hidden;
+     }
+     .row {
+       display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--grey-200);
+     }
+     .row.head {
+       background: var(--black); color: var(--white); font-weight: 800; border-bottom: 4px solid var(--yellow);
+     }
+     .row:last-child { border-bottom: none; }
+     
+   

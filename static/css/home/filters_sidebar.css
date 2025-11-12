@@ -1,0 +1,18 @@
+ /* =========================================================
+     5) Filters Sidebar / Right Rail
+     ========================================================= */
+     .filters {
+        background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px;
+        padding: 12px; position: sticky; top: 76px; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+      }
+      .filters-header { font-weight: 800; padding: 8px 10px 12px; border-bottom: 2px solid var(--grey-200); }
+      .checkbox {
+        display: inline-flex;
+        align-items: center;
+      }
+      
+      .checkbox input {
+        margin-left: 8px;  /* <- space between text and checkbox */
+        width: 16px;
+        height: 16px;
+      }

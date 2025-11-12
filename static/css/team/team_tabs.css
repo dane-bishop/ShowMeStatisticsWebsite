@@ -1,0 +1,27 @@
+  /* =========================================================
+     10) Team Tabs + News
+     ========================================================= */
+     .team-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  
+     .team-tabs.tabs-compact {
+       display: flex; align-items: center; gap: .5rem; min-height: 44px; padding: .5rem 0;
+       border-bottom: 1px solid #eee; overflow-x: auto; flex-wrap: nowrap;
+     }
+     .team-tabs .tab {
+       display: inline-flex; align-items: center; justify-content: center;
+       padding: .4rem .75rem; border-radius: 999px; white-space: nowrap; font-weight: 600;
+       text-decoration: none; color: var(--black); border: 1px solid var(--grey-200); background: var(--white);
+     }
+     .team-tabs .tab.active, .tab.active { background: var(--yellow); border-color: var(--yellow); font-weight: 700; }
+     .tab.select-wrapper select { padding: .35rem .6rem; border: 1px solid #ddd; border-radius: .5rem; }
+     
+     .team-news {
+       background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px; padding: 12px;
+       position: sticky; top: 76px; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+     }
+     .news-header { font-weight: 800; padding-bottom: 8px; border-bottom: 2px solid var(--grey-200); margin-bottom: 10px; }
+     .news-list { list-style: none; padding: 0; margin: 0; }
+     .news-list li { padding: 10px 6px; border-bottom: 1px solid var(--grey-200); }
+     .news-list li:last-child { border-bottom: none; }
+     .news-title { font-weight: 700; }
+     .news-date { color: #666; font-size: 13px; }

@@ -1,0 +1,31 @@
+ /* =========================================================
+     1) Base / Reset
+     ========================================================= */
+     * { box-sizing: border-box; }
+     html, body {
+       margin: 0;
+       padding: 0;
+       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+           background-color: var(--grey-100);
+       color: var(--black);
+       transition: background-color 0.3s, color 0.3s;
+     }
+     
+     /* Better focus ring for keyboard users */
+     :focus-visible {
+       outline: 2px solid var(--yellow);
+       outline-offset: 2px;
+     }
+     
+     /* Motion-safe transitions */
+     @media (prefers-reduced-motion: no-preference) {
+       a, button, .card {
+         transition: color .15s ease, background-color .15s ease, border-color .15s ease, transform .12s ease, box-shadow .15s ease, opacity .15s ease;
+       }
+     }
+     
+     /* Screen-reader-only utility */
+     .sr-only {
+       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+       overflow: hidden; clip: rect(0,0,0,0); border: 0;
+     }
