@@ -19,9 +19,11 @@ PLAYER_HITTING_STATS_SQL = """
     FROM player_game_batting pgb
     JOIN games g ON g.id = pgb.game_id
     JOIN players p ON p.id = pgb.player_id
-    JOIN roster_memberships rm ON rm.player_id = p.id
+    LEFT JOIN roster_memberships rm
+    ON rm.player_id = p.id
+    AND rm.team_season_id = g.team_season_id
     WHERE pgb.game_id = %s
-    ORDER BY rm.jersey ASC;
+    ORDER BY p.id, rm.id DESC;
     """
 
 PLAYER_PITCHING_STATS_SQL = """
@@ -33,9 +35,11 @@ PLAYER_PITCHING_STATS_SQL = """
     FROM player_game_pitching pgp
     JOIN games g ON g.id = pgp.game_id
     JOIN players p ON p.id = pgp.player_id
-    JOIN roster_memberships rm ON rm.player_id = p.id
+    LEFT JOIN roster_memberships rm
+    ON rm.player_id = p.id
+    AND rm.team_season_id = g.team_season_id
     WHERE pgp.game_id = %s
-    ORDER BY rm.jersey ASC;
+    ORDER BY p.id, rm.id DESC;
     """
 
 PLAYER_FIELDING_STATS_SQL = """
@@ -46,9 +50,11 @@ PLAYER_FIELDING_STATS_SQL = """
     FROM player_game_fielding pgf
     JOIN games g ON g.id = pgf.game_id
     JOIN players p ON p.id = pgf.player_id
-    JOIN roster_memberships rm ON rm.player_id = p.id
+    LEFT JOIN roster_memberships rm
+    ON rm.player_id = p.id
+    AND rm.team_season_id = g.team_season_id
     WHERE pgf.game_id = %s
-    ORDER BY rm.jersey ASC;
+    ORDER BY p.id, rm.id DESC;
     """
 
 
@@ -65,9 +71,11 @@ PLAYER_FOOTBALL_OFFENSE_STATS_SQL = """
     FROM player_game_football_offense pgfo
     JOIN games g ON g.id = pgfo.game_id
     JOIN players p ON p.id = pgfo.player_id
-    JOIN roster_memberships rm ON rm.player_id = p.id
+    LEFT JOIN roster_memberships rm
+    ON rm.player_id = p.id
+    AND rm.team_season_id = g.team_season_id
     WHERE pgfo.game_id = %s
-    ORDER BY rm.jersey ASC;
+    ORDER BY p.id, rm.id DESC; 
     """
 
 PLAYER_FOOTBALL_DEFENSE_STATS_SQL = """
@@ -81,9 +89,12 @@ PLAYER_FOOTBALL_DEFENSE_STATS_SQL = """
     pgfd.qbh, pgfd.brk, pgfd.kick, pgfd.saf
     FROM player_game_football_defense pgfd
     JOIN games g ON g.id = pgfd.game_id
-    JOIN roster_memberships rm ON rm.player_id = p.id
+    JOIN players p ON p.id = pgfd.player_id
+    LEFT JOIN roster_memberships rm
+    ON rm.player_id = p.id
+    AND rm.team_season_id = g.team_season_id
     WHERE pgfd.game_id = %s
-    ORDER BY rm.jersey ASC;
+    ORDER BY p.id, rm.id DESC;
     """
 
 @routes_bp.route("/game/<int:game_id>")

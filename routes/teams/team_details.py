@@ -25,6 +25,7 @@ def team_detail(team_slug: str, team_year: int | None = None):
     team_schedule_sql = """
     SELECT 
     o.name AS opponent_name,
+    g.id,
     g.game_date,
     g.location,
     g.result,
