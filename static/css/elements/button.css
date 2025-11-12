@@ -1,0 +1,28 @@
+/* Button */
+
+.btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--grey-200);
+    background: #fff;
+    color: var(--black);
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+  }
+
+  .btn:hover{
+    border-color: var(--yellow);
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  }
+  .btn:active{
+    transform: translateY(1px);
+  }
+  .btn[disabled], .btn:disabled{
+    opacity: .6;
+    cursor: not-allowed;
+  }

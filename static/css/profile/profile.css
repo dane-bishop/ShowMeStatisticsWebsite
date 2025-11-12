@@ -1,0 +1,7 @@
+/* Profile */
+
+.profile .auth-form { display: grid; gap: 10px; margin-top: 12px; }
+.profile input { padding: 10px 12px; border: 1px solid var(--grey-200); border-radius: 8px; }
+.profile button { padding: 10px 12px; border-radius: 8px; background: var(--yellow); border: none; font-weight: 700; color: var(--black); }
+.profile .grid.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+   

@@ -9,7 +9,7 @@
 
   <div class="grid two">
     <!-- Left: Account card -->
-    <div class="card">
+    <div class="card long">
       <div class="card-title">Your Account</div>
       <div class="card-meta">Email: {{ user.email }}</div>
       <div class="card-meta">Member since: {{ user.created_at.strftime('%b %d, %Y') if user.created_at else '—' }}</div>
@@ -41,6 +41,8 @@
         <button type="submit" class="btn btn-secondary">Sign out</button>
       </form>
     </div>
+
+
 
     <!-- Right: Favorites -->
     <!-- Add favorite players here -->

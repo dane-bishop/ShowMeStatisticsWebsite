@@ -1,6 +1,4 @@
-  /* =========================================================
-     10) Team Tabs + News
-     ========================================================= */
+/* Team Tabs */
      .team-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
   
      .team-tabs.tabs-compact {

@@ -1,6 +1,5 @@
- /* =========================================================
-     2) Top Bar + Dropdown
-     ========================================================= */
+/* Topbar */
+
      .topbar {
         display: flex; align-items: center; justify-content: space-between;
         gap: 16px; padding: 12px 20px;
@@ -64,3 +63,5 @@
         color: var(--black);
         box-shadow: 0 2px 8px rgba(0,0,0,.08);
       }
+
+      .user-chip { margin-right: .5rem; opacity: .85; }

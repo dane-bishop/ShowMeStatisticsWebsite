@@ -1,0 +1,9 @@
+/* Panel */
+
+.panel {
+    background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px;
+    padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.05); margin-top: 16px;
+  }
+  .panel-header {
+    font-weight: 800; padding-bottom: 8px; border-bottom: 2px solid var(--grey-200); margin-bottom: 10px;
+  }

@@ -1,6 +1,5 @@
-    /* =========================================================
-     3) Headline Banner (News)
-     ========================================================= */
+/* Headline Banner */
+
      .headline-banner {
         background: linear-gradient(180deg, var(--black), var(--grey-900));
         color: var(--stay-white);

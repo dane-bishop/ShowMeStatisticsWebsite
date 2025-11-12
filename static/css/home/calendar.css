@@ -1,52 +1,4 @@
-  /* =========================================================
-     7) Calendar / Schedule Components
-     ========================================================= */
-  /* Card wrapper (white) with dark header inside */
-  .calendar-card {
-    background: var(--white);
-    border: none;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05);
-  }
-  
-  /* Header bar (dark) */
-  .calendar-header {
-    background: var(--black);
-    color: var(--stay-white);
-    padding: 14px 16px;
-    border-bottom: 4px solid var(--yellow);
-  }
-  .calendar-header .header-row {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  }
-  .calendar-header .title { margin: 0; font-weight: 800; font-size: 1.1rem; letter-spacing: .2px; }
-  .calendar-header .subtitle { font-weight: 500; opacity: .8; margin-left: .35rem; }
-  
-  /* Header chips (record, tags) */
-  .header-chips { display: flex; align-items: center; gap: 8px; }
-  .chip {
-    display: inline-flex; align-items: center;
-    padding: 4px 10px; border-radius: 9999px;
-    font-weight: 700; font-size: .85rem; line-height: 1;
-    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); color: var(--white);
-  }
-  .chip-record { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
-  
-  /* Grid of event cards */
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 14px;
-    background: none;
-    padding: 16px;
-  }
-  .calendar-event {
-    border: 1px solid var(--grey-200);
-    border-radius: 10px;
-    padding: 12px;
-    background: var(--grey-100);
-  }
+/* Calendar */
   
   /* Event substructure */
   .event-top {
@@ -68,5 +20,5 @@
   .calendar-calendar { display: flex; border: none; filter: invert(0) hue-rotate(180deg); }
   .event-date { font-weight: 700; color: var(--invert-black); }
   
-  .empty-state { padding: 16px; color: #666; }
+  .empty-state { padding: 16px; color: #667; }
   

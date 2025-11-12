@@ -1,0 +1,69 @@
+/* Calendar Cards */
+
+
+.calendar-card {
+    display: block;
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: 12px;
+    padding: 14px;
+    color: inherit;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+
+  
+  
+  /* Header bar (dark) */
+  .calendar-header {
+    background: var(--black);
+    color: var(--stay-white);
+    padding: 14px 16px;
+    border-bottom: 4px solid var(--yellow);
+  }
+  .calendar-header .header-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .calendar-header .title { margin: 0; font-weight: 800; font-size: 1.1rem; letter-spacing: .2px; }
+  .calendar-header .subtitle { font-weight: 500; opacity: .8; margin-left: .35rem; }
+  
+  /* Header chips (record, tags) */
+  .header-chips { display: flex; align-items: center; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center;
+    padding: 4px 10px; border-radius: 9999px;
+    font-weight: 700; font-size: .85rem; line-height: 1;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); color: var(--white);
+  }
+  .chip-record { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+  
+  /* Grid of event cards */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    background: none;
+    padding: 16px;
+  }
+
+  .calendar-grid-team-schedule {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(660px, 1fr));
+    gap: 14px;
+    background: none;
+    padding: 16px;
+  }
+
+
+  .calendar-event {
+    display: block;
+    border: 1px solid var(--grey-200);
+    border-radius: 12px;
+    padding: 14px;
+    background: var(--grey-100);
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+
+  .calendar-event:hover {
+    border-color: var(--yellow); box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-1px);
+  }

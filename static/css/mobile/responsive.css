@@ -1,6 +1,4 @@
-  /* =========================================================
-     13) Responsive
-     ========================================================= */
+/* Responsive */
      @media (max-width: 920px) {
         .layout, .team-layout { grid-template-columns: 1fr; }
         .filters, .team-news { position: static; }

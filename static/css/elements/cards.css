@@ -1,16 +1,24 @@
-  /* =========================================================
-     9) Cards / Lists / Tables
-     ========================================================= */
+/* Cards */
+
      .list-page h2 { margin: 10px 0 16px; }
   
-     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(640px, 1fr)); gap: 14px; }
      .cards.three { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
      
+     .cards.one { grid-template-columns: repeat(auto-fit, minmax(660px, 1fr)); }
+
      .card {
-       display: block; background: var(--white); border: 1px solid var(--grey-200);
-       border-radius: 12px; padding: 14px; text-decoration: none; color: inherit;
+       display: block; 
+       background: var(--white); 
+       border: 1px solid var(--grey-200);
+       border-radius: 12px;
+       padding: 14px; 
+       text-decoration: none; 
+       color: inherit;
        box-shadow: 0 2px 8px rgba(0,0,0,.05);
      }
+
+     
    
      .card:hover {
        border-color: var(--yellow); box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-1px);

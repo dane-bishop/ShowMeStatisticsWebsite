@@ -1,14 +1,8 @@
-  /* =========================================================
-     11) Forms / Profile / Panels
-     ========================================================= */
-     .profile .auth-form { display: grid; gap: 10px; margin-top: 12px; }
-     .profile input { padding: 10px 12px; border: 1px solid var(--grey-200); border-radius: 8px; }
-     .profile button { padding: 10px 12px; border-radius: 8px; background: var(--yellow); border: none; font-weight: 700; color: var(--black); }
+/* Forms */
      
-     .user-chip { margin-right: .5rem; opacity: .85; }
+     
      .linklike { background: none; border: none; padding: 0; cursor: pointer; color: inherit; text-decoration: underline; }
-     .profile .grid.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-   
+     
      .form-card .auth-form label, .card .auth-form label { width: min(520px, 100%);margin: 40px auto;background: var(--white);border: 1px solid var(--grey-200);border-radius: 12px;padding: 20px;box-shadow: 0 8px 30px rgba(0,0,0,.06);
      }
      .form-card h2{margin: 0 0 .25rem 0;font-size: 1.6rem;font-weight: 800;letter-spacing: .2px;
@@ -48,32 +42,7 @@
      .form-row.between{
        justify-content: space-between;
      }
-     .btn{
-       display: inline-flex;
-       align-items: center;
-       justify-content: center;
-       padding: 10px 14px;
-       border-radius: 8px;
-       border: 1px solid var(--grey-200);
-       background: #fff;
-       color: var(--black);
-       font-weight: 800;
-       cursor: pointer;
-       text-decoration: none;
-       transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
-     }
-   
-     .btn:hover{
-       border-color: var(--yellow);
-       box-shadow: 0 4px 16px rgba(0,0,0,.08);
-     }
-     .btn:active{
-       transform: translateY(1px);
-     }
-     .btn[disabled], .btn:disabled{
-       opacity: .6;
-       cursor: not-allowed;
-     }
+     
      .form-card a{
        color: inherit;
        text-decoration: underline;
@@ -102,12 +71,6 @@
      }
    
    
-     .panel {
-       background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px;
-       padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.05); margin-top: 16px;
-     }
-     .panel-header {
-       font-weight: 800; padding-bottom: 8px; border-bottom: 2px solid var(--grey-200); margin-bottom: 10px;
-     }
+     
      
    

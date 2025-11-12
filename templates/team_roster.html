@@ -26,7 +26,7 @@
 
 
         {% if roster %}
-        <div class="cards three">
+        <div class="cards one">
           {% for r in roster %}
             <a class="card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
               

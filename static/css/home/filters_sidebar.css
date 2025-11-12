@@ -1,6 +1,5 @@
- /* =========================================================
-     5) Filters Sidebar / Right Rail
-     ========================================================= */
+/* Filters Sidebar */
+
      .filters {
         background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px;
         padding: 12px; position: sticky; top: 76px; box-shadow: 0 2px 8px rgba(0,0,0,.05);

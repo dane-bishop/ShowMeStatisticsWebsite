@@ -3,8 +3,10 @@
 {% block title %}Teams • ShowMeStatistics{% endblock %}
 
 {% block content %}
+
+<!-- List of Men's Team Cards -->
 <section class="list-page">
-  <h2>Teams</h2>
+  <h1>Teams</h1>
   <h3>Men's Teams</h3>
   <div class="cards">
     {% for team in teams if team.slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
@@ -14,6 +16,9 @@
       </a>
     {% endfor %}
   </div>
+
+
+<!-- List of Women's Team Cards -->
   <h3>Women's Teams</h3>
   <div class="cards">
     {% for team in teams if team.slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
@@ -24,6 +29,9 @@
     {% endfor %}
   </div>
 </section>
+
+
+
 <!-- twitter-->
   <meta charset="UTF-8">
   <title>Mizzou Athletics Feed</title>

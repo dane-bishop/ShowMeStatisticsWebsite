@@ -1,6 +1,4 @@
-  /* =========================================================
-     12) Game Detail
-     ========================================================= */
+/* Game Detail */
      .game-detail .game-hero {
         background: linear-gradient(180deg, var(--black), var(--grey-900));
         color: var(--white); border-radius: 12px; padding: 18px;

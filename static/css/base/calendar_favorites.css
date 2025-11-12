@@ -1,13 +1,6 @@
-  /* =========================================================
-     8) Favorites (Heart) in Calendar Header
-     ========================================================= */
-     .favorite-btn {
-        position: absolute; top: .5rem; right: .5rem;
-        border: 0; background: transparent; font-size: 1.25rem; cursor: pointer;
-      }
-      .favorite-btn.hint { position: absolute; top: .5rem; right: .5rem; text-decoration: none; }
+/* Calendar Favorites */
+
       
-      /* Heart favorite button — clean, no circle */
       .calendar-header .favorite-btn {
         all: unset;
         display: inline-flex; align-items: center; justify-content: center;
