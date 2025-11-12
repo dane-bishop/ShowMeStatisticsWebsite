@@ -44,28 +44,33 @@
       <div class="calendar-grid">
         {% if events %}
           {% for e in events %}
-          <div class="calendar-event">
-            <div class="event-top">
-              <div class="opponent">vs {{ e.opponent_name }}</div>
-              {% if e.result %}
-                <span class="result-badge {{ 'win' if e.result=='W' else 'loss' }}">
-                  {{ e.result }}
-                </span>
-              {% endif %}
-            </div>
-    
-            <div class="event-title">{{ e.game_date }}</div>
-            <div class="event-meta">{{ e.location }}</div>
-            <div class="event-meta scores">{{ e.score_for }} - {{ e.score_against }}</div>
-            <div class="event-meta time">
-              {{ e.game_time }}{% if e.game_number is not none %} • G{{ e.game_number }}{% endif %}
-            </div>
-          </div>
+            <a
+              class="calendar-event"
+              href="{{ url_for('routes.game_detail', game_id=e.id) }}"
+              aria-label="View game {{ e.game_date }} vs {{ e.opponent_name }}"
+            >
+              <div class="event-top">
+                <div class="opponent">vs {{ e.opponent_name }}</div>
+                {% if e.result %}
+                  <span class="result-badge {{ 'win' if e.result=='W' else 'loss' }}">
+                    {{ e.result }}
+                  </span>
+                {% endif %}
+              </div>
+      
+              <div class="event-title">{{ e.game_date }}</div>
+              <div class="event-meta">{{ e.location }}</div>
+              <div class="event-meta scores">{{ e.score_for }} - {{ e.score_against }}</div>
+              <div class="event-meta time">
+                {{ e.game_time }}{% if e.game_number is not none %} • G{{ e.game_number }}{% endif %}
+              </div>
+            </a>
           {% endfor %}
         {% else %}
           <div class="empty-state">No upcoming events found</div>
         {% endif %}
       </div>
+      
     </div>
     
   </div>
