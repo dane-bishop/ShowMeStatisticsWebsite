@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}ShowMeStatistics{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+        <!-- Optional dark mode stylesheet (loaded dynamically) -->
+    <link id="dark-theme" rel="stylesheet" href="{{ url_for('static', filename='dark.css') }}" disabled>
+
 </head>
-
-
 
 <body>
     <!-- Top Left Dropdown Bar -->
@@ -28,11 +29,12 @@
         </div>
 
         <!-- Search Bar -->
-        <form class="search" action="{{ url_for('routes.search') }}" method="get">
-            <input type="text" name="q" placeholder="Search teams, players, scores..." value="{{ request.args.get('q','') }}" />
-            <button type="submit">Search</button>
-        </form>
-
+        <div class="search">
+            <form class="search-form" action="{{ url_for('routes.search') }}" method="get">
+                <input type="text" name="q" placeholder="Search teams, players, scores..." value="{{ request.args.get('q','') }}" />
+                <button type="submit" class="search-btn"> 🔎︎ </button>
+            </form>
+        </div>
 
         <!-- Profile -->
         <div class="topbar-right">
@@ -46,6 +48,23 @@
               <a class="profile-btn" href="{{ url_for('auth.login_form') }}">Sign in/Register</a>
               <!--<a class="profile-btn" href="{{ url_for('auth.register_form') }}">Register</a>-->
             {% endif %}
+          <div>
+                <button id="toggle-theme" class="btn">O</button>
+                <script>
+                    const toggleBtn = document.getElementById('toggle-theme');
+                    const darkTheme = document.getElementById('dark-theme');
+
+                    // Load saved preference
+                    const darkEnabled = localStorage.getItem('dark-mode') === 'true';
+                    if (darkEnabled) darkTheme.disabled = false;
+
+                    toggleBtn.addEventListener('click', () => {
+                    const isDark = !darkTheme.disabled;
+                    darkTheme.disabled = isDark;
+                    localStorage.setItem('dark-mode', !isDark);
+                    });
+                </script>
+            </div>
           </div>
           
     </header>
@@ -71,14 +90,7 @@
       });
     }
     </script>
-
-
-
-
-
   
 {% block scripts %}{% endblock %}
 </body>
 </html>
-
-

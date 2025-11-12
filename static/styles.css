@@ -11,12 +11,11 @@
     --yellow: #ffd000;
     --yellow-700: #c9a400;
     --white: #ffffff;
+    --stay-white: #ffffff;
+    --invert-grey: #2b2b2b;
+    --invert-black: #0b0b0b;
   }
   
-
-
-
-
   /* =========================================================
      1) Base / Reset
      ========================================================= */
@@ -25,8 +24,9 @@
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: var(--grey-100);
+        background-color: var(--grey-100);
     color: var(--black);
+    transition: background-color 0.3s, color 0.3s;
   }
   
   /* Better focus ring for keyboard users */
@@ -48,18 +48,6 @@
     overflow: hidden; clip: rect(0,0,0,0); border: 0;
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
   /* =========================================================
      2) Top Bar + Dropdown
      ========================================================= */
@@ -70,16 +58,18 @@
     position: sticky; top: 0; z-index: 50;
   }
   .topbar-left { display: flex; align-items: center; gap: 12px; }
-  .topbar .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--white); text-decoration: none; font-weight: 700; letter-spacing: .5px; }
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .topbar .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--stay-white); text-decoration: none; font-weight: 700; letter-spacing: .5px; }
   .topbar .brand img { width: 32px; height: 32px; }
   
   .topbar .search { display: flex; align-items: center; flex: 1; max-width: 720px; gap: 8px; margin: 0 12px; }
-  .topbar .search input {
-    flex: 1; padding: 10px 12px; border-radius: 8px;
-    border: 1px solid var(--grey-600); background: var(--grey-900); color: var(--white);
-  }
+  .topbar .search-form { display: flex; width: 100%;}
+  .topbar .search input { width: 100%; padding: 10px 48px 10px 12px; border-radius: 8px; border: 1px solid var(--grey-600); background: var(--grey-900); color: var(--white); }
+
+  .topbar .search-btn:hover { color: var(--stay-white); }
+
   .topbar .search button {
-    padding: 10px 14px; border-radius: 8px; background: var(--yellow);
+    display: flex; padding: 8px 12px; border-radius: 8px; background: var(--yellow);
     border: none; font-weight: 700; cursor: pointer; color: var(--black);
   }
   .topbar .profile-btn {
@@ -88,7 +78,7 @@
   }
   
   .menu-dropdown {
-    background: transparent; color: var(--white);
+    background: transparent; color: var(--stay-white);
     border: 1px solid var(--grey-700); border-radius: 8px; padding: 6px 10px; cursor: pointer;
   }
   .dropdown {
@@ -124,26 +114,12 @@
     color: var(--black);
     box-shadow: 0 2px 8px rgba(0,0,0,.08);
   }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* =========================================================
+    /* =========================================================
      3) Headline Banner (News)
      ========================================================= */
   .headline-banner {
     background: linear-gradient(180deg, var(--black), var(--grey-900));
-    color: var(--white);
+    color: var(--stay-white);
     padding: 14px 20px;
     border-bottom: 3px solid var(--yellow);
     display: flex; align-items: center; gap: 16px;
@@ -157,7 +133,7 @@
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; flex: 1;
   }
   .headline-item {
-    background: rgba(255,255,255,0.05); border: 1px solid var(--grey-700);
+    background: rgba(255,255,255,0.05); border: 1px solid var(--grey-700); color: var(--stay-white);
     border-left: 6px solid var(--yellow); border-radius: 8px; padding: 10px 12px;
   }
   .headline-date { opacity: .7; margin-right: 8px; }
@@ -225,7 +201,7 @@
     flex: 1; height: 50px; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700;
   }
   .select-all-btn { background: var(--yellow); color: var(--black); }
-  .unselect-all-btn { background: var(--black); color: var(--white); }
+  .unselect-all-btn { background: var(--black); color: var(--stay-white); }
   
 
 
@@ -241,7 +217,7 @@
   /* Card wrapper (white) with dark header inside */
   .calendar-card {
     background: var(--white);
-    border: 1px solid var(--grey-200);
+    border: none;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,.05);
@@ -250,7 +226,7 @@
   /* Header bar (dark) */
   .calendar-header {
     background: var(--black);
-    color: var(--white);
+    color: var(--stay-white);
     padding: 14px 16px;
     border-bottom: 4px solid var(--yellow);
   }
@@ -275,6 +251,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 14px;
+    background: none;
     padding: 16px;
   }
   .calendar-event {
@@ -296,13 +273,13 @@
   .result-badge.loss { background: #fdeaea; border-color: #f5c2c0; color: #a22020; }
   
   .event-title { font-weight: 700; margin-bottom: 2px; }
-  .event-meta  { color: var(--grey-700); font-size: .92rem; margin-top: 4px; }
+  .event-meta  { color: var(--invert-grey); font-size: .92rem; margin-top: 4px; }
   .scores      { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   .time        { opacity: .85; }
   
   /* Legacy/extra classes kept for compatibility */
-  .calendar-calendar { display: flex; }
-  .event-date { font-weight: 700; color: var(--black); }
+  .calendar-calendar { display: flex; border: none; filter: invert(0) hue-rotate(180deg); }
+  .event-date { font-weight: 700; color: var(--invert-black); }
   
   .empty-state { padding: 16px; color: #666; }
   
@@ -363,6 +340,7 @@
     border-radius: 12px; padding: 14px; text-decoration: none; color: inherit;
     box-shadow: 0 2px 8px rgba(0,0,0,.05);
   }
+
   .card:hover {
     border-color: var(--yellow); box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-1px);
   }
@@ -489,6 +467,7 @@
     text-decoration: none;
     transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
   }
+
   .btn:hover{
     border-color: var(--yellow);
     box-shadow: 0 4px 16px rgba(0,0,0,.08);
@@ -578,9 +557,11 @@
   
   @media (max-width: 640px) {
     .topbar { flex-wrap: wrap; gap: 10px; padding: 10px 12px; }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
     .topbar-left { width: 100%; justify-content: space-between; }
     .topbar .search { order: 3; width: 100%; margin: 0; }
     .topbar .profile-btn { order: 2; }
+
     .menu-dropdown { padding: 8px 12px; }
     .dropdown { left: 12px; top: 48px; }
   
