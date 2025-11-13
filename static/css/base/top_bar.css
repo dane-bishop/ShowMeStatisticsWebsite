@@ -154,7 +154,7 @@
 }
 
 .dropdown a {
-  color: var(--white);
+  color: var(--stay-white);
   text-decoration: none;
   padding: 12px 20px;
   border-radius: 8px;
