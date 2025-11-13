@@ -1,19 +1,42 @@
-/* Calendar Favorites */
+/* Calendar Favorites - Mizzou Athletics Version */
 
-      
-      .calendar-header .favorite-btn {
-        all: unset;
-        display: inline-flex; align-items: center; justify-content: center;
-        cursor: pointer; font-size: 20px; line-height: 1; padding: 0; color: var(--white);
-        transition: transform .08s ease, color .15s ease, opacity .15s ease;
-      }
-      .calendar-card:not(:has(.calendar-header)) .favorite-btn { color: var(--black); } /* context override */
-      .calendar-header .favorite-btn:hover { transform: scale(1.06); }
-      .calendar-header .favorite-btn:active { transform: scale(0.96); }
-      .calendar-header .favorite-btn.on,
-      .calendar-header .favorite-btn[aria-pressed="true"] {
-        color: #e11d48; text-shadow: 0 0 0 currentColor;
-      }
-      .calendar-header .favorite-btn[aria-pressed="false"] { opacity: 0.9; }
-      .calendar-header .favorite-btn[aria-pressed="false"]:hover { opacity: 1; }
-      
+.calendar-header .favorite-btn {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+  color: #FFFFFF; /* Nike 10A White */
+  transition: transform .08s ease, color .15s ease, opacity .15s ease;
+}
+
+.calendar-card:not(:has(.calendar-header)) .favorite-btn { 
+  color: #000000; /* Nike 00A Black for context override */
+}
+
+.calendar-header .favorite-btn:hover { 
+  transform: scale(1.06); 
+}
+
+.calendar-header .favorite-btn:active { 
+  transform: scale(0.96); 
+}
+
+/* Favorite "on" state - Mizzou Gold */
+.calendar-header .favorite-btn.on,
+.calendar-header .favorite-btn[aria-pressed="true"] {
+  color: #FDB719; /* Mizzou Gold */
+  text-shadow: 0 0 0 currentColor;
+}
+
+/* Favorite "off" state opacity */
+.calendar-header .favorite-btn[aria-pressed="false"] { 
+  opacity: 0.9; 
+}
+
+.calendar-header .favorite-btn[aria-pressed="false"]:hover { 
+  opacity: 1; 
+}

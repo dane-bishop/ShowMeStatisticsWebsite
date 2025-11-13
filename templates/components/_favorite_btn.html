@@ -1,17 +1,15 @@
 {% if current_user.is_authenticated %}
-  <button
+<button
     class="favorite-btn{% if is_favorited %} on{% endif %}"
     data-type="player"
     data-id="{{ player.id }}"
     aria-pressed="{{ 'true' if is_favorited else 'false' }}"
     aria-label="{{ 'Unfavorite' if is_favorited else 'Favorite' }} {{ player.full_name }}"
-    title="{{ 'Unfavorite' if is_favorited else 'Favorite' }} {{ player.full_name }}"
-    style="border:1px solid #ddd; border-radius:999px; width:2rem; height:2rem;">
+    title="{{ 'Unfavorite' if is_favorited else 'Favorite' }} {{ player.full_name }}">
     {{ '♥' if is_favorited else '♡' }}
-  </button>
+</button>
 {% else %}
-  <a class="favorite-btn"
-     href="{{ url_for('auth.login_form', next=request.full_path) }}"
-     style="text-decoration:none;"
-     title="Sign in to favorite players">♡</a>
+<a class="favorite-btn"
+   href="{{ url_for('auth.login_form', next=request.full_path) }}"
+   title="Sign in to favorite players">♡</a>
 {% endif %}

@@ -1,9 +1,20 @@
-/* Panel */
+/* Panel - Mizzou Athletics Version */
 
 .panel {
-    background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px;
-    padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.05); margin-top: 16px;
-  }
-  .panel-header {
-    font-weight: 800; padding-bottom: 8px; border-bottom: 2px solid var(--grey-200); margin-bottom: 10px;
-  }
+  background: var(--white);               /* primary card/panel background */
+  border: 1px solid var(--grey-200);     /* Anthracite border */
+  border-radius: 12px;
+  padding: 16px;                          /* slightly increased padding for premium feel */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 16px;
+  font-family: 'Univers', sans-serif;    /* consistent body font */
+}
+
+.panel-header {
+  font-weight: 800;
+  font-family: 'Clarendon URW', serif;   /* athletic heading font */
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--yellow);/* Mizzou Gold accent */
+  margin-bottom: 10px;
+  color: var(--black);                    /* heading text color */
+}

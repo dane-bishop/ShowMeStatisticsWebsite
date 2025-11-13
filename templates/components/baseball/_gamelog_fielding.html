@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       {% for g in gamelog_fielding %}
-      <tr>
+      <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
         <td>{{ g.game_date or '' }}</td>
         <td>{{ g.opponent_name or '' }}</td>
         <td>{{ g.wl or '' }}</td>

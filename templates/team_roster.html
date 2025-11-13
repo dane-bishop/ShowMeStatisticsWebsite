@@ -4,32 +4,28 @@
 
 {% block content %}
 
-
 <section class="team-layout">
-    <div class="team-main">
+  <div class="team-main">
 
-      {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
-      {% set current_year = team_year %}
-      {% set years = range(2025, 1999, -1) %}
-      {% include "partials/team_tabs.html" %}
+    {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
+    {% set current_year = team_year %}
+    {% set years = range(2025, 1999, -1) %}
+    {% include "partials/team_tabs.html" %}
 
-
-      <div class="calendar-card">
-        <div class="calendar-header">
-          <div class="header-row">
-            <h3 class="title">
-              {{ team.school_name }} {{ team.sport_name }}
-              <span class="subtitle">— {{ team_year }} Roster</span>
-            </h3>
-          </div>
+    <div class="calendar-card">
+      <div class="calendar-header">
+        <div class="header-row">
+          <h3 class="title">
+            {{ team.school_name }} {{ team.sport_name }}
+            <span class="subtitle">— {{ team_year }} Roster</span>
+          </h3>
         </div>
+      </div>
 
-
-        {% if roster %}
+      {% if roster %}
         <div class="cards one">
           {% for r in roster %}
             <a class="card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug, from_team=team.site_slug, year=team_year) }}">
-              
               <div class="card-title">
                 {% if r.jersey %}#{{ r.jersey }} {% endif %}{{ r.full_name }}
               </div>
@@ -48,32 +44,28 @@
                 {% if r.high_school %} • {{ r.high_school }}{% endif %}
               </div>
               {% endif %}
-              
             </a>
           {% endfor %}
         </div>
-        
-        {% else %}
-          <div class="empty-state">No roster found for {{ team_year }}.</div>
-        {% endif %}
-      </div>
+      {% else %}
+        <div class="empty-state">No roster found for {{ team_year }}.</div>
+      {% endif %}
+
     </div>
-  
+  </div>
 
-
-
-
-    <aside class="team-news">
-      <div class="news-header">Team Notes</div>
-      <ul class="news-list">
-        {% for n in news %}
+  <!-- Team Notes -->
+  <aside class="team-news">
+    <div class="news-header">Team Notes</div>
+    <ul class="news-list">
+      {% for n in news %}
         <li>
           <div class="news-title">{{ n.title }}</div>
           <div class="news-date">{{ n.date }}</div>
         </li>
-        {% endfor %}
-      </ul>
-    </aside>
-  </section>
+      {% endfor %}
+    </ul>
+  </aside>
+</section>
 
 {% endblock %}

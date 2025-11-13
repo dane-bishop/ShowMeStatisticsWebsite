@@ -3,10 +3,11 @@
 {% block content %}
 
 <section class="form-card">
-  <h2 style="margin:0 0 .25rem 0;">Create your account</h2>
-  <p class="hint" style="margin:.25rem 0 1rem;">It only takes a minute</p>
+  <h2 class="form-card-title">Create your account</h2>
+  <p class="hint">It only takes a minute</p>
 
   <form method="post" action="{{ url_for('auth.register_submit') }}" class="auth-form" novalidate>
+    
     <label>
       Email
       <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">

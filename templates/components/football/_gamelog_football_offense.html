@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       {% for g in gamelog_football_offense %}
-      <tr>
+      <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
         <td>{{ g.game_date or '' }}</td>
         <td>{{ g.opponent_name or '' }}</td>
         <td>{{ g.pass_comp or 0 }}</td>
@@ -40,7 +40,6 @@
         <td>{{ g.pr_tds or 0 }}</td>
         <td>{{ g.pr_lng or 0 }}</td>
       </tr>
-
       {% endfor %}
     </tbody>
   </table>

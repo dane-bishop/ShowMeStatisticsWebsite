@@ -62,11 +62,12 @@
             </a>
         </div>
 
-        <!-- Search Bar -->
+        <!-- Search Bar with autcomplete-->
         <div class="search">
-            <form class="search-form" action="{{ url_for('routes.search') }}" method="get">
+            <form class="search-form" action="{{ url_for('routes.search') }}" method="get" autocomplete="off">
                 <input type="text" name="q" placeholder="Search teams, players, scores..." value="{{ request.args.get('q','') }}" />
                 <button type="submit" class="search-btn"> 🔎︎ </button>
+                <div id="search-suggestions" class="suggestions"></div>
             </form>
         </div>
 
@@ -125,6 +126,53 @@
     }
     </script>
   
+<script>
+const input = document.getElementById('search-input');
+const suggestions = document.getElementById('search-suggestions');
+
+let debounceTimeout;
+
+input.addEventListener('input', () => {
+  clearTimeout(debounceTimeout);
+  const query = input.value.trim();
+
+  if (!query) {
+    suggestions.innerHTML = '';
+    suggestions.style.display = 'none';
+    return;
+  }
+
+  debounceTimeout = setTimeout(async () => {
+    try {
+      const res = await fetch(`/autocomplete?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+
+      if (!data.length) {
+        suggestions.innerHTML = '<div class="suggestion-item">No matches</div>';
+      } else {
+        suggestions.innerHTML = data.map(item => {
+          let url = "#";
+          if (item.type === "player") url = `/player/${item.slug}`;
+          if (item.type === "team") url = `/team/${item.slug}/${item.year || 2025}`;
+          if (item.type === "score") url = `/game/${item.id}`;
+
+          return `<a class="suggestion-item ${item.type}" href="${url}">${item.name}</a>`;
+        }).join('');
+      }
+      suggestions.style.display = 'block';
+    } catch (err) {
+      console.error(err);
+    }
+  }, 250);
+});
+
+document.addEventListener('click', (e) => {
+  if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+    suggestions.style.display = 'none';
+  }
+});
+</script>
+
 {% block scripts %}{% endblock %}
 </body>
 </html>

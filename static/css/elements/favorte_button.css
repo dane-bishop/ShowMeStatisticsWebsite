@@ -1,8 +1,0 @@
-/* Favorite Button */
-
-.favorite-btn {
-    position: absolute; top: .5rem; right: .5rem;
-    border: 0; background: transparent; font-size: 1.25rem; cursor: pointer;
-  }
-  .favorite-btn.hint { position: absolute; top: .5rem; right: .5rem; text-decoration: none; }
-  
