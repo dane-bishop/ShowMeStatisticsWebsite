@@ -6,6 +6,7 @@
 <section class="news">
   <h2>Latest Mizzou Sports News</h2>
 
+  <!-- Welcome / Placeholder Card -->
   <div class="card">
     <div class="card-title">Welcome to ShowMe News</div>
     <div class="card-meta">
@@ -14,6 +15,7 @@
     </div>
   </div>
 
+  <!-- Placeholder Articles -->
   <div class="news-list">
     <div class="card">
       <div class="card-title">🏈 Football season preview (placeholder)</div>
@@ -33,15 +35,18 @@
     </div>
   </div>
 
+  <!-- Dynamic News Articles -->
   {% if news_items %}
-    {% for article in news_items %}
-      <div class="card">
-        <div class="card-title">{{ article.title }}</div>
-        <div class="card-meta">{{ article.date }} • {{ article.author }}</div>
-        <p>{{ article.summary }}</p>
-        <a href="{{ url_for('view_article', article_id=article.id) }}">Read more →</a>
-      </div>
-    {% endfor %}
+    <div class="news-list">
+      {% for article in news_items %}
+        <div class="card">
+          <div class="card-title">{{ article.title }}</div>
+          <div class="card-meta">{{ article.date }} • {{ article.author }}</div>
+          <p>{{ article.summary }}</p>
+          <a href="{{ url_for('view_article', article_id=article.id) }}">Read more →</a>
+        </div>
+      {% endfor %}
+    </div>
   {% endif %}
 </section>
 {% endblock %}

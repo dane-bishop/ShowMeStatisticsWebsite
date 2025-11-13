@@ -41,18 +41,38 @@
       </div>
     </div>
 
-
     <!-- Box score area (sports override) -->
     {% block boxscore_sections %}
       <div id="box" class="calendar-card">
         <div class="calendar-header">Box Score</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Player</th><th>Position</th><th>Stat 1</th><th>Stat 2</th>
+                <!-- Extend as needed for your sport -->
+              </tr>
+            </thead>
+            <tbody>
+              {# Example alternating rows for CSS 'row-even' / 'row-odd' #}
+              {% for p in game.players %}
+              <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+                <td>{{ p.name }}</td>
+                <td>{{ p.position }}</td>
+                <td>{{ p.stat1 or 0 }}</td>
+                <td>{{ p.stat2 or 0 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% if not game.players %}
         <div class="empty-state">No box score available for this sport.</div>
+        {% endif %}
       </div>
     {% endblock %}
   </div>
 
-
-  
   <!-- Sidebar (optional notes/news) -->
   <aside class="team-news">
     <div class="news-header">Game Notes</div>

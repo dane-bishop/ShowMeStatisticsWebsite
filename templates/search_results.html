@@ -7,7 +7,7 @@
   <h2>Search Results for "{{ query }}"</h2>
 
   <!-- Player Results -->
-  <h3 style="margin-top:1rem;">Players</h3>
+  <h3 class="section-title">Players</h3>
   <div class="cards">
     {% if player_results %}
       {% for p in player_results %}
@@ -17,16 +17,14 @@
             {{ p.school_name }} • {{ p.sport_name }}{% if p.season_year %} • {{ p.season_year }}{% endif %}
           </div>
         </a>
-
       {% endfor %}
     {% else %}
-        <div class="empty-state">No matching players.</div>
+      <div class="empty-state">No matching players.</div>
     {% endif %}
   </div>
 
-
   <!-- Team Results -->
-  <h3 style="margin-top:2rem;">Teams</h3>
+  <h3 class="section-title">Teams</h3>
   <div class="cards">
     {% if team_results %}
       {% for t in team_results %}
@@ -40,15 +38,11 @@
     {% endif %}
   </div>
 
-
   {% if more_players or more_teams %}
-    <div style="margin-top:1rem;">
+    <div class="more-results">
       <a class="button" href="{{ url_for('routes.search', q=query, page=page+1) }}">More results →</a>
     </div>
   {% endif %}
 
-
 </section>
 {% endblock %}
-
-

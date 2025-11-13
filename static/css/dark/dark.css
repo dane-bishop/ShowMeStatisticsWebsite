@@ -1,12 +1,11 @@
-/* Dark Mode */
-
+/* Dark Mode - Mizzou Athletics Version */
 
 :root {
-  --grey-200: #43413b;
-  --grey-100: #262521;
-  --white: #1d1c19;
-  --invert-grey: #adadad;
-  --invert-black: #ffffff;
+  --grey-200: #373A36;      /* Anthracite borders / panels */
+  --grey-100: #1a1a1a;      /* Dark background */
+  --white: #FFFFFF;          /* Text color fallback */
+  --invert-grey: #adadad;    /* secondary text / subtle highlights */
+  --invert-black: #000000;   /* for accents if needed */
 }
 
 /* Global color scheme */
@@ -15,46 +14,64 @@ html {
 }
 
 body {
-  background-color: var(--white);
-  color: #fffddd;
-  border-color: #827661;
+  background-color: var(--grey-100); /* Dark panel base */
+  color: var(--white);                /* Primary text */
+  border-color: var(--grey-200);      /* neutral panel borders */
   transition: background-color 0.3s, color 0.3s;
 }
 
 /* Links, tables, and selections */
-a { color: #7399be; }
-table { border-color: #666359; }
-mark, ::placeholder { color: #cdbda1; }
+a { 
+  color: var(--yellow);               /* Mizzou Gold links */
+  text-decoration: underline;
+}
+table { 
+  border-color: var(--grey-200); 
+}
+mark, ::placeholder { 
+  color: #cdbda1; /* subtle highlight text */
+}
 
+/* Text selection */
 ::selection,
 ::-moz-selection {
-  background-color: #2e4f75 !important;
-  color: #fffddd !important;
+  background-color: var(--yellow);    /* Mizzou Gold highlight */
+  color: var(--black);
 }
 
 /* Inputs and autofill styling */
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-  background-color: #47441b !important;
-  color: #fffddd !important;
+  background-color: var(--grey-200) !important; /* dark input panel */
+  color: var(--white) !important;
+  border-radius: 8px;
 }
 
-/* Button overrides */
+/* Buttons */
 .btn {
-  background-color: var(--grey-200);
-  color: var(--white);
+  background-color: var(--yellow);   /* Mizzou Gold buttons */
+  color: var(--black);               /* Nike 00A Black text */
   border: none;
   border-radius: 8px;
   padding: 10px 14px;
   font-size: 16px;
   cursor: pointer;
+  font-family: 'Univers', sans-serif;
   transition: background-color 0.3s, color 0.3s;
 }
 
+.btn:hover,
+.btn:focus {
+  background-color: var(--grey-900); /* dark hover */
+  color: var(--yellow);              /* text turns gold */
+}
+
+/* Calendar adjustments for dark mode */
 .calendar {
-  filter: invert(0.9) hue-rotate(180deg);
-  border: none;
+  background-color: var(--grey-100);
+  border: 1px solid var(--grey-200);
   width: 100%;
   height: 600px;
+  filter: none;  /* remove inversion for proper brand colors */
 }

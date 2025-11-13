@@ -5,33 +5,31 @@
 
 {% block content %}
 
-
 <section class="list-page">
 
-  
-  <!-- Men's Players -->
+  <!-- Page Header -->
   <h1>Players</h1>
+
+  <!-- Men's Players -->
   <h3>Men's Players</h3>
-
-
   <div class="cards three">
     {% for p in players if p.team_slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
-      
       {{ player_card(p) }}
+    {% else %}
+      <div class="card-meta">No men's players found.</div>
     {% endfor %}
   </div>
-
 
   <!-- Women's Players -->
   <h3>Women's Players</h3>
-
-
   <div class="cards three">
     {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
       {{ player_card(p) }}
+    {% else %}
+      <div class="card-meta">No women's players found.</div>
     {% endfor %}
   </div>
 
+</section>
+
 {% endblock %}
-
-

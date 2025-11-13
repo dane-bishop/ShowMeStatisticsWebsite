@@ -33,12 +33,13 @@
 
 <script>
 (function(){
-  var sel = document.getElementById('yearPick');
-  if(!sel) return;
-  var base = "{{ year_base }}";
+  const sel = document.getElementById('yearPick');
+  if (!sel) return;
+
+  const base = "{{ year_base }}";
   sel.addEventListener('change', function(){
     window.location.href = base.replace('/0', '/' + this.value);
   });
 })();
 </script>
-  
+

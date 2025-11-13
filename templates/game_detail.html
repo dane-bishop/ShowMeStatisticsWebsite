@@ -1,38 +1,52 @@
 {% extends 'base.html' %}
 
-{% block title %}Game Detail • ShowMeStatistics{% endblock %}
+{% block title %}{{ game.sport }} • {{ game.school_name }} vs {{ game.opponent_name }}{% endblock %}
 
 {% block content %}
 <section class="game-detail">
-  <div class="game-hero">
-    <div class="game-meta">
+  
+  <!-- Game Hero / Header -->
+  <div class="calendar-card game-hero">
+    <div class="calendar-header">
       <div class="pill">{{ game.sport }}</div>
-      <h2 class="matchup">Tigers vs {{ game.opponent_team }}</h2>
-      <div class="sub">{{ game.date }} • {{ game.location }}</div>
+      <h2 class="matchup">{{ game.school_name }} vs {{ game.opponent_name or 'Opponent' }}</h2>
+      <div class="sub">
+        {{ game.date }}
+        {% if game.location %} • {{ game.location }}{% endif %}
+        {% if game.home_away %} • {{ game.home_away }}{% endif %}
+      </div>
     </div>
   </div>
 
-  <div class="game-cards">
+  <!-- Game Meta Cards -->
+  <div class="cards four">
     <div class="card">
       <div class="card-title">Opponent</div>
       <div class="card-meta">{{ game.opponent_name }}</div>
     </div>
     <div class="card">
       <div class="card-title">Record</div>
-      <div class="card-meta">{{ game.opponent_record }}</div>
+      <div class="card-meta">{{ game.opponent_record or 'N/A' }}</div>
     </div>
     <div class="card">
       <div class="card-title">Venue</div>
-      <div class="card-meta">{{ game.location }}</div>
+      <div class="card-meta">{{ game.location or 'N/A' }}</div>
     </div>
     <div class="card">
       <div class="card-title">Date</div>
-      <div class="card-meta">{{ game.date }}</div>
+      <div class="card-meta">{{ game.date or 'N/A' }}</div>
     </div>
   </div>
 
-  <a class="profile-btn" href="{{ url_for('routes.home') }}">Back to Home</a>
+  <!-- Optional Stats / Box Score Tabs -->
+  {% block boxscore_sections %}
+    <div class="calendar-card">
+      <div class="calendar-header">Box Score</div>
+      <div class="empty-state">No box score available for this sport.</div>
+    </div>
+  {% endblock %}
+
+  <!-- Back Link -->
+  <a class="profile-btn" href="{{ url_for('routes.home') }}">← Back to Home</a>
 </section>
 {% endblock %}
-
-

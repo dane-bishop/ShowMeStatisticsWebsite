@@ -1,76 +1,127 @@
-/* Forms */
-     
-     
-     .linklike { background: none; border: none; padding: 0; cursor: pointer; color: inherit; text-decoration: underline; }
-     
-     .form-card .auth-form label, .card .auth-form label { width: min(520px, 100%);margin: 40px auto;background: var(--white);border: 1px solid var(--grey-200);border-radius: 12px;padding: 20px;box-shadow: 0 8px 30px rgba(0,0,0,.06);
-     }
-     .form-card h2{margin: 0 0 .25rem 0;font-size: 1.6rem;font-weight: 800;letter-spacing: .2px;
-     }
-     .form-card .hint{margin: .25rem 0 1rem;color: #666;font-size: .95rem;
-     }
-     .auth-form .btn { margin-top: 8px; }
-     .auth-form label{display: block;font-weight: 700;
-     }
-     .auth-form label input{display: block;width: 100%;margin-top: 6px;padding: 12px;border: 1px solid var(--grey-200);border-radius: 8px;background: #fff;color: var(--black);transition: border-color .15s ease, box-shadow .15s ease;
-     }
-     .auth-form label input::placeholder{
-       color: #9aa0a6;
-     }
-     .auth-form label.checkbox input {
-       display: inline-block;     /* undo display:block */
-       width: 16px;               /* undo width:100% */
-       height: 16px;
-       margin: 0;                 /* undo margin-top */
-       flex: 0 0 auto;
-     }
-     
-     /* (optional) ensure the text doesn't try to fill the line */
-     .auth-form label.checkbox span {
-       display: inline;
-     }
-     .auth-form label input:focus{
-       outline: none;
-       border-color: var(--yellow);
-       box-shadow: 0 0 0 3px rgba(255,208,0, .25);
-     }
-     .form-row{
-       display: flex;
-       align-items: center;
-       gap: 12px;
-     }
-     .form-row.between{
-       justify-content: space-between;
-     }
-     
-     .form-card a{
-       color: inherit;
-       text-decoration: underline;
-       text-underline-offset: 2px;
-     }
-     .form-card a:hover{
-       text-decoration-thickness: 2px;
-     }
-     .auth-form label.checkbox {
-       display: inline-flex;              /* beats .auth-form label {display:block} */
-       align-items: center;
-       gap: 8px;                          /* space between "Remember me" and the box */
-       padding: 0;                        /* optional: remove extra padding */
-     }
-     
-     /* Undo the generic input rules for the checkbox specifically */
-     .auth-form label.checkbox input[type="checkbox"] {
-       display: inline-block;             /* undo display:block */
-       width: 16px;                       /* undo width:100% */
-       align-items: center;
-       height: 56px;
-       margin-left: 15px;
-       margin: 4px;                         /* undo margin-top */
-       flex: 0 0 auto; 
-       padding: 5px;                   /* don’t stretch */
-     }
-   
-   
-     
-     
-   
+/* Forms - Mizzou Athletics Version */
+
+.linklike {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Form card labels */
+.form-card .auth-form label,
+.card .auth-form label {
+  width: min(520px, 100%);
+  margin: 40px auto;
+  background: #FFFFFF; /* Nike 10A White */
+  border: 1px solid #373A36; /* Nike 06F Anthracite */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+  font-family: 'Univers', sans-serif; /* Brand body font */
+  color: #000000; /* Nike 00A Black */
+}
+
+/* Form card headings */
+.form-card h2 {
+  margin: 0 0 .25rem 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  font-family: 'Clarendon URW', serif; /* Brand header font */
+  text-transform: uppercase;
+  color: #000000; /* Nike 00A Black */
+}
+
+/* Hint text */
+.form-card .hint {
+  margin: .25rem 0 1rem;
+  color: #373A36; /* Nike 06F Anthracite */
+  font-size: .95rem;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Buttons inside auth forms */
+.auth-form .btn {
+  margin-top: 8px;
+  font-family: 'Univers', sans-serif;
+  background-color: #FDB719; /* Mizzou Gold */
+  color: #000000; /* Nike 00A Black */
+  border: 2px solid #000000;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
+}
+
+.auth-form .btn:hover,
+.auth-form .btn:focus {
+  background-color: #373A36; /* Nike 06F Anthracite */
+  color: #FFFFFF; /* Nike 10A White */
+  border-color: #FDB719; /* Mizzou Gold */
+}
+
+/* Inputs */
+.auth-form label input {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #373A36; /* Nike 06F Anthracite */
+  border-radius: 8px;
+  background: #FFFFFF; /* Nike 10A White */
+  color: #000000; /* Nike 00A Black */
+  font-family: 'Univers', sans-serif;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.auth-form label input::placeholder {
+  color: #9aa0a6; /* Neutral gray for placeholder */
+}
+
+.auth-form label input:focus {
+  outline: none;
+  border-color: #FDB719; /* Mizzou Gold */
+  box-shadow: 0 0 0 3px rgba(253,183,25, .25);
+}
+
+/* Checkbox adjustments */
+.auth-form label.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  font-family: 'Univers', sans-serif;
+}
+
+.auth-form label.checkbox input[type="checkbox"] {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+/* Form row */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-row.between {
+  justify-content: space-between;
+}
+
+/* Form links */
+.form-card a {
+  color: #FDB719; /* Mizzou Gold */
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: 'Univers', sans-serif;
+}
+
+.form-card a:hover {
+  text-decoration-thickness: 2px;
+}

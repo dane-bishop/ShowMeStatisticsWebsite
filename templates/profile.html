@@ -42,30 +42,64 @@
       </form>
     </div>
 
-
-
     <!-- Right: Favorites -->
-    <!-- Add favorite players here -->
-    {% set fps = fav_players | default([]) %}
-
-
-    <!-- Favorite Players as its own section with similar design -->
     <section class="panel">
       <div class="panel-header">Favorite Players</div>
 
+      <!-- Toggle Buttons -->
+      <div class="favorites-toggle">
+        <button type="button" class="fav-tab active" data-team="men">Men's Players</button>
+        <button type="button" class="fav-tab" data-team="women">Women's Players</button>
+      </div>
+
       {% set fps = fav_players | default([]) %}
-      {% if fps %}
-        <div class="cards three">
-          {% for p in fps %}
-            {{ player_card(p) }}
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="card-meta">No favorite players yet. Find a player and tap the ♥ icon.</div>
-      {% endif %}
+
+      <!-- Men's Favorites -->
+      <div class="cards three" id="fav-players-men">
+        {% for p in fps if p.team_slug in ['football','baseball','mens-basketball','mens-golf'] %}
+          {{ player_card(p) }}
+        {% endfor %}
+        {% if fps|selectattr("team_slug", "in", ['football','baseball','mens-basketball','mens-golf'])|list|length == 0 %}
+          <div class="card-meta">No favorite men's players yet.</div>
+        {% endif %}
+      </div>
+
+      <!-- Women's Favorites -->
+      <div class="cards three" id="fav-players-women" style="display:none;">
+        {% for p in fps if p.team_slug in ['womens-soccer','womens-basketball','softball','womens-golf','womens-volleyball'] %}
+          {{ player_card(p) }}
+        {% endfor %}
+        {% if fps|selectattr("team_slug", "in", ['womens-soccer','womens-basketball','softball','womens-golf','womens-volleyball'])|list|length == 0 %}
+          <div class="card-meta">No favorite women's players yet.</div>
+        {% endif %}
+      </div>
+
     </section>
   </div>
 </section>
+
 {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+<script>
+const tabs = document.querySelectorAll('.fav-tab');
+const menCards = document.getElementById('fav-players-men');
+const womenCards = document.getElementById('fav-players-women');
 
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    if (tab.dataset.team === 'men') {
+      menCards.style.display = 'flex';
+      womenCards.style.display = 'none';
+    } else {
+      menCards.style.display = 'none';
+      womenCards.style.display = 'flex';
+    }
+  });
+});
+</script>
+{% endblock %}

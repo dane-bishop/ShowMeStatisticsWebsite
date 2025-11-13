@@ -1,40 +1,87 @@
-/* Cards */
+/* Cards & Tables - Mizzou Athletics Version */
 
-     .list-page h2 { margin: 10px 0 16px; }
-  
-     .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(640px, 1fr)); gap: 14px; }
-     .cards.three { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-     
-     .cards.one { grid-template-columns: repeat(auto-fit, minmax(660px, 1fr)); }
+/* Section headers */
+.list-page h2 {
+  margin: 10px 0 16px;
+  font-family: 'Clarendon URW', serif; /* headings in brand font */
+  font-weight: 800;
+  color: var(--black);
+}
 
-     .card {
-       display: block; 
-       background: var(--white); 
-       border: 1px solid var(--grey-200);
-       border-radius: 12px;
-       padding: 14px; 
-       text-decoration: none; 
-       color: inherit;
-       box-shadow: 0 2px 8px rgba(0,0,0,.05);
-     }
+/* Card grids */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+  gap: 16px;
+}
 
-     
-   
-     .card:hover {
-       border-color: var(--yellow); box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-1px);
-     }
-     .card-title { font-weight: 800; }
-     .card-meta { margin-top: 6px; color: #666; font-size: 13px; }
-     
-     .table {
-       background: var(--white); border: 1px solid var(--grey-200); border-radius: 12px; overflow: hidden;
-     }
-     .row {
-       display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--grey-200);
-     }
-     .row.head {
-       background: var(--black); color: var(--white); font-weight: 800; border-bottom: 4px solid var(--yellow);
-     }
-     .row:last-child { border-bottom: none; }
-     
-   
+.cards.three {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.cards.one {
+  grid-template-columns: repeat(auto-fit, minmax(660px, 1fr));
+}
+
+/* Individual card */
+.card {
+  display: block;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  padding: 16px;
+  text-decoration: none;
+  color: var(--black);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-family: 'Univers', sans-serif;
+  transition: transform 0.12s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--yellow);            /* Mizzou Gold highlight */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+/* Card text */
+.card-title {
+  font-weight: 800;
+  font-family: 'Clarendon URW', serif;
+}
+
+.card-meta {
+  margin-top: 6px;
+  color: #666;
+  font-size: 13px;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Tables */
+.table {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Table rows */
+.row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.row.head {
+  background: var(--black);
+  color: var(--white);
+  font-weight: 800;
+  border-bottom: 4px solid var(--yellow); /* Mizzou Gold accent */
+  font-family: 'Clarendon URW', serif;
+}
+
+.row:last-child {
+  border-bottom: none;
+}

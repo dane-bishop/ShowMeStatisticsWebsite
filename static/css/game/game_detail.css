@@ -1,15 +1,42 @@
-/* Game Detail */
-     .game-detail .game-hero {
-        background: linear-gradient(180deg, var(--black), var(--grey-900));
-        color: var(--white); border-radius: 12px; padding: 18px;
-        border: 1px solid var(--grey-700); margin-bottom: 14px;
-      }
-      .game-detail .pill {
-        display: inline-block; background: var(--yellow); color: var(--black);
-        font-weight: 800; padding: 4px 10px; border-radius: 999px;
-      }
-      .game-detail .matchup { margin: 10px 0 4px; }
-      .game-detail .sub { opacity: .85; }
-      .game-detail .game-cards {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 14px 0 20px;
-      }
+/* Game Detail - Mizzou Athletics Version */
+
+.game-detail .game-hero {
+  background: linear-gradient(180deg, var(--black), var(--grey-900)); /* black to anthracite gradient */
+  color: var(--white);
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid var(--grey-700);  /* subtle anthracite border */
+  margin-bottom: 16px;
+  font-family: 'Univers', sans-serif;
+}
+
+.game-detail .pill {
+  display: inline-block;
+  background: var(--yellow);          /* Mizzou Gold */
+  color: var(--black);                /* Nike 00A Black text */
+  font-weight: 800;
+  font-family: 'Univers', sans-serif;
+  padding: 4px 10px;
+  border-radius: 999px;               /* fully rounded */
+  font-size: 0.85rem;
+}
+
+.game-detail .matchup {
+  margin: 12px 0 6px;
+  font-weight: 700;
+  font-family: 'Clarendon URW', serif; /* bold headings for matchup text */
+}
+
+.game-detail .sub {
+  opacity: 0.85;
+  font-family: 'Univers', sans-serif;
+  font-size: 0.9rem;
+  color: var(--grey-700);             /* subtle subtext */
+}
+
+.game-detail .game-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 16px 0 20px;
+}

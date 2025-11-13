@@ -1,10 +1,42 @@
-/* Filter Buttons */
+/* Filter Buttons - Mizzou Athletics Version */
 
-     .filter-buttons { display: flex; gap: 10px; margin: 12px 0 16px; }
-     .filter-buttons button {
-       flex: 1; height: 50px; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700;
-     }
-     .select-all-btn { background: var(--yellow); color: var(--black); }
-     .unselect-all-btn { background: var(--black); color: var(--stay-white); }
-     
-   
+.filter-buttons {
+  display: flex;
+  gap: 12px;                 /* slightly more breathing room between buttons */
+  margin: 12px 0 16px;
+  font-family: 'Univers', sans-serif;
+}
+
+.filter-buttons button {
+  flex: 1;
+  height: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Univers', sans-serif;
+  transition: transform 0.12s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.select-all-btn {
+  background: var(--yellow); /* Mizzou Gold */
+  color: var(--black);       /* Nike 00A Black text */
+}
+
+.select-all-btn:hover {
+  background: #e6b600;       /* slightly darker gold on hover */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+.unselect-all-btn {
+  background: var(--black);  /* Nike 00A Black */
+  color: var(--stay-white);
+}
+
+.unselect-all-btn:hover {
+  background: #222222;       /* slightly lighter black/anthracite on hover */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
