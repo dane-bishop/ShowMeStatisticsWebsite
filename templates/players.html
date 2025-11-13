@@ -5,32 +5,68 @@
 
 {% block content %}
 
-
 <section class="list-page">
 
-  
-  <!-- Men's Players -->
   <h1>Players</h1>
-  <h3>Men's Players</h3>
+  
+  <!-- Filter Section -->
+  <div class="filters-sidebar">
+    <div class="filters-header">Filter Players</div>
+    
+    <form id="filterForm" method="GET" action="{{ url_for('routes.players') }}" class="filter-form">
+      <!-- Gender Filter -->
+      <div class="filter-group">
+        <label for="genderFilter">Gender</label>
+        <select id="genderFilter" name="gender" onchange="document.getElementById('filterForm').submit()">
+          <option value="all" {% if gender_filter == 'all' %}selected{% endif %}>All</option>
+          <option value="men" {% if gender_filter == 'men' %}selected{% endif %}>Men's</option>
+          <option value="women" {% if gender_filter == 'women' %}selected{% endif %}>Women's</option>
+        </select>
+      </div>
 
+      <!-- Sport Filter -->
+      <div class="filter-group">
+        <label for="sportFilter">Sport</label>
+        <select id="sportFilter" name="sport" onchange="document.getElementById('filterForm').submit()">
+          <option value="all" {% if sport_filter == 'all' %}selected{% endif %}>All Sports</option>
+          {% for sport in all_sports %}
+            <option value="{{ sport }}" {% if sport_filter == sport %}selected{% endif %}>{{ sport }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-  <div class="cards three">
-    {% for p in players if p.team_slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
-      
-      {{ player_card(p) }}
-    {% endfor %}
+      <!-- Year Filter -->
+      <div class="filter-group">
+        <label for="yearFilter">Year</label>
+        <select id="yearFilter" name="year" onchange="document.getElementById('filterForm').submit()">
+          <option value="all" {% if year_filter == 'all' %}selected{% endif %}>All Years</option>
+          {% for year in available_years %}
+            <option value="{{ year }}" {% if year_filter|string == year|string %}selected{% endif %}>{{ year }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
+
+    <a href="{{ url_for('routes.players') }}" class="btn-secondary">Clear Filters</a>
   </div>
 
+  {% if players %}
+    <div class="results-info">
+      <p>Showing {{ players|length }} player{% if players|length != 1 %}s{% endif %}</p>
+    </div>
 
-  <!-- Women's Players -->
-  <h3>Women's Players</h3>
-
-
-  <div class="cards three">
-    {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
-      {{ player_card(p) }}
-    {% endfor %}
-  </div>
+    <!-- All Filtered Players -->
+    <div class="cards three">
+      {% for p in players %}
+        {{ player_card(p) }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <p>No players match the selected filters.</p>
+      <a href="{{ url_for('routes.players') }}">Clear filters</a>
+    </div>
+  {% endif %}
 
 {% endblock %}
 
