@@ -4,32 +4,95 @@
 {% block title %}Players • ShowMeStatistics{% endblock %}
 
 {% block content %}
+<section class="list-page grid two-columns">
 
-<section class="list-page">
-
-  <!-- Page Header -->
-  <h1>Players</h1>
-
-  <!-- Men's Players -->
-  <h3>Men's Players</h3>
-  <div class="cards three">
-    {% for p in players if p.team_slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
-      {{ player_card(p) }}
-    {% else %}
-      <div class="card-meta">No men's players found.</div>
-    {% endfor %}
+  <!-- Left Column: Player Cards -->
+  <div class="cards-column">
+    <h1>Players</h1>
+    
+    <div class="cards three" id="player-cards">
+      {% for p in players %}
+        {{ player_card(p) }}
+      {% endfor %}
+    </div>
   </div>
 
-  <!-- Women's Players -->
-  <h3>Women's Players</h3>
-  <div class="cards three">
-    {% for p in players if p.team_slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
-      {{ player_card(p) }}
-    {% else %}
-      <div class="card-meta">No women's players found.</div>
-    {% endfor %}
-  </div>
+  <!-- Right Column: Filters -->
+  <aside class="filters-column">
+    <h3>Filter Players</h3>
+
+    <!-- Gender Filter -->
+    <div class="filter-group">
+      <div><b>Gender</b></div>
+      <label><input type="checkbox" class="filter-gender" value="Male"> Male</label>
+      <label><input type="checkbox" class="filter-gender" value="Female"> Female</label>
+    </div>
+
+    <!-- Class Year Filter -->
+    <div class="filter-group">
+      <div><b>Class Year</b></div>
+      {% for y in range(2025, 2019, -1) %}
+      <label><input type="checkbox" class="filter-class" value="{{ y }}"> {{ y }}</label>
+      {% endfor %}
+    </div>
+
+    <!-- Sport Filter -->
+    <div class="filter-group">
+      <div><b>Sport</b></div>
+      {% for s in players | map(attribute='team_slug') | unique %}
+      <label>
+        <input type="checkbox" class="filter-sport" value="{{ s }}">
+        {{ s | replace('-', ' ') | title }}
+      </label>
+      {% endfor %}
+    </div>
+
+    <button id="reset-filters" class="btn">Reset Filters</button>
+  </aside>
 
 </section>
 
+<!-- JS for Filtering -->
+<script>
+const cards = document.querySelectorAll('#player-cards .card');
+const genderBoxes = document.querySelectorAll('.filter-gender');
+const classBoxes = document.querySelectorAll('.filter-class');
+const sportBoxes = document.querySelectorAll('.filter-sport');
+const resetBtn = document.getElementById('reset-filters');
+
+function getCheckedValues(boxes) {
+  return Array.from(boxes)
+    .filter(box => box.checked)
+    .map(box => box.value);
+}
+
+function filterCards() {
+  const selectedGenders = getCheckedValues(genderBoxes);
+  const selectedClasses = getCheckedValues(classBoxes);
+  const selectedSports = getCheckedValues(sportBoxes);
+
+  cards.forEach(card => {
+    const cardGender = card.dataset.gender;
+    const cardClass = card.dataset.class;
+    const cardSport = card.dataset.sport;
+
+    const matchesGender = !selectedGenders.length || selectedGenders.includes(cardGender);
+    const matchesClass = !selectedClasses.length || selectedClasses.includes(cardClass);
+    const matchesSport = !selectedSports.length || selectedSports.includes(cardSport);
+
+    card.style.display = (matchesGender && matchesClass && matchesSport) ? '' : 'none';
+  });
+}
+
+// Add event listeners
+[...genderBoxes, ...classBoxes, ...sportBoxes].forEach(box => {
+  box.addEventListener('change', filterCards);
+});
+
+// Reset filters
+resetBtn.addEventListener('click', () => {
+  [...genderBoxes, ...classBoxes, ...sportBoxes].forEach(box => box.checked = false);
+  filterCards();
+});
+</script>
 {% endblock %}
