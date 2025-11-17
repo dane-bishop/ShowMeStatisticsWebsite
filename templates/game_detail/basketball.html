@@ -1,0 +1,57 @@
+{% extends 'game_detail/base.html' %}
+
+{% block tabs_extra %}
+  <a class="tab" href="#player-stats">Player Stats</a>
+
+{% endblock %}
+
+{% block boxscore_sections %}
+
+  <!-- Basketball Stats -->
+  <div id="player-stats" class="calendar-card">
+    <div class="calendar-header">Game Stats</div>
+    {% if player_basketball_stats %}
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th><th>Player</th>
+              <th>MIN</th><th>FG</th><th>FG%</th><th>3PT</th>
+              <th>3PT%</th><th>FT</th><th>FT%</th>
+              <th>OR</th><th>DR</th><th>TOT</th>
+              <th>PF</th><th>AST</th><th>TO</th>
+              <th>BLK</th><th>STL</th><th>PTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in player_basketball_stats %}
+              <tr>
+                <td>{{ r.jersey or '' }}</td>
+                <td>{{ r.full_name }}</td>
+                <td>{{ r.minutes or 0 }}</td>
+                <td>{{ r.fg_made or 0 }} - {{ r.fg_att or 0}}</td>
+                <td>{{ r.fg_pct or 0 }}</td>
+                <td>{{ r.three_made or 0 }} - {{r.three_att or 0}}</td>
+                <td>{{ r.three_pct or 0 }}</td>
+                <td>{{ r.ft_made or 0 }} - {{r.ft_att or 0}}</td>
+                <td>{{ r.ft_pct or 0 }}</td>
+                <td>{{ r.off_r or 0 }}</td>
+                <td>{{ r.dr or 0 }}</td>
+                <td>{{ r.tr or 0 }}</td>
+                <td>{{ r.pf or 0 }}</td>
+                <td>{{ r.ast or 0 }}</td>
+                <td>{{ r.turnovers or 0 }}</td>
+                <td>{{ r.blk or 0 }}</td>
+                <td>{{ r.stl or 0 }}</td>
+                <td>{{ r.pts or 0 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">No game stats.</div>
+    {% endif %}
+  </div>
+
+{% endblock %}

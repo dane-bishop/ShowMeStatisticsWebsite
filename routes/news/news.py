@@ -9,4 +9,4 @@ HEADLINE_ITEMS = [
 
 @routes_bp.route("/news")
 def news():
-    return render_template("news.html", headlines=HEADLINE_ITEMS)
+    return render_template("etc/news.html", headlines=HEADLINE_ITEMS)

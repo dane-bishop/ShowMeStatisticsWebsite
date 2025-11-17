@@ -15,7 +15,7 @@ def search():
     offset = (page - 1) * limit
     if not q:
         return render_template(
-            "search_results.html",
+            "etc/search_results.html",
             query=q,
             player_results=[],
             team_results=[],
@@ -39,7 +39,7 @@ def search():
         more_teams = len(team_results) == limit
 
         return render_template(
-            "search_results.html",
+            "etc/search_results.html",
             query=q,
             player_results=player_results,
             team_results=team_results,

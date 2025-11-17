@@ -12,6 +12,11 @@ from routes.players.player_detail_queries.baseball.gamelog_fielding import GAMEL
 from routes.players.player_detail_queries.baseball.favorites import IS_FAVORITE_SQL
 from routes.players.player_detail_queries.football.player_football_offense import GAMELOG_FOOTBALL_OFFENSE_SQL
 from routes.players.player_detail_queries.football.player_football_defense import GAMELOG_FOOTBALL_DEFENSE_SQL
+from routes.players.player_detail_queries.basketball.player_basketball import GAMELOG_BASKETBALL_SQL
+
+
+
+
 
 
 
@@ -64,6 +69,8 @@ def player_detail(player_slug: str):
 
             sport_name = (player.get("sport_name"))
 
+
+
             if sport_name == "Baseball":
 
                 # Game log hitting
@@ -88,6 +95,10 @@ def player_detail(player_slug: str):
 
                 template_name = "player_detail/baseball.html"
 
+
+
+
+
             
             if sport_name == "Football":
 
@@ -105,6 +116,21 @@ def player_detail(player_slug: str):
                 )
 
                 template_name = "player_detail/football.html"
+
+
+
+            if sport_name == "Men's Basketball" or sport_name == "Women's Basketball":
+
+                # Game log offense
+                cur.execute(GAMELOG_BASKETBALL_SQL, (player["id"],))
+                gamelog_basketball = cur.fetchall()
+
+
+                context.update(
+                    gamelog_basketball=gamelog_basketball,
+                )
+
+                template_name = "player_detail/basketball.html"
 
 
         return render_template(template_name, **context)

@@ -1,0 +1,44 @@
+{% if gamelog_basketball %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th>
+        <th>MIN</th><th>FG</th><th>FG%</th>
+        <th>3PT</th><th>3PT%</th>
+        <th>FT</th><th>FT%</th>
+        <th>OR</th><th>DR</th><th>TOT</th>
+        <th>PF</th><th>AST</th><th>TO</th><th>BLK</th>
+        <th>STL</th><th>PTS</th><th>AVG</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_basketball %}
+      <tr>
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.minutes or 0 }}</td>
+        <td>{{ g.fg_made or 0 }} - {{ g.fg_att }}</td>
+        <td>{{ g.fg_pct or 0 }}</td>
+        <td>{{ g.three_made or 0 }} - {{ g.three_att }}</td>
+        <td>{{ g.three_pct or 0 }}</td>
+        <td>{{ g.ft_made or 0 }} - {{ g.ft_att }}</td>
+        <td>{{ g.ft_pct or 0 }}</td>
+        <td>{{ g.off_r or 0 }}</td>
+        <td>{{ g.dr or 0 }}</td>
+        <td>{{ g.tr or 0 }}</td>
+        <td>{{ g.pf or 0 }}</td>
+        <td>{{ g.ast or 0 }}</td>
+        <td>{{ g.turnovers or 0 }}</td>
+        <td>{{ g.blk or 0 }}</td>
+        <td>{{ g.stl or 0 }}</td>
+        <td>{{ g.pts or 0 }}</td>
+        <td>{{ g.pts_avg or 0 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No game stats logged for this player.</div>
+{% endif %}
