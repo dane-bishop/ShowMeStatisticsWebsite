@@ -1,0 +1,60 @@
+{% extends 'game_detail/base.html' %}
+
+{% block tabs_extra %}
+  <a class="tab" href="#player-stats">Player Stats</a>
+
+{% endblock %}
+
+{% block boxscore_sections %}
+
+  <!-- Basketball Stats -->
+  <div id="player-stats" class="calendar-card">
+    <div class="calendar-header">Game Stats</div>
+    {% if player_volleyball_stats %}
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+                <th>#</th><th>Player</th>
+                <th>WL</th><th>SP</th><th>K</th>
+                <th>E</th><th>TA</th>
+                <th>H%</th><th>AST</th>
+                <th>E</th><th>SA</th><th>SE</th>
+                <th>DRE</th><th>DD</th><th>SOLO</th><th>AST</th>
+                <th>E</th><th>BLKS</th><th>BHE</th><th>PTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in player_volleyball_stats %}
+              <tr>
+                <td>{{ r.jersey or '' }}</td>
+                <td>{{ r.full_name }}</td>
+                <td>{{ r.wl or 0 }}</td>
+                <td>{{ r.sp or 0 }}</td>
+                <td>{{ r.k or 0 }}</td>
+                <td>{{ r.ae or 0 }}</td>
+                <td>{{ r.ta or 0 }}</td>
+                <td>{{ r.h_pct or 0 }}</td>
+                <td>{{ r.ast or 0 }}</td>
+                <td>{{ r.e or 0 }}</td>
+                <td>{{ r.sa or 0 }}</td>
+                <td>{{ r.se or 0 }}</td>
+                <td>{{ r.dre or 0 }}</td>
+                <td>{{ r.dd or 0 }}</td>
+                <td>{{ r.solo or 0 }}</td>
+                <td>{{ r.blk_ast or 0 }}</td>
+                <td>{{ r.blk_e or 0 }}</td>
+                <td>{{ r.tot_blk or 0 }}</td>
+                <td>{{ r.bhe or 0 }}</td>
+                <td>{{ r.pts or 0 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <div class="empty-state">No game stats.</div>
+    {% endif %}
+  </div>
+
+{% endblock %}

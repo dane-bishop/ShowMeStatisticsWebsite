@@ -1,0 +1,17 @@
+{% extends 'player_detail/base.html' %}
+
+{% block tabs_extra %}
+  <a class="tab" href="#gamelog-volleyball">Gamelog</a>
+  <a class="tab" href="#highs">Season Highs</a>
+{% endblock %}
+
+{% block gamelog_sections %}
+  <div id="gamelog-volleyball" class="calendar-card">
+    <div class="calendar-header">Game Log</div>
+    {% include 'components/volleyball/_gamelog_volleyball.html' %}
+  </div>
+
+
+
+
+{% endblock %}

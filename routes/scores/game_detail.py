@@ -3,12 +3,13 @@ from flask import redirect, render_template, url_for
 from core.get_db_connection import get_db_connection
 from psycopg2.extras import RealDictCursor
 from routes.scores.game_detail_queries.game import GAME_SQL
-from routes.scores.game_detail_queries.player_hitting import PLAYER_HITTING_STATS_SQL
-from routes.scores.game_detail_queries.player_pitching import PLAYER_PITCHING_STATS_SQL
-from routes.scores.game_detail_queries.player_fielding import PLAYER_FIELDING_STATS_SQL
-from routes.scores.game_detail_queries.player_football_offense import PLAYER_FOOTBALL_OFFENSE_STATS_SQL
-from routes.scores.game_detail_queries.player_football_defense import PLAYER_FOOTBALL_DEFENSE_STATS_SQL
-from routes.scores.game_detail_queries.player_basketball import PLAYER_BASKETBALL_STATS_SQL
+from routes.scores.game_detail_queries.baseball.player_hitting import PLAYER_HITTING_STATS_SQL
+from routes.scores.game_detail_queries.baseball.player_pitching import PLAYER_PITCHING_STATS_SQL
+from routes.scores.game_detail_queries.baseball.player_fielding import PLAYER_FIELDING_STATS_SQL
+from routes.scores.game_detail_queries.football.player_football_offense import PLAYER_FOOTBALL_OFFENSE_STATS_SQL
+from routes.scores.game_detail_queries.football.player_football_defense import PLAYER_FOOTBALL_DEFENSE_STATS_SQL
+from routes.scores.game_detail_queries.basketball.player_basketball import PLAYER_BASKETBALL_STATS_SQL
+from routes.scores.game_detail_queries.volleyball.player_volleyball import PLAYER_VOLLEYBALL_STATS_SQL
 
 
 
@@ -84,6 +85,20 @@ def game_detail(game_id: int):
                 )
 
                 template_name = "game_detail/basketball.html"
+
+
+            # IF SPORT IS VOLLEYBALL
+            if sport_name == "Women's Volleyball":
+
+                cur.execute(PLAYER_VOLLEYBALL_STATS_SQL, (game_id,))
+                player_volleyball_stats = cur.fetchall()
+
+
+                context.update(
+                    player_volleyball_stats=player_volleyball_stats,
+                )
+
+                template_name = "game_detail/volleyball.html"
                 
 
 

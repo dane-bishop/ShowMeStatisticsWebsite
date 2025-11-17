@@ -51,7 +51,7 @@
 
     <!-- Favorite Players as its own section with similar design -->
     <section class="panel">
-      <div class="panel-header">Favorite Players</div>
+      <div class="panel-header">Saved Players</div>
 
       {% set fps = fav_players | default([]) %}
       {% if fps %}
@@ -61,7 +61,7 @@
           {% endfor %}
         </div>
       {% else %}
-        <div class="card-meta">No favorite players yet. Find a player and tap the ♥ icon.</div>
+        <div class="card-meta">No saved players yet. Find a player and tap the ♥ icon.</div>
       {% endif %}
     </section>
   </div>

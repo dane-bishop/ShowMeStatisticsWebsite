@@ -1,0 +1,45 @@
+{% if gamelog_volleyball %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th>
+        <th>WL</th><th>SP</th><th>K</th>
+        <th>E</th><th>TA</th>
+        <th>H%</th><th>AST</th>
+        <th>E</th><th>SA</th><th>SE</th>
+        <th>DRE</th><th>DD</th><th>SOLO</th><th>AST</th>
+        <th>E</th><th>BLKS</th><th>BHE</th><th>PTS</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_volleyball %}
+      <tr>
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.wl or 0 }}</td>
+        <td>{{ g.sp or 0 }}</td>
+        <td>{{ g.k or 0 }}</td>
+        <td>{{ g.ae or 0 }}</td>
+        <td>{{ g.ta or 0 }}</td>
+        <td>{{ g.h_pct or 0 }}</td>
+        <td>{{ g.ast or 0 }}</td>
+        <td>{{ g.e or 0 }}</td>
+        <td>{{ g.sa or 0 }}</td>
+        <td>{{ g.se or 0 }}</td>
+        <td>{{ g.dre or 0 }}</td>
+        <td>{{ g.dd or 0 }}</td>
+        <td>{{ g.solo or 0 }}</td>
+        <td>{{ g.blk_ast or 0 }}</td>
+        <td>{{ g.blk_e or 0 }}</td>
+        <td>{{ g.tot_blk or 0 }}</td>
+        <td>{{ g.bhe or 0 }}</td>
+        <td>{{ g.pts or 0 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No game stats logged for this player.</div>
+{% endif %}
