@@ -1,0 +1,15 @@
+/* Design Tokens - Mizzou Athletics Version */
+:root {
+  --black: #000000;          /* Nike 00A Black */
+  --grey-900: #373A36;       /* Nike 06F Anthracite - darkest shade for panels/borders */
+  --grey-700: #555753;       /* lighter Anthracite variant if needed */
+  --grey-600: #7A7B78;       /* lighter Anthracite variant */
+  --grey-200: #e5e5e5;       /* neutral light gray (unchanged) */
+  --grey-100: #f2f2f2;       /* neutral light background (unchanged) */
+  --yellow: #FDB719;         /* Mizzou Gold */
+  --yellow-700: #c39a00;     /* darker Gold for hover/active states */
+  --white: #FFFFFF;           /* Nike 10A White */
+  --stay-white: #FFFFFF;      /* for elements that must remain white */
+  --invert-grey: #373A36;     /* same as grey-900 */
+  --invert-black: #000000;    /* same as black */
+}

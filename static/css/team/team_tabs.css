@@ -1,0 +1,107 @@
+/* Team Tabs - Mizzou Athletics Version */
+
+.team-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-family: 'Univers', sans-serif;
+}
+
+.team-tabs.tabs-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px; /* touch-friendly */
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--grey-200);
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+
+.team-tabs .tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--black);
+  border: 1px solid var(--grey-200);
+  background: var(--white);
+  transition: transform 0.12s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.team-tabs .tab.active,
+.tab.active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  font-weight: 700;
+  color: var(--black);
+}
+
+.team-tabs .tab:hover {
+  background: #ffe066; /* slightly lighter gold on hover */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+.tab.select-wrapper select {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Team News Panel */
+
+.team-news {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  padding: 14px; /* consistent with cards and panels */
+  position: sticky;
+  top: 76px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-family: 'Univers', sans-serif;
+}
+
+.news-header {
+  font-weight: 800;
+  font-family: 'Clarendon URW', serif; /* heading style for panel title */
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--yellow); /* Mizzou Gold accent */
+  margin-bottom: 12px;
+}
+
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-list li {
+  padding: 12px 8px; /* slightly larger for touch */
+  border-bottom: 1px solid var(--grey-200);
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.news-list li:hover {
+  background: rgba(253,183,25,0.1); /* subtle gold hover effect */
+}
+
+.news-list li:last-child {
+  border-bottom: none;
+}
+
+.news-title {
+  font-weight: 700;
+  color: var(--black);
+}
+
+.news-date {
+  color: #666;
+  font-size: 13px;
+}

@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% from "components/player_card.html" import player_card %}
 
 {% block title %}Home • ShowMeStatistics{% endblock %}
 
 {% block banner %}
+<!-- News Banner -->
 <section class="headline-banner">
+  <a href="{{ url_for('routes.news') }}" class="news-btn">News</a>
   <div class="headlines">
     {% for h in headlines %}
       <div class="headline-item">
@@ -16,30 +19,118 @@
 {% endblock %}
 
 {% block content %}
+
+<!-- Upcoming Events -->
 <section class="layout">
   <div class="calendar-card">
     <div class="calendar-header">Upcoming Events</div>
     <div class="calendar-grid">
       {% for e in events %}
-        <a class="calendar-event" href="{{ url_for('game_detail', game_id=e.id) }}">
-          <div class="event-date">{{ e.date }}</div>
-          <div class="event-title">{{ e.title }}</div>
-          <div class="event-meta">{{ e.sport }} • {{ e.location }}</div>
+        <a class="calendar-event" href="{{ url_for('routes.game_detail', game_id=e.id) }}">
+          <div class="event-date">{{ e.game_date }}</div>
+          <div class="event-title">VS {{ e.opponent_name }}</div>
+          <div class="event-meta">{{ e.sport_name }} • {{ e.location }}</div>
         </a>
       {% endfor %}
     </div>
+
+    <!-- Embedded Google Calendar -->
+    <div class="calendar-calendar">
+      <iframe id="gcal-frame" 
+              src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FChicago"
+              style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
   </div>
-  <aside class="filters">
-    <div class="filters-header">Filter Sports</div>
-    <form method="get" action="/">
-      {% for s in sports %}
-      <label class="checkbox">
-        <input type="checkbox" name="sports" value="{{ s }}" {% if not selected_sports or s in selected_sports %}checked{% endif %} />
-        <span>{{ s }}</span>
-      </label>
-      {% endfor %}
-      <button type="submit" class="apply-btn">Apply</button>
-    </form>
-  </aside>
 </section>
+
+<!-- Filter Sports Section -->
+<section class="filters">
+  <div class="filters-header">Filter Sports</div>
+
+  <div class="filter-buttons">
+    <button type="button" class="select-all-btn">Select All</button>
+    <button type="button" class="unselect-all-btn">Unselect All</button>
+  </div>
+
+  <div id="calendar-toggles">
+    <!-- Hidden 'All' checkbox -->
+    <input type="checkbox" id="deselect" value="all-calendars" hidden>
+
+    <div><b>Men's Sports</b><br>
+      <label><input type="checkbox" value="baseball"> Baseball</label><br>
+      <label><input type="checkbox" value="basketball"> Basketball</label><br>
+      <label><input type="checkbox" value="football"> Football</label><br>
+      <label><input type="checkbox" value="golf"> Golf</label><br>
+      <label><input type="checkbox" value="wrestling"> Wrestling</label><br>
+    </div>
+
+    <div><b>Women's Sports</b><br>
+      <label><input type="checkbox" value="basketball"> Basketball</label><br>
+      <label><input type="checkbox" value="golf"> Golf</label><br>
+      <label><input type="checkbox" value="gymnastics"> Gymnastics</label><br>
+      <label><input type="checkbox" value="soccer"> Soccer</label><br>
+      <label><input type="checkbox" value="softball"> Softball</label><br>
+      <label><input type="checkbox" value="tennis"> Tennis</label><br>
+      <label><input type="checkbox" value="volleyball"> Volleyball</label><br>
+    </div>
+
+    <div><b>Coeval Sports</b><br>
+      <label><input type="checkbox" value="cross-country"> Cross Country</label><br>
+      <label><input type="checkbox" value="track-field"> Track and Field</label><br>
+      <label><input type="checkbox" value="swimming-diving"> Swimming and Diving</label><br>
+    </div>
+  </div>
+</section>
+
+<!-- Favorite Players -->
+<section class="panel">
+  <div class="panel-header">Favorite Players</div>
+  {% set fps = fav_players | default([]) %}
+  {% if fps %}
+    <div class="cards three">
+      {% for p in fps %}
+        {{ player_card(p) }}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card-meta">No favorite players yet. Find a player and tap the ♥ icon.</div>
+  {% endif %}
+</section>
+
+<!-- Calendar Script -->
+<script>
+const iframe = document.getElementById('gcal-frame');
+const checkboxes = document.querySelectorAll('#calendar-toggles input[type="checkbox"]');
+const selectAllBtn = document.querySelector('.select-all-btn');
+const unselectAllBtn = document.querySelector('.unselect-all-btn');
+const allBox = document.getElementById('deselect');
+
+function updateCalendar() {
+  const base = 'https://calendar.google.com/calendar/embed?ctz=America/Chicago';
+  const selected = Array.from(checkboxes)
+    .filter(cb => cb.checked && cb.id !== 'deselect')
+    .map(cb => '&src=' + encodeURIComponent(cb.value))
+    .join('');
+  iframe.src = base + selected;
+}
+
+selectAllBtn.addEventListener('click', () => {
+  checkboxes.forEach(cb => cb.checked = cb.id !== 'deselect');
+  updateCalendar();
+});
+
+unselectAllBtn.addEventListener('click', () => {
+  checkboxes.forEach(cb => cb.checked = false);
+  updateCalendar();
+});
+
+checkboxes.forEach(cb => cb.addEventListener('change', updateCalendar));
+
+// Initialize calendar
+checkboxes.forEach(cb => {
+  if (cb.id !== 'deselect') cb.checked = true;
+});
+updateCalendar();
+</script>
+
 {% endblock %}

@@ -1,0 +1,47 @@
+/* Profile - Mizzou Athletics Version */
+
+.profile .auth-form {
+  display: grid;
+  gap: 12px; /* slightly more spacing for readability */
+  margin-top: 16px;
+  font-family: 'Univers', sans-serif;
+}
+
+.profile input {
+  padding: 12px 14px;                  /* slightly larger touch target */
+  border: 1px solid var(--grey-200);   /* light neutral border */
+  border-radius: 8px;
+  font-family: 'Univers', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.profile input:focus {
+  border-color: var(--yellow);         /* Mizzou Gold focus */
+  box-shadow: 0 0 0 3px rgba(253,183,25,0.25);
+  outline: none;
+}
+
+.profile button {
+  padding: 12px 16px;                   /* accessible touch size */
+  border-radius: 8px;
+  background: var(--yellow);             /* Mizzou Gold */
+  border: none;
+  font-weight: 700;
+  font-family: 'Univers', sans-serif;
+  color: var(--black);                   /* Nike 00A Black text */
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.profile button:hover {
+  background: #e6b600;                   /* slightly darker gold on hover */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+}
+
+.profile .grid.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}

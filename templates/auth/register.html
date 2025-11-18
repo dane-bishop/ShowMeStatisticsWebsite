@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Create Account{% endblock %}
+{% block content %}
+
+<section class="form-card">
+  <h2 class="form-card-title">Create your account</h2>
+  <p class="hint">It only takes a minute</p>
+
+  <form method="post" action="{{ url_for('auth.register_submit') }}" class="auth-form" novalidate>
+    
+    <label>
+      Email
+      <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+    </label>
+
+    <label>
+      Username
+      <input type="text" name="username" autocomplete="username" placeholder="Your handle (optional)">
+    </label>
+
+    <label>
+      Password
+      <input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="Create a strong password">
+    </label>
+
+    <button type="submit" class="btn">Create Account</button>
+  </form>
+
+  <p class="hint" style="margin-top:12px;">
+    Already have an account?
+    <a href="{{ url_for('auth.login_form') }}">Sign in</a>
+  </p>
+</section>
+
+{% endblock %}

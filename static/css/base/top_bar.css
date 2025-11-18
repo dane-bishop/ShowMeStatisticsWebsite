@@ -1,0 +1,197 @@
+/* Enhanced Topbar - Mizzou Athletics Version */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;                     /* increased spacing for premium feel */
+  padding: 16px 24px;            /* more padding top/bottom + sides */
+  background: var(--black);       /* Nike 00A Black */
+  color: var(--white);            /* Nike 10A White */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;                      /* extra space for future logo */
+}
+
+.topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;                      /* more room for logo + text */
+  color: var(--stay-white);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-family: 'Clarendon URW', serif; /* brand font for headings */
+  font-size: 1.25rem;
+}
+
+.topbar .brand img {
+  width: 40px;                     /* adjust for future logo */
+  height: 40px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Search */
+.topbar .search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 720px;
+  gap: 12px;
+  margin: 0 16px;
+}
+
+.topbar .search-form {
+  display: flex;
+  width: 100%;
+}
+
+.topbar .search input {
+  width: 100%;
+  padding: 12px 48px 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-600);
+  background: var(--grey-900);
+  color: var(--white);
+  font-family: 'Univers', sans-serif;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.topbar .search input:focus {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(253, 183, 25, 0.25);
+}
+
+/* Search Button */
+.topbar .search button {
+  display: flex;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--yellow);       /* Mizzou Gold */
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--black);
+  font-family: 'Univers', sans-serif;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.topbar .search button:hover {
+  background: var(--grey-900);
+  color: var(--yellow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Profile Button */
+.topbar .profile-btn {
+  color: var(--black);
+  background: var(--yellow);
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: 'Univers', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.topbar .profile-btn:hover,
+.topbar .profile-btn:focus {
+  background: var(--grey-900);
+  color: var(--yellow);
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
+
+/* Menu Dropdown */
+.menu-dropdown {
+  background: transparent;
+  color: var(--stay-white);
+  border: 1px solid var(--grey-700);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.menu-dropdown:hover {
+  border-color: var(--yellow);
+  box-shadow: 0 2px 8px rgba(253, 183, 25, 0.2);
+}
+
+/* Dropdown Panel */
+.dropdown {
+  position: absolute;
+  top: 52px;
+  left: 16px;
+  display: none;
+  flex-direction: column;
+  background: var(--grey-900);
+  border: 1px solid var(--grey-700);
+  border-radius: 14px;
+  min-width: 180px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.18);
+  padding: 8px 0;
+  z-index: 100;
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
+
+.dropdown.open {
+  display: flex;
+}
+
+.dropdown a {
+  color: var(--stay-white);
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin: 2px 8px;
+  font-size: 1rem;
+  transition: background 0.15s, color 0.15s;
+  letter-spacing: 0.2px;
+  font-family: 'Univers', sans-serif;
+}
+
+.dropdown a:hover {
+  background: var(--yellow);
+  color: var(--black);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+/* User Chip */
+.user-chip {
+  margin-right: 0.5rem;
+  opacity: 0.85;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .topbar .search {
+    max-width: 100%;
+  }
+
+  .topbar-left,
+  .topbar-right {
+    gap: 12px;
+  }
+}

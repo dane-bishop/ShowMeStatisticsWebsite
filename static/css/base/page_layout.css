@@ -1,0 +1,22 @@
+/* Page Layout - Mizzou Athletics Version */
+
+.container {
+  display: flex;
+  width: min(1200px, 100%);
+  margin: 20px auto;         /* keeps centered with some top/bottom spacing */
+  padding: 0 16px;           /* horizontal padding for small screens */
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;  /* main content + sidebar */
+  gap: 24px;                        /* slightly increased for better spacing */
+  align-items: start;
+}
+
+.team-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;                        /* same spacing as .layout for consistency */
+  align-items: start;
+}

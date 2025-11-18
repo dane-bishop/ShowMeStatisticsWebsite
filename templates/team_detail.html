@@ -5,40 +5,82 @@
 {% block content %}
 <section class="team-layout">
   <div class="team-main">
-    <div class="team-tabs">
-      <a class="tab active" href="#scores">Scores</a>
-      <a class="tab" href="#roster">Roster</a>
-      <a class="tab" href="#stats">Stats</a>
-    </div>
+
+    {% set slug = team.slug if team.slug is defined else (team.site_slug if team.site_slug is defined else '') %}
+    {% set current_year = team_year if team_year is defined else 2025 %}
+    {% set years = range(2025, 1999, -1) %}
+    {% include "partials/team_tabs.html" %}
+
+    <!-- Team Schedule -->
     <div class="calendar-card">
-      <div class="calendar-header">{{ team.name }} Schedule</div>
-      <div class="calendar-grid">
+      <div class="calendar-header">
+        <div class="header-row">
+          <h3 class="title">
+            {{ team.name }}
+            <span class="subtitle">— {{ current_year }} Schedule</span>
+          </h3>
+
+          {# Compute team record #}
+          {% set rec = namespace(w=0, l=0, t=0) %}
+          {% for e in events %}
+            {% if e.result == 'W' %}{% set rec.w = rec.w + 1 %}
+            {% elif e.result == 'L' %}{% set rec.l = rec.l + 1 %}
+            {% elif e.result in ['T','D'] %}{% set rec.t = rec.t + 1 %}
+            {% endif %}
+          {% endfor %}
+
+          <div class="header-chips">
+            <span class="chip chip-record">
+              {{ rec.w }}–{{ rec.l }}{% if rec.t %}–{{ rec.t }}{% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="calendar-grid-team-schedule">
         {% if events %}
           {% for e in events %}
-          <div class="calendar-event">
-            <div class="event-date">{{ e.date }}</div>
-            <div class="event-title">{{ e.title }}</div>
-            <div class="event-meta">{{ e.sport }} • {{ e.location }}</div>
-          </div>
+            <a
+              class="calendar-event"
+              href="{{ url_for('routes.game_detail', game_id=e.id) }}"
+              aria-label="View game {{ e.game_date }} vs {{ e.opponent_name }}"
+            >
+              <div class="event-top">
+                <div class="opponent">vs {{ e.opponent_name }}</div>
+                {% if e.result %}
+                  <span class="result-badge {{ 'win' if e.result=='W' else 'loss' }}">
+                    {{ e.result }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div class="event-title">{{ e.game_date }}</div>
+              <div class="event-meta">{{ e.location }}</div>
+              <div class="event-meta scores">{{ e.score_for }} - {{ e.score_against }}</div>
+              <div class="event-meta time">
+                {{ e.game_time }}{% if e.game_number is not none %} • G{{ e.game_number }}{% endif %}
+              </div>
+            </a>
           {% endfor %}
         {% else %}
-          <div class="empty-state">No upcoming events found (placeholder)</div>
+          <div class="empty-state">No upcoming events found</div>
         {% endif %}
       </div>
     </div>
+
   </div>
+
+  <!-- Team News -->
   <aside class="team-news">
     <div class="news-header">Latest News</div>
     <ul class="news-list">
       {% for n in news %}
-      <li>
-        <div class="news-title">{{ n.title }}</div>
-        <div class="news-date">{{ n.date }}</div>
-      </li>
+        <li>
+          <div class="news-title">{{ n.title }}</div>
+          <div class="news-date">{{ n.date }}</div>
+        </li>
       {% endfor %}
     </ul>
   </aside>
 </section>
 {% endblock %}
-
-

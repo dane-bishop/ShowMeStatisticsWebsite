@@ -1,0 +1,141 @@
+{% extends 'game_detail/base.html' %}
+
+{% block tabs_extra %}
+  <a class="tab" href="#box-hitting">Hitting</a>
+  <a class="tab" href="#box-pitching">Pitching</a>
+  <a class="tab" href="#box-fielding">Fielding</a>
+{% endblock %}
+
+{% block boxscore_sections %}
+
+<!-- Hitting Stats -->
+<div id="box-hitting" class="calendar-card">
+  <div class="calendar-header">Hitting</div>
+  {% if player_hitting_stats %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th><th>Player</th><th>AB</th><th>R</th><th>H</th><th>RBI</th>
+            <th>2B</th><th>3B</th><th>HR</th><th>BB</th><th>IBB</th>
+            <th>SB</th><th>SBA</th><th>CS</th><th>HBP</th><th>SH</th><th>SF</th><th>GDP</th><th>K</th><th>AVG</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in player_hitting_stats %}
+          <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+            <td>{{ r.jersey or '' }}</td>
+            <td>{{ r.full_name }}</td>
+            <td>{{ r.ab or 0 }}</td>
+            <td>{{ r.r or 0 }}</td>
+            <td>{{ r.h or 0 }}</td>
+            <td>{{ r.rbi or 0 }}</td>
+            <td>{{ r.doubles or 0 }}</td>
+            <td>{{ r.triples or 0 }}</td>
+            <td>{{ r.hr or 0 }}</td>
+            <td>{{ r.bb or 0 }}</td>
+            <td>{{ r.ibb or 0 }}</td>
+            <td>{{ r.sb or 0 }}</td>
+            <td>{{ r.sba or 0 }}</td>
+            <td>{{ r.cs or 0 }}</td>
+            <td>{{ r.hbp or 0 }}</td>
+            <td>{{ r.sh or 0 }}</td>
+            <td>{{ r.sf or 0 }}</td>
+            <td>{{ r.gdp or 0 }}</td>
+            <td>{{ r.k or 0 }}</td>
+            <td>{{ r.avg if r.avg is not none else '' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">No hitting stats.</div>
+  {% endif %}
+</div>
+
+<!-- Pitching Stats -->
+<div id="box-pitching" class="calendar-card">
+  <div class="calendar-header">Pitching</div>
+  {% if player_pitching_stats %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th><th>Player</th><th>IP</th><th>H</th><th>R</th><th>ER</th><th>BB</th><th>SO</th>
+            <th>2B</th><th>3B</th><th>HR</th><th>WP</th><th>BK</th><th>HBP</th><th>IBB</th>
+            <th>NP</th><th>W</th><th>L</th><th>SV</th><th>G-ERA</th><th>S-ERA</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in player_pitching_stats %}
+          <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+            <td>{{ r.jersey or '' }}</td>
+            <td>{{ r.full_name }}</td>
+            <td>{{ r.ip or 0 }}</td>
+            <td>{{ r.h or 0 }}</td>
+            <td>{{ r.r or 0 }}</td>
+            <td>{{ r.er or 0 }}</td>
+            <td>{{ r.bb or 0 }}</td>
+            <td>{{ r.so or 0 }}</td>
+            <td>{{ r.doubles or 0 }}</td>
+            <td>{{ r.triples or 0 }}</td>
+            <td>{{ r.hr or 0 }}</td>
+            <td>{{ r.wp or 0 }}</td>
+            <td>{{ r.bk or 0 }}</td>
+            <td>{{ r.hbp or 0 }}</td>
+            <td>{{ r.ibb or 0 }}</td>
+            <td>{{ '' if r.np is none else r.np }}</td>
+            <td>{{ r.w or 0 }}</td>
+            <td>{{ r.l or 0 }}</td>
+            <td>{{ r.sv or 0 }}</td>
+            <td>{{ r.gera or '' }}</td>
+            <td>{{ r.sera or '' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">No pitching stats.</div>
+  {% endif %}
+</div>
+
+<!-- Fielding Stats -->
+<div id="box-fielding" class="calendar-card">
+  <div class="calendar-header">Fielding</div>
+  {% if player_fielding_stats %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th><th>Player</th><th>C</th><th>PO</th><th>A</th><th>E</th><th>FLD%</th>
+            <th>DP</th><th>SBA</th><th>CSB</th><th>PB</th><th>CI</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in player_fielding_stats %}
+          <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+            <td>{{ r.jersey or '' }}</td>
+            <td>{{ r.full_name }}</td>
+            <td>{{ r.c or 0 }}</td>
+            <td>{{ r.po or 0 }}</td>
+            <td>{{ r.a or 0 }}</td>
+            <td>{{ r.e or 0 }}</td>
+            <td>{{ r.fld if r.fld is not none else '' }}</td>
+            <td>{{ r.dp or 0 }}</td>
+            <td>{{ r.sba or 0 }}</td>
+            <td>{{ r.csb or 0 }}</td>
+            <td>{{ r.pb or 0 }}</td>
+            <td>{{ r.ci or 0 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">No fielding stats.</div>
+  {% endif %}
+</div>
+
+{% endblock %}

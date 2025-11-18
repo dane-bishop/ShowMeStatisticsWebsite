@@ -1,27 +1,105 @@
 {% extends 'base.html' %}
+{% from "components/player_card.html" import player_card %}
 
 {% block title %}Profile • ShowMeStatistics{% endblock %}
 
 {% block content %}
 <section class="profile">
   <h2>Account</h2>
-  {% if has_account %}
-    <div class="card">
-      <div class="card-title">Welcome back!</div>
-      <div class="card-meta">Personalized content will appear here.</div>
-    </div>
-  {% else %}
-    <div class="card">
-      <div class="card-title">Create your account</div>
-      <div class="card-meta">Sign up to follow teams, get alerts, and more.</div>
-      <form class="auth-form">
-        <input type="email" placeholder="Email" disabled />
-        <input type="password" placeholder="Password" disabled />
-        <button type="button" disabled>Sign up (placeholder)</button>
+
+  <div class="grid two">
+    <!-- Left: Account card -->
+    <div class="card long">
+      <div class="card-title">Your Account</div>
+      <div class="card-meta">Email: {{ user.email }}</div>
+      <div class="card-meta">Member since: {{ user.created_at.strftime('%b %d, %Y') if user.created_at else '—' }}</div>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('routes.profile_update_display_name') }}" class="auth-form">
+        <label>Display name
+          <input type="text" name="display_name" value="{{ user.display_name or '' }}" placeholder="Your name">
+        </label>
+        <button type="submit" class="btn">Update Name</button>
+      </form>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('routes.profile_change_password') }}" class="auth-form">
+        <label>Current password
+          <input type="password" name="current_password" required>
+        </label>
+        <label>New password
+          <input type="password" name="new_password" required>
+        </label>
+        <button type="submit" class="btn">Change Password</button>
+      </form>
+
+      <hr>
+
+      <form method="post" action="{{ url_for('auth.logout_submit') }}">
+        <button type="submit" class="btn btn-secondary">Sign out</button>
       </form>
     </div>
-  {% endif %}
+
+    <!-- Right: Favorites -->
+    <section class="panel">
+      <div class="panel-header">Favorite Players</div>
+
+      <!-- Toggle Buttons -->
+      <div class="favorites-toggle">
+        <button type="button" class="fav-tab active" data-team="men">Men's Players</button>
+        <button type="button" class="fav-tab" data-team="women">Women's Players</button>
+      </div>
+
+      {% set fps = fav_players | default([]) %}
+
+      <!-- Men's Favorites -->
+      <div class="cards three" id="fav-players-men">
+        {% for p in fps if p.team_slug in ['football','baseball','mens-basketball','mens-golf'] %}
+          {{ player_card(p) }}
+        {% endfor %}
+        {% if fps|selectattr("team_slug", "in", ['football','baseball','mens-basketball','mens-golf'])|list|length == 0 %}
+          <div class="card-meta">No favorite men's players yet.</div>
+        {% endif %}
+      </div>
+
+      <!-- Women's Favorites -->
+      <div class="cards three" id="fav-players-women" style="display:none;">
+        {% for p in fps if p.team_slug in ['womens-soccer','womens-basketball','softball','womens-golf','womens-volleyball'] %}
+          {{ player_card(p) }}
+        {% endfor %}
+        {% if fps|selectattr("team_slug", "in", ['womens-soccer','womens-basketball','softball','womens-golf','womens-volleyball'])|list|length == 0 %}
+          <div class="card-meta">No favorite women's players yet.</div>
+        {% endif %}
+      </div>
+
+    </section>
+  </div>
 </section>
+
 {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+<script>
+const tabs = document.querySelectorAll('.fav-tab');
+const menCards = document.getElementById('fav-players-men');
+const womenCards = document.getElementById('fav-players-women');
 
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    if (tab.dataset.team === 'men') {
+      menCards.style.display = 'flex';
+      womenCards.style.display = 'none';
+    } else {
+      menCards.style.display = 'none';
+      womenCards.style.display = 'flex';
+    }
+  });
+});
+</script>
+{% endblock %}

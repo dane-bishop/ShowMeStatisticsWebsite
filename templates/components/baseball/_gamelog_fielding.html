@@ -1,0 +1,34 @@
+{% if gamelog_fielding %}
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th><th>Opponent</th><th>W/L</th>
+        <th>C</th><th>PO</th><th>A</th><th>E</th><th>FLD%</th>
+        <th>DP</th><th>SBA</th><th>CSB</th><th>PB</th><th>CI</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for g in gamelog_fielding %}
+      <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+        <td>{{ g.game_date or '' }}</td>
+        <td>{{ g.opponent_name or '' }}</td>
+        <td>{{ g.wl or '' }}</td>
+        <td>{{ g.c or 0 }}</td>
+        <td>{{ g.po or 0 }}</td>
+        <td>{{ g.a or 0 }}</td>
+        <td>{{ g.e or 0 }}</td>
+        <td>{{ g.fld if g.fld is not none else '' }}</td>
+        <td>{{ g.dp or 0 }}</td>
+        <td>{{ g.sba or 0 }}</td>
+        <td>{{ g.csb or 0 }}</td>
+        <td>{{ g.pb or 0 }}</td>
+        <td>{{ g.ci or 0 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">No fielding stats logged for this player.</div>
+{% endif %}

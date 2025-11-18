@@ -1,0 +1,35 @@
+/* Filters Sidebar - Mizzou Athletics Version */
+
+.filters {
+  background: var(--white);               /* white panel */
+  border: 1px solid var(--grey-200);     /* light anthracite border */
+  border-radius: 12px;
+  padding: 16px;                          /* slightly more padding for consistency with cards/panels */
+  position: sticky;
+  top: 76px;                              /* stays below topbar */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-family: 'Univers', sans-serif;
+}
+
+.filters-header {
+  font-weight: 800;
+  font-family: 'Clarendon URW', serif;    /* heading font for sidebar titles */
+  padding: 8px 10px 12px;
+  border-bottom: 2px solid var(--yellow); /* Mizzou Gold accent instead of grey-200 */
+  margin-bottom: 12px;
+  color: var(--black);
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 8px;                     /* spacing between checkboxes */
+  font-family: 'Univers', sans-serif;
+}
+
+.checkbox input {
+  margin-left: 8px;                        /* space between text and checkbox */
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}

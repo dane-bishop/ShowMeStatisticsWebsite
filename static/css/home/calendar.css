@@ -1,0 +1,84 @@
+/* Calendar - Mizzou Athletics Version */
+
+/* Event top row */
+.event-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Opponent name */
+.opponent {
+  font-weight: 700;
+  color: var(--black);
+}
+
+/* Result badges */
+.result-badge {
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  font-family: 'Univers', sans-serif;
+}
+
+.result-badge.win {
+  background: #e8f8ef;  /* light green */
+  border-color: #bde6cf;
+  color: #127a44;        /* dark green for win */
+}
+
+.result-badge.loss {
+  background: #fdeaea;  /* light red */
+  border-color: #f5c2c0;
+  color: #a22020;       /* dark red for loss */
+}
+
+/* Event title and meta */
+.event-title {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-family: 'Clarendon URW', serif; /* headings in brand font */
+}
+
+.event-meta {
+  color: var(--grey-700);
+  font-size: 0.92rem;
+  margin-top: 4px;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Scores and time */
+.scores {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.time {
+  opacity: 0.85;
+  font-family: 'Univers', sans-serif;
+}
+
+/* Legacy/extra classes for compatibility */
+.calendar-calendar {
+  display: flex;
+  border: none;
+  filter: invert(0) hue-rotate(180deg);
+}
+
+.event-date {
+  font-weight: 700;
+  color: var(--black);
+  font-family: 'Univers', sans-serif;
+}
+
+/* Empty state */
+.empty-state {
+  padding: 16px;
+  color: var(--grey-700);
+  font-family: 'Univers', sans-serif;
+}
+

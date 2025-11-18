@@ -1,0 +1,106 @@
+/* Responsive - Mizzou Athletics Brand */
+
+/* Medium screens */
+@media (max-width: 920px) {
+  .layout, .team-layout { 
+    grid-template-columns: 1fr; 
+  }
+  .filters, .team-news { 
+    position: static; 
+  }
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  /* Topbar adjustments */
+  .topbar { 
+    flex-wrap: wrap; 
+    gap: 12px; 
+    padding: 12px 14px; /* slightly larger touch area */
+  }
+  .topbar-left { 
+    width: 100%; 
+    justify-content: space-between; 
+  }
+  .topbar .search { 
+    order: 3; 
+    width: 100%; 
+    margin: 6px 0 0; 
+  }
+  .topbar .profile-btn { 
+    order: 2; 
+    padding: 12px 16px; 
+    min-height: 44px; /* tap-friendly */
+  }
+  .menu-dropdown { 
+    padding: 10px 14px; 
+  }
+  .dropdown { 
+    left: 12px; 
+    top: 48px; 
+  }
+
+  /* Headline Banner */
+  .headline-banner { 
+    padding: 12px 14px; 
+  }
+  .headline-banner .headlines { 
+    grid-template-columns: 1fr; 
+  }
+  .headline-item { 
+    padding: 12px; 
+    font-size: 0.9rem; /* slightly smaller for mobile readability */
+  }
+  .headline-banner .news-btn { 
+    padding: 12px 16px; 
+  }
+
+  /* Container & Calendar */
+  .container { padding: 0 14px; }
+  .calendar-grid { 
+    grid-template-columns: 1fr; 
+    padding: 12px; 
+  }
+  .calendar-event { padding: 14px; }
+
+  /* Filters Sidebar */
+  .filters { padding: 14px; }
+  .checkbox { 
+    padding: 8px 2px; 
+  }
+  .checkbox input { width: 20px; height: 20px; } /* larger tap target */
+
+  /* Tables */
+  .table { overflow-x: auto; }
+  .table .row { min-width: 560px; }
+
+  /* Buttons */
+  .btn, .filter-buttons button, .headline-banner .news-btn {
+    min-height: 44px; /* accessible touch size */
+  }
+
+  /* Panels */
+  .panel { padding: 12px; }
+
+  /* Tabs */
+  .tab { padding: 12px 16px; }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .form-card { 
+    padding: 16px; 
+    margin: 24px auto; 
+  }
+  .form-row.between { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 10px; 
+  }
+  .headline-item, .card-title, .calendar-header .title {
+    font-size: 0.85rem; /* scale down for very small screens */
+  }
+  .panel-header {
+    font-size: 0.9rem; 
+  }
+}

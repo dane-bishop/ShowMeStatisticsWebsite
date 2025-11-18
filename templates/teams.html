@@ -3,17 +3,43 @@
 {% block title %}Teams • ShowMeStatistics{% endblock %}
 
 {% block content %}
+
+<!-- List of Men's Team Cards -->
 <section class="list-page">
-  <h2>Teams</h2>
+  <h1>Teams</h1>
+
+  <h3>Men's Teams</h3>
   <div class="cards">
-    {% for team in teams %}
-      <a class="card" href="{{ url_for('team_detail', team_slug=team.slug) }}">
+    {% for team in teams if team.slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
+      <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug, team_year=2025) }}">
+        <div class="card-title">{{ team.name }}</div>
+        <div class="card-meta">Explore schedule, roster, stats</div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- List of Women's Team Cards -->
+  <h3>Women's Teams</h3>
+  <div class="cards">
+    {% for team in teams if team.slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
+      <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug, team_year=2025) }}">
         <div class="card-title">{{ team.name }}</div>
         <div class="card-meta">Explore schedule, roster, stats</div>
       </a>
     {% endfor %}
   </div>
 </section>
+
+<!-- Mizzou Athletics Twitter / RSS Feed -->
+<section class="list-page">
+  <h2>Mizzou Athletics</h2>
+  <div class="wall-container">
+    <!-- RSS.app embed -->
+    <rssapp-wall id="I8Hx2AHrFGMlewJs"></rssapp-wall>
+  </div>
+
+  <!-- Required JS script -->
+  <script src="https://widget.rss.app/v1/wall.js" type="text/javascript" async></script>
+</section>
+
 {% endblock %}
-
-

@@ -1,0 +1,41 @@
+/* Button - Mizzou Athletics Version */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-200); /* Anthracite border */
+  background: var(--yellow);          /* Mizzou Gold */
+  color: var(--black);                /* Nike 00A Black */
+  font-weight: 800;
+  font-family: 'Univers', sans-serif; /* brand font for body/buttons */
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s ease, 
+              box-shadow 0.15s ease, 
+              border-color 0.15s ease, 
+              background-color 0.15s ease,
+              color 0.15s ease;
+}
+
+.btn:hover {
+  border-color: var(--black);         /* border accent on hover */
+  background-color: var(--black);     /* reverse colors on hover */
+  color: var(--yellow);               /* gold text on hover */
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn[disabled],
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--grey-200); /* muted background for disabled state */
+  color: var(--grey-100);            /* muted text */
+  border-color: var(--grey-200);
+}

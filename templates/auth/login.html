@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+{% block content %}
+
+<section class="form-card">
+  <h2 class="form-card-title">Welcome back</h2>
+  <p class="hint">Sign in to continue</p>
+
+  <form method="post" action="{{ url_for('auth.login_submit') }}" class="auth-form" novalidate>
+    
+    <label>
+      Email
+      <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+    </label>
+
+    <label>
+      Password
+      <input type="password" name="password" required minlength="8" autocomplete="current-password" placeholder="••••••••">
+    </label>
+
+    <div class="form-row between">
+      <label class="checkbox">
+        <span>Remember me</span>
+        <input type="checkbox" name="remember">
+      </label>
+  
+      <a class="hint" href="#">Forgot password?</a>
+    </div>
+
+    <button type="submit" class="btn">Sign in</button>
+  </form>
+
+  <p class="hint" style="margin-top:12px;">
+    No account?
+    <a href="{{ url_for('auth.register_form') }}">Create one</a>.
+  </p>
+</section>
+
+{% endblock %}

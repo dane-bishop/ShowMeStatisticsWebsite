@@ -1,0 +1,116 @@
+{% extends 'game_detail/base.html' %}
+
+{% block tabs_extra %}
+  <a class="tab" href="#box-offense">Offense</a>
+  <a class="tab" href="#box-defense">Defense</a>
+{% endblock %}
+
+{% block boxscore_sections %}
+
+<!-- Offensive Statistics -->
+<div id="box-offense" class="calendar-card">
+  <div class="calendar-header">Offense</div>
+  {% if player_football_offense_stats %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th><th>Player</th>
+            <th>Cmp</th><th>Att</th><th>Int</th><th>Pct</th><th>Pass Yds</th><th>Pass TD</th><th>Lng</th>
+            <th>Rush Att</th><th>Rush Yds</th><th>Rush TD</th><th>Lng</th>
+            <th>Rec</th><th>Rec Yds</th><th>Rec TD</th><th>Lng</th>
+            <th>KR</th><th>KR Yds</th><th>KR TD</th><th>KR Lng</th>
+            <th>PR</th><th>PR Yds</th><th>PR TD</th><th>PR Lng</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in player_football_offense_stats %}
+            <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+              <td>{{ r.jersey or '' }}</td>
+              <td>{{ r.full_name }}</td>
+              <td>{{ r.pass_comp or 0 }}</td>
+              <td>{{ r.pass_att or 0 }}</td>
+              <td>{{ r.pass_int or 0 }}</td>
+              <td>{{ r.pass_pct if r.pass_pct is not none else '' }}</td>
+              <td>{{ r.pass_yds or 0 }}</td>
+              <td>{{ r.pass_tds or 0 }}</td>
+              <td>{{ r.pass_lng or 0 }}</td>
+
+              <td>{{ r.rush_att or 0 }}</td>
+              <td>{{ r.rush_yds or 0 }}</td>
+              <td>{{ r.rush_tds or 0 }}</td>
+              <td>{{ r.rush_lng or 0 }}</td>
+
+              <td>{{ r.rec or 0 }}</td>
+              <td>{{ r.rec_yds or 0 }}</td>
+              <td>{{ r.rec_tds or 0 }}</td>
+              <td>{{ r.rec_lng or 0 }}</td>
+
+              <td>{{ r.kr_ret or 0 }}</td>
+              <td>{{ r.kr_yds or 0 }}</td>
+              <td>{{ r.kr_tds or 0 }}</td>
+              <td>{{ r.kr_lng or 0 }}</td>
+
+              <td>{{ r.pr_ret or 0 }}</td>
+              <td>{{ r.pr_yds or 0 }}</td>
+              <td>{{ r.pr_tds or 0 }}</td>
+              <td>{{ r.pr_lng or 0 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">No offensive stats.</div>
+  {% endif %}
+</div>
+
+<!-- Defensive Statistics -->
+<div id="box-defense" class="calendar-card">
+  <div class="calendar-header">Defense</div>
+  {% if player_football_defense_stats %}
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th><th>Player</th>
+            <th>Solo</th><th>Ast</th><th>Total</th>
+            <th>TFL</th><th>TFL Yds</th>
+            <th>Sacks</th><th>Sack Yds</th>
+            <th>FF</th><th>FR</th><th>FR Yds</th>
+            <th>INT</th><th>INT Yds</th>
+            <th>QBH</th><th>Brk</th><th>Kick</th><th>Saf</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in player_football_defense_stats %}
+            <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+              <td>{{ r.jersey or '' }}</td>
+              <td>{{ r.full_name }}</td>
+              <td>{{ r.solo or 0 }}</td>
+              <td>{{ r.ast or 0 }}</td>
+              <td>{{ r.ttot or 0 }}</td>
+              <td>{{ r.tfl or 0 }}</td>
+              <td>{{ r.tyds or 0 }}</td>
+              <td>{{ r.stot or 0 }}</td>
+              <td>{{ r.syds or 0 }}</td>
+              <td>{{ r.ff or 0 }}</td>
+              <td>{{ r.fr or 0 }}</td>
+              <td>{{ r.fyds or 0 }}</td>
+              <td>{{ r.ints or 0 }}</td>
+              <td>{{ r.int_yds or 0 }}</td>
+              <td>{{ r.qbh or 0 }}</td>
+              <td>{{ r.brk or 0 }}</td>
+              <td>{{ r.kick or 0 }}</td>
+              <td>{{ r.saf or 0 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="empty-state">No defensive stats.</div>
+  {% endif %}
+</div>
+
+{% endblock %}

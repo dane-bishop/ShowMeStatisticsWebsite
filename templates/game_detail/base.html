@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Game • ShowMeStatistics{% endblock %}
+{% block styles %}{% endblock %}
+
+{% block content %}
+<section class="team-layout">
+  <div class="team-main">
+    <!-- Tabs -->
+    <div class="team-tabs">
+      <a class="tab" href="{{ url_for('routes.home') }}">← Schedule</a>
+      <a class="tab active" href="#summary">Summary</a>
+      {% block tabs_extra %}
+        <a class="tab" href="#box">Box Score</a>
+      {% endblock %}
+    </div>
+
+    <!-- Game header -->
+    <div id="summary" class="calendar-card">
+      <div class="calendar-header" style="display:flex; align-items:center; gap:.5rem;">
+        <div style="font-weight:600; flex:1 1 auto;">
+          {{ game.school_name }} vs {{ game.opponent_name or 'Opponent' }}
+        </div>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="calendar-event">
+          <div class="event-title">
+            {{ game.sport_name }}{% if game.conference_name %} • {{ game.conference_name }}{% endif %}
+          </div>
+          <div class="event-meta">
+            {{ game.game_date }}{% if game.game_time %} • {{ game.game_time }}{% endif %}
+            {% if game.location %} • {{ game.location }}{% endif %}
+            {% if game.home_away %} • {{ game.home_away }}{% endif %}
+          </div>
+        </div>
+
+        {% block summary_extra %}
+        {# Sports can show score summary here if you store it #}
+        {% endblock %}
+      </div>
+    </div>
+
+    <!-- Box score area (sports override) -->
+    {% block boxscore_sections %}
+      <div id="box" class="calendar-card">
+        <div class="calendar-header">Box Score</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Player</th><th>Position</th><th>Stat 1</th><th>Stat 2</th>
+                <!-- Extend as needed for your sport -->
+              </tr>
+            </thead>
+            <tbody>
+              {# Example alternating rows for CSS 'row-even' / 'row-odd' #}
+              {% for p in game.players %}
+              <tr class="{% if loop.index0 is divisibleby 2 %}row-even{% else %}row-odd{% endif %}">
+                <td>{{ p.name }}</td>
+                <td>{{ p.position }}</td>
+                <td>{{ p.stat1 or 0 }}</td>
+                <td>{{ p.stat2 or 0 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% if not game.players %}
+        <div class="empty-state">No box score available for this sport.</div>
+        {% endif %}
+      </div>
+    {% endblock %}
+  </div>
+
+  <!-- Sidebar (optional notes/news) -->
+  <aside class="team-news">
+    <div class="news-header">Game Notes</div>
+    <ul class="news-list">
+      <li>
+        <div class="news-title">{{ game.school_name }} vs {{ game.opponent_name or 'Opponent' }}</div>
+        <div class="news-date">{{ game.game_date }}</div>
+      </li>
+    </ul>
+  </aside>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
