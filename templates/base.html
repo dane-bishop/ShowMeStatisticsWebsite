@@ -98,6 +98,22 @@
                     localStorage.setItem('dark-mode', !isDark);
                     });
                 </script>
+
+                  <script>
+                    function updateThemeButton() {
+                      const isDark = !darkTheme.disabled;
+                      toggleBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
+                      toggleBtn.style.fontSize = '16px';
+                      toggleBtn.style.fontFamily = 'inherit';
+                    }
+                    updateThemeButton();
+                    toggleBtn.addEventListener('click', () => {
+                      const isDark = !darkTheme.disabled;
+                      darkTheme.disabled = isDark;
+                      localStorage.setItem('dark-mode', !isDark);
+                      updateThemeButton();
+                    });
+                  </script>
             </div>
           </div>
           

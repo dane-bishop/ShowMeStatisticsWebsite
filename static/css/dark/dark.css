@@ -52,6 +52,19 @@ select:-webkit-autofill {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Dropdown menu in dark mode */
+.dropdown {
+  background: var(--grey-100) !important;
+  border-color: var(--invert-grey) !important;
+}
+.dropdown a {
+  color: #fff !important;
+}
+.dropdown a:hover {
+  background: var(--invert-grey) !important;
+  color: var(--invert-black) !important;
+}
+
 .calendar {
   filter: invert(0.9) hue-rotate(180deg);
   border: none;
