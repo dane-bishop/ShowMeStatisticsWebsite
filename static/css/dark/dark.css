@@ -1,3 +1,18 @@
+/* Scores table header white text in dark mode */
+.row.head > div {
+  color: #fff !important;
+}
+/* Team tabs white text in dark mode */
+.team-tabs .tab, .team-tabs .tab.active {
+  color: #fff !important;
+}
+/* Tab headers, navigation, and active/selected buttons white in dark mode */
+.tab-header, .nav-header, .panel-header, .scores-header, .overview-header,
+.tab-btn, .tab-btn.active, .tab-btn.selected, .tab-btn[aria-selected="true"],
+.scores-tabs .active, .scores-tabs .selected, .scores-tabs .tab-btn,
+.header-row, .calendar-header, .calendar-header .title, .calendar-header .subtitle {
+  color: #fff !important;
+}
 /* Dark Mode */
 
 
@@ -25,6 +40,22 @@ body {
 a { color: #7399be; }
 table { border-color: #666359; }
 mark, ::placeholder { color: #cdbda1; }
+
+/* Headings white in dark mode */
+h1, h2, h3, .scores-header, .team-header {
+  color: #fff !important;
+}
+
+/* Table header and cell text white in dark mode */
+th, td {
+  color: #fff !important;
+}
+
+/* Search bar text white in dark mode */
+.topbar .search input {
+  color: #fff !important;
+  background: var(--grey-900) !important;
+}
 
 ::selection,
 ::-moz-selection {
