@@ -84,33 +84,31 @@
             {% endif %}
           <div>
                 <button id="toggle-theme" class="btn">O</button>
-                <script>
+                  <script>
                     const toggleBtn = document.getElementById('toggle-theme');
                     const darkTheme = document.getElementById('dark-theme');
 
-                    // Load saved preference
-                    const darkEnabled = localStorage.getItem('dark-mode') === 'true';
-                    if (darkEnabled) darkTheme.disabled = false;
+                    // Always default to light mode unless localStorage says dark
+                    function setInitialTheme() {
+                      const darkEnabled = localStorage.getItem('dark-mode') === 'true';
+                      darkTheme.disabled = !darkEnabled;
+                    }
 
-                    toggleBtn.addEventListener('click', () => {
-                    const isDark = !darkTheme.disabled;
-                    darkTheme.disabled = isDark;
-                    localStorage.setItem('dark-mode', !isDark);
-                    });
-                </script>
-
-                  <script>
                     function updateThemeButton() {
                       const isDark = !darkTheme.disabled;
                       toggleBtn.textContent = isDark ? 'Light mode' : 'Dark mode';
                       toggleBtn.style.fontSize = '16px';
                       toggleBtn.style.fontFamily = 'inherit';
                     }
+
+                    setInitialTheme();
                     updateThemeButton();
+
                     toggleBtn.addEventListener('click', () => {
-                      const isDark = !darkTheme.disabled;
-                      darkTheme.disabled = isDark;
-                      localStorage.setItem('dark-mode', !isDark);
+                      // Toggle theme
+                      darkTheme.disabled = !darkTheme.disabled;
+                      // Save preference
+                      localStorage.setItem('dark-mode', (!darkTheme.disabled).toString());
                       updateThemeButton();
                     });
                   </script>
