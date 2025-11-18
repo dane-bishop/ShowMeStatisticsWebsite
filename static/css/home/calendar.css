@@ -11,14 +11,18 @@
   .result-badge.win  { background: #e8f8ef; border-color: #bde6cf; color: #127a44; }
   .result-badge.loss { background: #fdeaea; border-color: #f5c2c0; color: #a22020; }
   
-  .event-title { font-weight: 700; margin-bottom: 2px; }
-  .event-meta  { color: var(--invert-grey); font-size: .92rem; margin-top: 4px; }
+  
   .scores      { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   .time        { opacity: .85; }
   
   /* Legacy/extra classes kept for compatibility */
   .calendar-calendar { display: flex; border: none; filter: invert(0) hue-rotate(180deg); }
-  .event-date { font-weight: 700; color: var(--invert-black); }
+  
   
   .empty-state { padding: 16px; color: #667; }
+  
+
+
+
+
   

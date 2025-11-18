@@ -1,0 +1,52 @@
+/* Event Card */
+.event-card {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: var(--invert-bg, #fff);
+    text-decoration: none;            /* remove underline */
+    color: var(--invert-black);       /* default text color */
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition:
+      background 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.1s ease;
+  }
+
+.event-card:link,
+.event-card:visited,
+.event-card:hover,
+.event-card:active {
+text-decoration: none;
+color: var(--invert-black);
+}
+
+/* Hover effect */
+.event-card:hover {
+background: rgba(0, 0, 0, 0.03);
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+transform: translateY(-1px);
+}
+
+.event-date {
+    font-weight: 700;
+    color: var(--invert-black);
+    margin-bottom: 2px;
+    font-size: 1.21rem;
+  }
+  
+  .event-title {
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-size: 0.97rem;
+  }
+  
+  .event-meta {
+    color: var(--invert-grey);
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+
+  .event-card:hover .event-title {
+    color: var(--accent, #0077ff);
+  }

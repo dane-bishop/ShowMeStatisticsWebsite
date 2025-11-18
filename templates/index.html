@@ -30,10 +30,12 @@
     <div class="calendar-header">Upcoming Events</div>
     <div class="calendar-grid">
       {% for e in events %}
-        <a class="calendar-event" href="{{ url_for('routes.game_detail', game_id=e.id) }}">
-          <div class="event-date">{{ e.game_date }}</div>
+        <a class="event-card" href="{{ url_for('routes.game_detail', game_id=e.id) }}" >
+
+          <div class="event-date">{{ e.sport_name }}</div>  
           <div class="event-title">VS {{ e.opponent_name }}</div>
-          <div class="event-meta">{{ e.sport_name }} • {{ e.location }}</div>
+          <div class="event-meta">{{ e.game_date }} • {{ e.location }}</div>
+          
         </a>
       {% endfor %}
     </div>
