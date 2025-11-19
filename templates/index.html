@@ -24,12 +24,69 @@
 
 
 
-<!-- Upcoming Events -->
+  
+
+
+
+<!-- Recent and Upcoming Events -->
 <section class="layout">
   <div class="calendar-card">
+    
+    <div class="calendar-header">Recent Events</div>
+    <div class="calendar-grid">
+      {% for e in past_events %}
+        <a class="event-card" href="{{ url_for('routes.game_detail', game_id=e.id) }}" >
+
+          <div class="event-date-row">
+            <span class="event-sport">
+              {{ e.sport_name }}
+            </span>
+
+
+            <span class="event-score
+              {% if e.score_for is not none and e.score_against is not none %}
+                {% if e.score_for > e.score_against %}
+                  score-win
+                {% elif e.score_for < e.score_against %}
+                  score-loss
+                {% endif %}
+              {% endif %}
+            ">
+              {{ e.score_for }}
+            </span>
+
+
+          </div>  
+          <div class="event-date-row">
+            <span class="event-sport-away">{{ e.opponent_name }}</span>
+
+
+
+            <span class="event-score
+              {% if e.score_for is not none and e.score_against is not none %}
+                {% if e.score_against > e.score_for %}
+                  score-win
+                {% elif e.score_against < e.score_for %}
+                  score-loss
+                {% endif %}
+              {% endif %}
+            ">
+              {{ e.score_against }}
+            </span>
+          
+          </div>  
+  
+          <div class="event-meta">{{ e.game_date }} • {{ e.location }} • {{ e.result }}</div>
+          
+        </a>
+      {% endfor %}
+    </div>
+
+    
+
     <div class="calendar-header">Upcoming Events</div>
     <div class="calendar-grid">
-      {% for e in events %}
+      {% for e in upcoming_events %}
         <a class="event-card" href="{{ url_for('routes.game_detail', game_id=e.id) }}" >
 
           <div class="event-date">{{ e.sport_name }}</div>  
@@ -45,6 +102,7 @@
     </div>
   </div>
 </div>
+
 
 
 

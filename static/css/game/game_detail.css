@@ -13,3 +13,52 @@
       .game-detail .game-cards {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 14px 0 20px;
       }
+
+
+
+.player-name {
+  font-weight: 570;
+}
+
+
+
+
+/* Header sorting design */
+.calendar-card table.table.sortable th {
+  cursor: pointer !important;
+  position: relative;
+  user-select: none;
+  padding-right: 18px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+
+.calendar-card table.table.sortable th:hover {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  color: var(--invert-black);
+}
+
+
+.calendar-card table.table.sortable th::after {
+  content: "↕";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+
+.calendar-card table.table.sortable th[data-dir="asc"]::after {
+  content: "▲";
+  opacity: 0.9;
+}
+
+
+.calendar-card table.table.sortable th[data-dir="desc"]::after {
+  content: "▼";
+  opacity: 0.9;
+}
+

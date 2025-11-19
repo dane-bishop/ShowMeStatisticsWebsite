@@ -12,22 +12,34 @@
     <div class="calendar-header">Game Stats</div>
     {% if player_basketball_stats %}
       <div class="table-wrap">
-        <table class="table">
+        <table class="table sortable" id="basketball-stats-table">
           <thead>
             <tr>
-              <th>#</th><th>Player</th>
-              <th>MIN</th><th>FG</th><th>FG%</th><th>3PT</th>
-              <th>3PT%</th><th>FT</th><th>FT%</th>
-              <th>OR</th><th>DR</th><th>TOT</th>
-              <th>PF</th><th>AST</th><th>TO</th>
-              <th>BLK</th><th>STL</th><th>PTS</th>
+              <th data-sort="num">#</th>
+              <th data-sort="text">Player</th>
+              <th data-sort="num">MIN</th>
+              <th data-sort="madeatt">FG</th>
+              <th data-sort="num">FG%</th>
+              <th data-sort="madeatt">3PT</th>
+              <th data-sort="num">3PT%</th>
+              <th data-sort="madeatt">FT</th>
+              <th data-sort="num">FT%</th>
+              <th data-sort="num">OR</th>
+              <th data-sort="num">DR</th>
+              <th data-sort="num">TOT</th>
+              <th data-sort="num">PF</th>
+              <th data-sort="num">AST</th>
+              <th data-sort="num">TO</th>
+              <th data-sort="num">BLK</th>
+              <th data-sort="num">STL</th>
+              <th data-sort="num">PTS</th>
             </tr>
           </thead>
           <tbody>
             {% for r in player_basketball_stats %}
               <tr>
                 <td>{{ r.jersey or '' }}</td>
-                <td>{{ r.full_name }}</td>
+                <td class="player-name">{{ r.full_name }}</td>
                 <td>{{ r.minutes or 0 }}</td>
                 <td>{{ r.fg_made or 0 }} - {{ r.fg_att or 0}}</td>
                 <td>{{ r.fg_pct or 0 }}</td>
@@ -54,4 +66,73 @@
     {% endif %}
   </div>
 
+
+
+
+  <!-- Sorting Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const table = document.querySelector("#basketball-stats-table");
+      if (!table) return;
+    
+      const tbody = table.querySelector("tbody");
+      const headers = table.querySelectorAll("thead th");
+    
+      headers.forEach((th, index) => {
+        const sortType = th.dataset.sort;
+        if (!sortType) return; // skip non-sortable
+    
+        th.style.cursor = "pointer";
+    
+        th.addEventListener("click", () => {
+          const currentOrder = th.dataset.order === "asc" ? "desc" : "asc";
+          // reset others
+          headers.forEach(h => { if (h !== th) h.dataset.order = ""; });
+          th.dataset.order = currentOrder;
+    
+          const rows = Array.from(tbody.querySelectorAll("tr"));
+    
+          rows.sort((rowA, rowB) => {
+            const cellA = rowA.children[index].innerText.trim();
+            const cellB = rowB.children[index].innerText.trim();
+    
+            const valA = getCellValue(cellA, sortType);
+            const valB = getCellValue(cellB, sortType);
+    
+            if (valA < valB) return currentOrder === "asc" ? -1 : 1;
+            if (valA > valB) return currentOrder === "asc" ? 1 : -1;
+            return 0;
+          });
+    
+          rows.forEach(r => tbody.appendChild(r));
+        });
+      });
+    
+      function getCellValue(text, sortType) {
+        if (sortType === "num") {
+          const n = parseFloat(text.replace(/[^0-9.\-]/g, ""));
+          return isNaN(n) ? 0 : n;
+        }
+    
+        if (sortType === "madeatt") {
+          // "5 - 10" → 5
+          const left = text.split("-")[0].trim();
+          const n = parseFloat(left);
+          return isNaN(n) ? 0 : n;
+        }
+    
+        // text sort: case-insensitive
+        return text.toLowerCase();
+      }
+    });
+    </script>
+    
+  
+
 {% endblock %}
+
+
+
+
+
+

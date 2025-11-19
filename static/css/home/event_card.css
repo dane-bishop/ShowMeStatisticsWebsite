@@ -3,10 +3,10 @@
     display: block;
     padding: 0.75rem 1rem;
     border-radius: 8px;
-    background: var(--invert-bg, #fff);
+    background: var(--grey-100);
     text-decoration: none;            /* remove underline */
     color: var(--invert-black);       /* default text color */
-    border: 1px solid rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--grey-200);
     transition:
       background 0.15s ease,
       box-shadow 0.15s ease,
@@ -23,10 +23,34 @@ color: var(--invert-black);
 
 /* Hover effect */
 .event-card:hover {
-background: rgba(0, 0, 0, 0.03);
+/*background: var(--invert-grey);*/
 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 transform: translateY(-1px);
+border-color: var(--yellow);
 }
+
+
+.event-date-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-sport {
+  font-weight: 720;
+  font-size: 1.10rem;
+}
+
+.score-win {
+  font-weight: 800;
+  color: var(--invert-black);
+}
+
+.score-loss {
+  font-weight: 500;
+  color: var(--invert-grey);
+}
+
 
 .event-date {
     font-weight: 700;

@@ -44,9 +44,14 @@ def player_detail(player_slug: str):
                 cur.execute(IS_FAVORITE_SQL, (int(current_user.id), player["id"]))
                 is_favorited = cur.fetchone() is not None
 
+
+
             # Context-aware back URL
             from_team = request.args.get("from_team")
             from_year = request.args.get("year", type=int)
+
+
+            
 
             if from_team and from_year:
                 back_url = url_for("routes.team_roster", team_slug=from_team, team_year=from_year)

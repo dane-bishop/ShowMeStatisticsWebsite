@@ -6,6 +6,7 @@ from core.get_db_connection import get_db_connection
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta
 from psycopg2.extras import RealDictCursor
+from routes.home.queries.events import EVENTS_SQL
 
 MEN_SPORTS = [
     "Men's Basketball", "Men's Baseball", "Men's Cross Country", "Men's Football",
@@ -34,41 +35,44 @@ def home():
     conn = get_db_connection()
     try:
 
-
+        # Get today's date
         today_ct = datetime.now(ZoneInfo("America/Chicago")).date()
         start_date = today_ct
         end_date = today_ct + timedelta(days=4)
+        past_events_date = today_ct - timedelta(days=4)
+
 
         selected_sports = request.args.getlist("sports")
 
-        EVENTS_SQL = """
-        SELECT
-            g.id,
-            g.game_date,
-            s.name AS sport_name,
-            t.school_name,
-            o.name AS opponent_name,
-            g.location,
-            g.source_game_id
-        FROM games g
-        JOIN team_seasons ts ON ts.id = g.team_season_id
-        JOIN teams t ON t.id = ts.team_id
-        JOIN sports s ON s.id = t.sport_id
-        LEFT JOIN opponents o ON o.id = g.opponent_id
-        WHERE g.game_date >= %s AND g.game_date <= %s
-        """
+        base_sql = EVENTS_SQL
+        
 
-        params = [start_date, end_date]
+        upcoming_params = [start_date, end_date]
+
+        past_params = [past_events_date, start_date]
+
+        
 
         if selected_sports:
-            EVENTS_SQL += " And s.name = ANY(%s)"
-            params.append(selected_sports)
+            base_sql += " And s.name = ANY(%s)"
+            upcoming_params.append(selected_sports)
 
-        EVENTS_SQL += " ORDER BY g.game_date ASC, g.id ASC LIMIT 500;"
-
+        
+        base_sql += " ORDER BY g.game_date ASC, g.id ASC LIMIT 500;"
+        
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(EVENTS_SQL, params)
-            events = cur.fetchall()
+
+            # Get upcoming events
+            cur.execute(base_sql, upcoming_params)
+            upcoming_events = cur.fetchall()
+
+
+            # Get past events
+            cur.execute(base_sql, past_params)
+            past_events = cur.fetchall()
+
+
+
         
 
             fav_players = []
@@ -81,7 +85,8 @@ def home():
             "index.html",
             men_sports=MEN_SPORTS,
             women_sports=WOMEN_SPORTS,
-            events=events,
+            upcoming_events=upcoming_events,
+            past_events=past_events,
             headlines=HEADLINE_ITEMS,
             selected_sports=selected_sports,
             fav_players=fav_players,

@@ -7,7 +7,7 @@
     border: 1px solid var(--grey-200);
     border-radius: 12px;
     padding: 14px;
-    color: inherit;
+    color: var(--invert-black);
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,.05);
   }
@@ -19,7 +19,7 @@
     background: var(--black);
     color: var(--stay-white);
     padding: 14px 16px;
-    border-bottom: 4px solid var(--yellow);
+    border-bottom: 4px solid var(--invert-grey);
   }
   .calendar-header .header-row {
     display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;

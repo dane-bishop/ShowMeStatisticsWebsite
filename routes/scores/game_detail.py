@@ -1,5 +1,5 @@
 from .. import routes_bp
-from flask import redirect, render_template, url_for
+from flask import redirect, render_template, url_for, request
 from core.get_db_connection import get_db_connection
 from psycopg2.extras import RealDictCursor
 from routes.scores.game_detail_queries.game import GAME_SQL
@@ -23,8 +23,29 @@ def game_detail(game_id: int):
             cur.execute(GAME_SQL, (game_id,))
             game = cur.fetchone()
 
+
+            # Context-aware back URL
+            from_team = request.args.get("from_team")
+            from_year = request.args.get("year", type=int)
+
+
+            
+
+            if from_team and from_year:
+                back_url = url_for("routes.team_detail", team_slug=from_team, team_year=from_year)
+
+            else:
+                ref = request.referrer or ""
+                if "/teams/" in ref:
+                    back_url = ref
+                else:
+                    back_url = url_for("routes.home")
+
+
+
             context = {
                 "game": game,
+                "back_url": back_url,
             }
 
             sport_name = (game.get("sport_name"))
