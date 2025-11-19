@@ -9,7 +9,7 @@
   border: 1px solid var(--grey-200); /* Anthracite border */
   background: var(--yellow);          /* Mizzou Gold */
   color: var(--black);                /* Nike 00A Black */
-  font-weight: 800;
+  font-weight: 700;
   font-family: 'Univers', sans-serif; /* brand font for body/buttons */
   cursor: pointer;
   text-decoration: none;
