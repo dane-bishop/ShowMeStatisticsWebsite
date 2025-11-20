@@ -45,7 +45,11 @@
               {% for r in passers %}
                 <tr>
                   <td>{{ r.jersey or '' }}</td>
-                  <td>{{ r.full_name }}</td>
+                  <td class="player-name">
+                    <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                      {{ r.full_name }}
+                    </a>
+                  </td>
                   <td>{{ r.pass_comp or 0 }}</td>
                   <td>{{ r.pass_att or 0 }}</td>
                   <td>{{ r.pass_int or 0 }}</td>
@@ -75,7 +79,11 @@
               {% for r in rushers %}
                 <tr>
                   <td>{{ r.jersey or '' }}</td>
-                  <td>{{ r.full_name }}</td>
+                  <td class="player-name">
+                    <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                      {{ r.full_name }}
+                    </a>
+                  </td>
                   <td>{{ r.rush_att or 0 }}</td>
                   <td>{{ r.rush_yds or 0 }}</td>
                   <td>{{ r.rush_tds or 0 }}</td>
@@ -102,7 +110,11 @@
               {% for r in receivers %}
                 <tr>
                   <td>{{ r.jersey or '' }}</td>
-                  <td>{{ r.full_name }}</td>
+                  <td class="player-name">
+                    <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                      {{ r.full_name }}
+                    </a>
+                  </td>
                   <td>{{ r.rec or 0 }}</td>
                   <td>{{ r.rec_yds or 0 }}</td>
                   <td>{{ r.rec_tds or 0 }}</td>
@@ -130,7 +142,11 @@
               {% if (r.kr_ret or 0) > 0 or (r.pr_ret or 0) > 0 %}
                 <tr>
                   <td>{{ r.jersey or '' }}</td>
-                  <td>{{ r.full_name }}</td>
+                  <td class="player-name">
+                    <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                      {{ r.full_name }}
+                    </a>
+                  </td>
                   <td>{{ r.kr_ret or 0 }}</td>
                   <td>{{ r.kr_yds or 0 }}</td>
                   <td>{{ r.kr_tds or 0 }}</td>
@@ -166,15 +182,28 @@
             <th>QBH</th><th>Brk</th><th>Kick</th><th>Saf</th> </tr> </thead> 
             <tbody> 
               {% for r in player_football_defense_stats %} <tr> 
-              <td>{{ r.jersey or '' }}</td> <td>{{ r.full_name }}</td> 
-              <td>{{ r.solo or 0 }}</td> <td>{{ r.ast or 0 }}</td>
-              <td>{{ r.ttot or 0 }}</td> <td>{{ r.tfl or 0 }}</td> 
-              <td>{{ r.tyds or 0 }}</td> <td>{{ r.stot or 0 }}</td> 
-              <td>{{ r.syds or 0 }}</td> <td>{{ r.ff or 0 }}</td> 
-              <td>{{ r.fr or 0 }}</td> <td>{{ r.fyds or 0 }}</td> 
-              <td>{{ r.ints or 0 }}</td> <td>{{ r.int_yds or 0 }}</td> 
-              <td>{{ r.qbh or 0 }}</td> <td>{{ r.brk or 0 }}</td> 
-              <td>{{ r.kick or 0 }}</td> <td>{{ r.saf or 0 }}</td> 
+              <td>{{ r.jersey or '' }}</td> 
+              <td class="player-name">
+                <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                  {{ r.full_name }}
+                </a>
+              </td>
+              <td>{{ r.solo or 0 }}</td> 
+              <td>{{ r.ast or 0 }}</td>
+              <td>{{ r.ttot or 0 }}</td> 
+              <td>{{ r.tfl or 0 }}</td> 
+              <td>{{ r.tyds or 0 }}</td> 
+              <td>{{ r.stot or 0 }}</td> 
+              <td>{{ r.syds or 0 }}</td> 
+              <td>{{ r.ff or 0 }}</td> 
+              <td>{{ r.fr or 0 }}</td> 
+              <td>{{ r.fyds or 0 }}</td> 
+              <td>{{ r.ints or 0 }}</td> 
+              <td>{{ r.int_yds or 0 }}</td> 
+              <td>{{ r.qbh or 0 }}</td> 
+              <td>{{ r.brk or 0 }}</td> 
+              <td>{{ r.kick or 0 }}</td> 
+              <td>{{ r.saf or 0 }}</td> 
             </tr> 
             {% endfor %} 
           </tbody> 

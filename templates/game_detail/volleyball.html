@@ -28,7 +28,11 @@
             {% for r in player_volleyball_stats %}
               <tr>
                 <td>{{ r.jersey or '' }}</td>
-                <td>{{ r.full_name }}</td>
+                <td class="player-name">
+                  <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                    {{ r.full_name }}
+                  </a>
+                </td>
                 <td>{{ r.wl or 0 }}</td>
                 <td>{{ r.sp or 0 }}</td>
                 <td>{{ r.k or 0 }}</td>

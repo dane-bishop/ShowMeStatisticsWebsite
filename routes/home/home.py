@@ -40,6 +40,7 @@ def home():
         start_date = today_ct
         end_date = today_ct + timedelta(days=4)
         past_events_date = today_ct - timedelta(days=4)
+        past_events_start_date = today_ct - timedelta(days=1)
 
 
         selected_sports = request.args.getlist("sports")
@@ -49,7 +50,7 @@ def home():
 
         upcoming_params = [start_date, end_date]
 
-        past_params = [past_events_date, start_date]
+        past_params = [past_events_date, past_events_start_date]
 
         
 

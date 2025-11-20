@@ -28,7 +28,13 @@
             {% for r in player_hitting_stats %}
               <tr>
                 <td>{{ r.jersey or '' }}</td>
-                <td>{{ r.full_name }}</td>
+                <td>
+                  <td class="player-name">
+                    <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                      {{ r.full_name }}
+                    </a>
+                  </td>
+                </td>
                 <td>{{ r.ab or 0 }}</td>
                 <td>{{ r.r or 0 }}</td>
                 <td>{{ r.h or 0 }}</td>
@@ -77,7 +83,11 @@
             {% for r in player_pitching_stats %}
               <tr>
                 <td>{{ r.jersey or '' }}</td>
-                <td>{{ r.full_name }}</td>
+                <td class="player-name">
+                  <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                    {{ r.full_name }}
+                  </a>
+                </td>
                 <td>{{ r.ip or 0 }}</td>
                 <td>{{ r.h or 0 }}</td>
                 <td>{{ r.r or 0 }}</td>
@@ -126,7 +136,11 @@
             {% for r in player_fielding_stats %}
               <tr>
                 <td>{{ r.jersey or '' }}</td>
-                <td>{{ r.full_name }}</td>
+                <td class="player-name">
+                  <a class="player-link-card" href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}">
+                    {{ r.full_name }}
+                  </a>
+                </td>
                 <td>{{ r.c or 0 }}</td>
                 <td>{{ r.po or 0 }}</td>
                 <td>{{ r.a or 0 }}</td>

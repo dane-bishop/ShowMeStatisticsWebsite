@@ -1,6 +1,7 @@
 PLAYER_BASKETBALL_STATS_SQL = """
     SELECT 
     p.full_name,
+    p.player_slug,
     rm.jersey,
     pgb.minutes, pgb.fg_made, pgb.fg_att, pgb.fg_pct,
     pgb.three_made, pgb.three_att, pgb.three_pct,

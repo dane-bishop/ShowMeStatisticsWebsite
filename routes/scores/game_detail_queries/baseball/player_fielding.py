@@ -1,6 +1,7 @@
 PLAYER_FIELDING_STATS_SQL = """
     SELECT
     p.full_name,
+    p.player_slug,
     rm.jersey,
     pgf.c, pgf.po, pgf.a, pgf.e, pgf.fld, pgf.dp, pgf.sba, pgf.csb, pgf.pb, pgf.ci
     FROM player_game_fielding pgf

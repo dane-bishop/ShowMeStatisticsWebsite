@@ -1,6 +1,7 @@
 PLAYER_HITTING_STATS_SQL = """
     SELECT
     p.full_name,
+    p.player_slug,
     rm.jersey,
     pgb.ab, pgb.r, pgb.h, pgb.rbi,
     pgb.doubles, pgb.triples, pgb.hr,

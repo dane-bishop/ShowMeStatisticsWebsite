@@ -1,8 +1,8 @@
 PLAYER_VOLLEYBALL_STATS_SQL = """
     SELECT 
     p.full_name,
+    p.player_slug,
     rm.jersey,
-
     pgv.wl, pgv.sp, pgv.k, pgv.ae,
     pgv.ta, pgv.h_pct, pgv.ast,
     pgv.e, pgv.sa, pgv.se,

@@ -1,6 +1,7 @@
 PLAYER_FOOTBALL_OFFENSE_STATS_SQL = """
     SELECT 
     p.full_name,
+    p.player_slug,
     rm.jersey,
     pgfo.pass_comp, pgfo.pass_att, pgfo.pass_int, pgfo.pass_pct,
     pgfo.pass_yds, pgfo.pass_tds, pgfo.pass_lng,

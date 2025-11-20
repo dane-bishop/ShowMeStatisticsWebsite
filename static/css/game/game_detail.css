@@ -20,7 +20,10 @@
   font-weight: 570;
 }
 
-
+.player-name:hover a,
+.player-link-card:hover {
+  color: #404040;   /* light gray */
+}
 
 
 /* Header sorting design */
@@ -62,3 +65,19 @@
   opacity: 0.9;
 }
 
+.player-link-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: rgba(255,255,255,0.06);
+  color: inherit;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.player-link-card:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-1px);
+}

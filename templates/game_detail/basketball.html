@@ -39,7 +39,14 @@
             {% for r in player_basketball_stats %}
               <tr>
                 <td>{{ r.jersey or '' }}</td>
-                <td class="player-name">{{ r.full_name }}</td>
+                <td class="player-name">
+                  <a
+                    class="player-link-card"
+                    href="{{ url_for('routes.player_detail', player_slug=r.player_slug) }}"
+                  >
+                    {{ r.full_name }}
+                  </a>
+                </td>
                 <td>{{ r.minutes or 0 }}</td>
                 <td>{{ r.fg_made or 0 }} - {{ r.fg_att or 0}}</td>
                 <td>{{ r.fg_pct or 0 }}</td>

@@ -1,6 +1,7 @@
 PLAYER_PITCHING_STATS_SQL = """
     SELECT
     p.full_name,
+    p.player_slug,
     rm.jersey,
     pgp.ip, pgp.h, pgp.r, pgp.er, pgp.bb, pgp.so, pgp.doubles, pgp.triples,
     pgp.hr, pgp.wp, pgp.bk, pgp.hbp, pgp.ibb, pgp.np, pgp.w, pgp.l, pgp.sv, pgp.gera, pgp.sera

@@ -1,6 +1,7 @@
 PLAYER_FOOTBALL_DEFENSE_STATS_SQL = """
     SELECT 
     p.full_name,
+    p.player_slug,
     rm.jersey,
     pgfd.solo, pgfd.ast, pgfd.ttot, pgfd.tfl, pgfd.tyds,
     pgfd.stot, pgfd.syds,
