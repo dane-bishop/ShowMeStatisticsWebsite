@@ -111,7 +111,6 @@
         <a class="event-card" href="{{ url_for('routes.game_detail', game_id=e.id) }}" >
 
           <div class="event-date">{{ e.sport_name }} VS</div>  
-
           <div class="event-title">
             <img
                   class="recent-team-logo"
@@ -123,7 +122,6 @@
             
             {{ e.opponent_name }}
           </div>
-          
           <div class="event-meta">{{ e.game_date }} • {{ e.location }}</div>
           
         </a>
@@ -217,91 +215,54 @@
 
 
   <!-- Filter Sports Section -->
-  <!-- Filter Sports Section -->
-<form id="sport-filter-form" class="filters" method="get">
-  <!-- Preserve current month when filtering -->
-  <input type="hidden" name="month" value="{{ calendar_current }}">
+  <div class="filters">
 
-  <div class="filters-header">Filter Sports</div>
+    <div class="filters-header">Filter Sports</div>
 
-  <div class="filter-buttons">
-    <button type="button" class="select-all-btn">Select All</button>
-    <button type="button" class="unselect-all-btn">Unselect All</button>
-  </div>
-
-  <div id="calendar-toggles">
-
-    <div>
-      <b>Men's Sports</b><br>
-
-      <label>
-        <input
-          type="checkbox"
-          name="sports"
-          value="Baseball"
-          {% if 'Baseball' in selected_sports %}checked{% endif %}
-        >
-        Baseball
-      </label><br>
-
-      <label>
-        <input
-          type="checkbox"
-          name="sports"
-          value="Men's Basketball"
-          {% if "Men's Basketball" in selected_sports %}checked{% endif %}
-        >
-        Basketball
-      </label><br>
-
-      <label>
-        <input
-          type="checkbox"
-          name="sports"
-          value="Football"
-          {% if 'Football' in selected_sports %}checked{% endif %}
-        >
-        Football 
-      </label><br>
-
-      <!-- Add others as you wire them up in DB -->
+    <div class="filter-buttons">
+      <button type="button" class="select-all-btn">Select All</button>
+      <button type="button" class="unselect-all-btn">Unselect All</button>
     </div>
 
-    <div>
-      <b>Women's Sports</b><br>
 
-      <label>
-        <input
-          type="checkbox"
-          name="sports"
-          value="Women's Basketball"
-          {% if "Women's Basketball" in selected_sports %}checked{% endif %}
-        >
-        Basketball
-      </label><br>
+    <div id="calendar-toggles">
 
-      <label>
-        <input
-          type="checkbox"
-          name="sports"
-          value="Women's Volleyball"
-          {% if "Women's Volleyball" in selected_sports %}checked{% endif %}
-        >
-        Volleyball
-      </label><br>
+      <label><input type="checkbox" id="deselect" value="ns2oeehslrirkrbokbtuvjnurqmdcn4g@import.calendar.google.com"></label>
 
-      <!-- etc. -->
+      <div>
+        <b>Men's Sports</b>
+        <br>
+          <label><input type="checkbox" unchecked value="bj9qdiod0jru3cdfr2pqiiip5kfbqscc@import.calendar.google.com">Baseball</label><br>
+          <label><input type="checkbox" unchecked value="j9611haqgh1laifppu4se588ptj1103l@import.calendar.google.com">Basketball</label><br>
+          <label><input type="checkbox" unchecked value="0fh97e1nhukttfu147jmjqe9la246k67@import.calendar.google.com">Football </label><br>
+          <label><input type="checkbox" unchecked value="c55sjlu2v262tqbgcvt2gdlk257r5vl6@import.calendar.google.com">Golf</label><br>
+          <label><input type="checkbox" unchecked value="vjmbuq444biivv2t7cquvm0m8uplkptj@import.calendar.google.com">Wrestling</label><br>
+      </div>
+
+      <div>
+        <b>Women's Sports</b>
+        <br>
+          <label><input type="checkbox" unchecked value="qmgv8hmk98ksg0e3ehccb7hnhnt365cd@import.calendar.google.com">Basketball</label><br>
+          <label><input type="checkbox" unchecked value="kr3b0kbe2ngceaiujhhaiaq50vvbpuh2@import.calendar.google.com">Golf</label><br>
+          <label><input type="checkbox" unchecked value="l07580io6aiok8t6cip21tvjvmeblged@import.calendar.google.com">Gymnastics</label><br>
+          <label><input type="checkbox" unchecked value="4vivneagabe1s7tlmobb26dr4619hei8@import.calendar.google.com">Soccer</label><br>
+          <label><input type="checkbox" unchecked value="calv12p4ilmlotlgfpi96b85nirqsn4k@import.calendar.google.com">Softball </label><br>
+          <label><input type="checkbox" unchecked value="17vpclce9eu181nbs768je97vhsetbad@import.calendar.google.com">Tennis</label><br>
+          <label><input type="checkbox" unchecked value="oefve0co9cs1bf2n5k9mmmu6mp14fjcd@import.calendar.google.com">Volleyball</label><br>
+      </div>
+
+      <div>
+        <b>Coeval Sports</b>
+        <br>
+          <label><input type="checkbox" unchecked value="1idqvl4ho0bodvmkh50jeta4r9a9b70u@import.calendar.google.com">Cross Country </label><br>
+          <label><input type="checkbox" unchecked value="1bklgfj3pg18rtvplisoi9g26g2a8tq1@import.calendar.google.com">Track and Field</label><br>
+          <label><input type="checkbox" unchecked value="t9cr8rrju838fpf768tp54u918j3pt0j@import.calendar.google.com">Swimming and Diving</label><br>
+      </div>
+
     </div>
 
-    <div>
-      <b>Other Sports</b><br>
-
-      <!-- Add cross country / track / swim etc. with the sport_name you store -->
-    </div>
 
   </div>
-</form>
-
 
 
 
@@ -339,9 +300,58 @@
 
 </section>
 
+<!-- Scripts -->
+<script>
+
+const iframe = document.getElementById('gcal-frame');
+const checkboxes = document.querySelectorAll('#calendar-toggles input[type="checkbox"]');
+const selectAllBtn = document.querySelector('.select-all-btn');
+const unselectAllBtn = document.querySelector('.unselect-all-btn');
+
+const allBox = document.getElementById('deselect');   // “All” calendar
+
+function updateCalendar() {
+  const base = 'https://calendar.google.com/calendar/embed?ctz=America/Chicago';
+  const selected = Array.from(checkboxes)
+    .filter(cb => cb.checked)
+    .map(cb => '&src=' + encodeURIComponent(cb.value))
+    .join('');
+  iframe.src = base + selected;
+}
 
 
+// all
+selectAllBtn.addEventListener('click', () => {
+  // Uncheck all first
+  checkboxes.forEach(cb => cb.checked = false);
+  // Check all visible checkboxes except the hidden 'all' box
+  checkboxes.forEach(cb => {
+    if (cb.id !== 'deselect') {
+      cb.checked = true;
+    }
+  });
+  // Uncheck the hidden 'all' box
+  allBox.checked = false;
+  updateCalendar();
+});
 
+// none
+unselectAllBtn.addEventListener('click', () => {
+  checkboxes.forEach(cb => cb.checked = false);
+  updateCalendar();
+});
+
+// On page load, check all checkboxes except the hidden 'all' box
+checkboxes.forEach(cb => {
+  if (cb.id !== 'deselect') {
+    cb.checked = true;
+  }
+});
+
+checkboxes.forEach(cb => cb.addEventListener('change', updateCalendar));
+
+updateCalendar();
+</script>
 </section>
 <!-- hide 'all' checkbox -->
 <style>
@@ -349,39 +359,6 @@
     display: none;
   }
 </style>
-
-<script>
-  const filterForm = document.getElementById('sport-filter-form');
-  if (filterForm) {
-    const sportCheckboxes = filterForm.querySelectorAll('input[type="checkbox"][name="sports"]');
-    const selectAllBtn = filterForm.querySelector('.select-all-btn');
-    const unselectAllBtn = filterForm.querySelector('.unselect-all-btn');
-
-    // Auto-submit when a box is toggled
-    sportCheckboxes.forEach(cb => {
-      cb.addEventListener('change', () => {
-        filterForm.submit();
-      });
-    });
-
-    // Select all
-    if (selectAllBtn) {
-      selectAllBtn.addEventListener('click', () => {
-        sportCheckboxes.forEach(cb => cb.checked = true);
-        filterForm.submit();
-      });
-    }
-
-    // Unselect all
-    if (unselectAllBtn) {
-      unselectAllBtn.addEventListener('click', () => {
-        sportCheckboxes.forEach(cb => cb.checked = false);
-        filterForm.submit();
-      });
-    }
-  }
-</script>
-
 
 {% endblock %}
 

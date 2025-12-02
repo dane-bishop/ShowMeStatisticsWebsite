@@ -1,0 +1,30 @@
+.event-date-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  
+  /* Group logo + name together */
+  .event-opponent {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;  /* prevents weird shrinking in tight layouts */
+
+    margin-top: 0.25rem;
+  }
+  
+  .recent-team-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+
+    flex: 0 0 auto;       /* don’t let the logo stretch */
+  }
+  
+  .event-sport-away {
+    font-weight: 570;
+    /* optional: make sure it doesn’t get squished too hard */
+    /* white-space: nowrap; */
+  }

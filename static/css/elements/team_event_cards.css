@@ -1,0 +1,62 @@
+
+.team-calendar-event {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+.team-event-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Left column */
+  .team-event-card-logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .team-event-logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+  }
+  
+  /* Right column takes the rest */
+  .team-event-card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  /* Keep your existing row & opponent alignment */
+  .team-event-date-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .team-event-opponent {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  
+  .team-recent-team-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: var(--white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    flex: 0 0 auto;
+  }
+  

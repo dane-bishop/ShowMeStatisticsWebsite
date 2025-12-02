@@ -61,8 +61,9 @@ border-color: var(--yellow);
   
   .event-title {
     font-weight: 700;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     font-size: 0.97rem;
+    align-items: center;
   }
   
   .event-meta {

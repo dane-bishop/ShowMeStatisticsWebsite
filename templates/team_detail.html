@@ -16,6 +16,8 @@
     <!-- Team Schedule -->
     <div class="calendar-card">
       <div class="calendar-header">
+
+
         <div class="header-row">
           <h3 class="title">
             {{ team.name }}
@@ -44,27 +46,42 @@
       <div class="calendar-grid-team-schedule">
         {% if events %}
           {% for e in events %}
+            
             <a
               class="calendar-event"
               href="{{ url_for('routes.game_detail', game_id=e.id) }}"
               aria-label="View game {{ e.game_date }} vs {{ e.opponent_name }}"
             >
-              <div class="event-top">
-                <div class="opponent">vs {{ e.opponent_name }}</div>
-                {% if e.result %}
-                  <span class="result-badge {{ 'win' if e.result=='W' else 'loss' }}">
-                    {{ e.result }}
-                  </span>
-                {% endif %}
+
+              <div class="team-event-card-logo">
+                <img
+                  class="team-event-logo"
+                  src="{{ url_for('static', filename='assets/logos/' ~ e.opponent_name ~ '.png') }}"
+                  alt="{{ e.sport_name }} logo"
+                  loading="lazy"
+                  onerror="this.style.visibility='hidden';"
+                >
               </div>
-      
-              <div class="event-title">{{ e.game_date }}</div>
-              <div class="event-meta">{{ e.location }}</div>
-              <div class="event-meta scores">{{ e.score_for }} - {{ e.score_against }}</div>
-              <div class="event-meta time">
-                {{ e.game_time }}{% if e.game_number is not none %} • G{{ e.game_number }}{% endif %}
+
+              <div class="team-event-card-body">
+                <div class="event-top">
+                  <div class="opponent">vs {{ e.opponent_name }}</div>
+                  {% if e.result %}
+                    <span class="result-badge {{ 'win' if e.result=='W' else 'loss' }}">
+                      {{ e.result }}
+                    </span>
+                  {% endif %}
+                </div>
+        
+                <div class="event-title">{{ e.game_date }}</div>
+                <div class="event-meta">{{ e.location }}</div>
+                <div class="event-meta scores">{{ e.score_for }} - {{ e.score_against }}</div>
+                <div class="event-meta time">
+                  {{ e.game_time }}{% if e.game_number is not none %} • G{{ e.game_number }}{% endif %}
+                </div>
               </div>
             </a>
+
           {% endfor %}
         {% else %}
           <div class="empty-state">No upcoming events found</div>

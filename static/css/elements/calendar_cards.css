@@ -56,7 +56,9 @@
 
 
   .calendar-event {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     border: 1px solid var(--grey-200);
     border-radius: 12px;
     padding: 14px;

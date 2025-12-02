@@ -23,6 +23,144 @@
   
 
 
+/* Override old iframe-specific calendar style */
+.calendar {
+  filter: none;
+  border: none;
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
+}
+
+/* Nav bar above the month grid */
+.calendar-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px 4px;
+}
+
+.cal-month-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.calendar-header {
+  font-weight: 650;
+  font-size: 1.15rem;
+}
+
+.cal-nav-btn {
+  border-radius: 999px;
+  border: 1px solid var(--grey-200);
+  background: var(--grey-100);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--invert-black);
+}
+
+/* Month grid lives *inside* .calendar, so it won't affect other layouts */
+.calendar .month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px 8px 12px;
+}
+
+/* Day-of-week header cells */
+.calendar .dow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 6px;
+  color: var(--invert-grey);
+}
+
+/* Individual day cell */
+.calendar .month-day {
+  min-height: 90px;
+  border-radius: 8px;
+  padding: 6px 6px 8px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
 
-  
+
+/* Days outside current month (faded) */
+.calendar .month-day.other-month {
+  opacity: 0.4;
+}
+
+/* Date number */
+.calendar .day-number {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+/* Game list within a day */
+.calendar .day-games {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Individual game link in a day */
+.calendar .day-game-link {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 5px;
+  border-radius: 6px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  font-size: 0.7rem;
+  color: var(--invert-black);
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+              transform 0.1s ease;
+}
+
+.calendar .day-game-link:hover {
+  background: rgba(148, 163, 184, 0.12);
+  border-color: var(--invert-grey);
+  transform: translateY(-1px);
+}
+
+/* Game text breakdown */
+.calendar .day-game-sport { font-weight: 600; color: var(--invert-black); } 
+.calendar .day-game-sport:hover { font-weight: 900; } 
+.calendar .day-game-opponent { color: var(--invert-black); opacity: 0.8; } 
+.calendar .day-game-opponent:hover { opacity: 0.9; }
+
+
+
+
+
+/* Result badge inside day cell */
+.calendar .day-game-result {
+  margin-top: 1px;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.calendar .day-game-result.win {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.8);
+}
+
+.calendar .day-game-result.loss {
+  background: rgba(248, 113, 113, 0.18);
+  border-color: rgba(248, 113, 113, 0.8);
+}
