@@ -9,7 +9,7 @@
     border: 1px solid var(--grey-200);
     background: #fff;
     color: var(--black);
-    font-weight: 800;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
     transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease;

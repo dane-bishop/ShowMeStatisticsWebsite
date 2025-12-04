@@ -60,10 +60,12 @@ border-color: var(--yellow);
   }
   
   .event-title {
+    display: flex;
+    align-items: center;
     font-weight: 700;
     margin-bottom: 4px;
     font-size: 0.97rem;
-    align-items: center;
+    gap: 6px;
   }
   
   .event-meta {

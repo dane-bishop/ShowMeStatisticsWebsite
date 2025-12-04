@@ -49,8 +49,8 @@
           <div class="event-title">Quick Season Highs</div>
           {% block quick_highs %}
             {% if highs %}
-              <div class="cards two">
-                {% for h in highs[:4] %}
+              <div class="cards two quick-highs-scroll">
+                {% for h in highs %}
                 <div class="card">
                   <div class="card-title">{{ h.stat_name }}</div>
                   <div class="card-meta">
@@ -102,6 +102,7 @@
   </div>
 
   <!-- Player Notes -->
+  <!--
   <aside class="team-news">
     <div class="news-header">Player Notes</div>
     <ul class="news-list">
@@ -111,6 +112,7 @@
       </li>
     </ul>
   </aside>
+-->
 </section>
 {% endblock %}
 
@@ -151,5 +153,65 @@
         delete btn.dataset.busy;
       }
     }
+
+    // -------- Generic sortable-table script for player game logs --------
+    document.addEventListener("DOMContentLoaded", function () {
+      const tables = document.querySelectorAll("table.sortable");
+      if (!tables.length) return;
+
+      tables.forEach((table) => {
+        const tbody = table.querySelector("tbody");
+        const headers = table.querySelectorAll("thead th");
+
+        headers.forEach((th, index) => {
+          const sortType = th.dataset.sort;
+          if (!sortType) return;       // only sort columns with data-sort
+
+          th.style.cursor = "pointer";
+
+          th.addEventListener("click", () => {
+            const currentOrder = th.dataset.order === "asc" ? "desc" : "asc";
+
+            // reset others on this table
+            headers.forEach(h => { if (h !== th) h.dataset.order = ""; });
+            th.dataset.order = currentOrder;
+
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+
+            rows.sort((rowA, rowB) => {
+              const cellA = rowA.children[index].innerText.trim();
+              const cellB = rowB.children[index].innerText.trim();
+
+              const valA = getCellValue(cellA, sortType);
+              const valB = getCellValue(cellB, sortType);
+
+              if (valA < valB) return currentOrder === "asc" ? -1 : 1;
+              if (valA > valB) return currentOrder === "asc" ? 1 : -1;
+              return 0;
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+          });
+        });
+      });
+
+      function getCellValue(text, sortType) {
+        if (sortType === "num") {
+          const n = parseFloat(text.replace(/[^0-9.\-]/g, ""));
+          return isNaN(n) ? 0 : n;
+        }
+
+        if (sortType === "madeatt") {
+          // for "5 - 10" style cells, use the "made" part
+          const left = text.split("-")[0].trim();
+          const n = parseFloat(left);
+          return isNaN(n) ? 0 : n;
+        }
+
+        // default text sort
+        return text.toLowerCase();
+      }
+    });
   </script>
 {% endblock %}
+

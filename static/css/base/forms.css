@@ -1,76 +1,214 @@
 /* Forms */
      
      
-     .linklike { background: none; border: none; padding: 0; cursor: pointer; color: inherit; text-decoration: underline; }
-     
-     .form-card .auth-form label, .card .auth-form label { width: min(520px, 100%);margin: 40px auto;background: var(--white);border: 1px solid var(--grey-200);border-radius: 12px;padding: 20px;box-shadow: 0 8px 30px rgba(0,0,0,.06);
-     }
-     .form-card h2{margin: 0 0 .25rem 0;font-size: 1.6rem;font-weight: 800;letter-spacing: .2px;
-     }
-     .form-card .hint{margin: .25rem 0 1rem;color: #666;font-size: .95rem;
-     }
-     .auth-form .btn { margin-top: 8px; }
-     .auth-form label{display: block;font-weight: 700;
-     }
-     .auth-form label input{display: block;width: 100%;margin-top: 6px;padding: 12px;border: 1px solid var(--grey-200);border-radius: 8px;background: #fff;color: var(--black);transition: border-color .15s ease, box-shadow .15s ease;
-     }
-     .auth-form label input::placeholder{
-       color: #9aa0a6;
-     }
-     .auth-form label.checkbox input {
-       display: inline-block;     /* undo display:block */
-       width: 16px;               /* undo width:100% */
-       height: 16px;
-       margin: 0;                 /* undo margin-top */
-       flex: 0 0 auto;
-     }
-     
-     /* (optional) ensure the text doesn't try to fill the line */
-     .auth-form label.checkbox span {
-       display: inline;
-     }
-     .auth-form label input:focus{
-       outline: none;
-       border-color: var(--yellow);
-       box-shadow: 0 0 0 3px rgba(255,208,0, .25);
-     }
-     .form-row{
-       display: flex;
-       align-items: center;
-       gap: 12px;
-     }
-     .form-row.between{
-       justify-content: space-between;
-     }
-     
-     .form-card a{
-       color: inherit;
-       text-decoration: underline;
-       text-underline-offset: 2px;
-     }
-     .form-card a:hover{
-       text-decoration-thickness: 2px;
-     }
-     .auth-form label.checkbox {
-       display: inline-flex;              /* beats .auth-form label {display:block} */
-       align-items: center;
-       gap: 8px;                          /* space between "Remember me" and the box */
-       padding: 0;                        /* optional: remove extra padding */
-     }
-     
-     /* Undo the generic input rules for the checkbox specifically */
-     .auth-form label.checkbox input[type="checkbox"] {
-       display: inline-block;             /* undo display:block */
-       width: 16px;                       /* undo width:100% */
-       align-items: center;
-       height: 56px;
-       margin-left: 15px;
-       margin: 4px;                         /* undo margin-top */
-       flex: 0 0 auto; 
-       padding: 5px;                   /* don’t stretch */
-     }
-   
-   
-     
+.linklike { background: none; border: none; padding: 0; cursor: pointer; color: inherit; text-decoration: underline; }
+
+.form-card {
+  flex: 0 1 420px;
+}
+
+.form-card .auth-form label:not(.checkbox),
+.card .auth-form label:not(.checkbox) {
+  width: min(520px, 100%);
+  margin: 40px auto;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+}
+
+.auth-layout {
+  max-width: 1100px;
+  margin: 3rem auto;
+  display: flex;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+.form-card h2{
+  margin: 0 0 .25rem 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.form-card .hint{
+  margin: .25rem 0 1rem;
+  color: #667;
+  font-size: .95rem;
+}
+
+.auth-form .btn { 
+  margin-top: 8px; 
+}
+
+.auth-form label{
+  display: block;
+  font-weight: 700;
+}
+
+.auth-form label input{
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid var(--grey-200);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--black);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.auth-form label input::placeholder{
+  color: #9aa0a6;
+}
+
+.auth-form label.checkbox input {
+  display: inline-block;     /* undo display:block */
+  width: 16px;               /* undo width:100% */
+  height: 16px;
+  margin: 0;                 /* undo margin-top */
+  flex: 0 0 auto;
+}
+
+/* (optional) ensure the text doesn't try to fill the line */
+.auth-form label.checkbox span {
+  display: inline;
+}
+.auth-form label input:focus{
+  outline: none;
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(255,208,0, .25);
+}
+.form-row{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.form-row.between{
+  justify-content: space-between;
+}
+
+.form-card a{
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.form-card a:hover{
+  text-decoration-thickness: 2px;
+}
+.auth-form label.checkbox {
+  display: inline-flex;              /* beats .auth-form label {display:block} */
+  align-items: center;
+  gap: 8px;                          /* space between "Remember me" and the box */
+  padding: 0;                        /* optional: remove extra padding */
+}
+
+/* Undo the generic input rules for the checkbox specifically */
+.auth-form label.checkbox input[type="checkbox"] {
+  display: inline-block;             /* undo display:block */
+  width: 16px;                       /* undo width:100% */
+  align-items: center;
+  height: 56px;
+  margin-left: 15px;
+  margin: 4px;                         /* undo margin-top */
+  flex: 0 0 auto; 
+  padding: 5px;                   /* don’t stretch */
+}
+
+.login-pic {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-pic-format {
+  max-width: 100%;
+  max-height: 480px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 12px 40px rgba(15,23,42,0.25);
+  border: 1px solid rgba(148,163,184,0.4); /* subtle border */
+  padding: 0; /* let the image fill the card */
+}
+
+
+/* Remember me row spacing */
+.remember-row {
+  margin-top: 1rem;
+  padding: 0.5rem 0;    
+  min-height: 60px;     
+  align-items: center;  
+}
+
+.remember-card {
+  width: min(520px, 100%);
+  margin: 20px auto 0;
+  padding: 16px 20px;         /* ← increase these to make it taller */
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.06);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* General form row layout (you already had these) */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.form-row.between {
+  justify-content: space-between;
+}
+
+/* Checkbox label: inline-flex, with a little padding so it’s not jammed against card edge */
+.auth-form label.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 2px; /* adds a tiny bit of breathing room inside the card */
+  margin: 0;        /* no big margins here */
+}
+
+/* Checkbox input itself */
+.auth-form label.checkbox input[type="checkbox"] {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  flex: 0 0 auto;
+  padding: 0;
+}
+
+/* Remember me text */
+.auth-form label.checkbox span {
+  display: inline-block;
+  font-weight: 500;   /* slightly softer than field labels */
+}
+
+
+@media (max-width: 900px) {
+  .auth-layout {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 2rem 1rem;
+  }
+
+  .login-pic {
+    order: -1; /* put image on top on mobile if you like */
+  }
+
+  .login-pic-format {
+    max-height: 320px;
+  }
+}
+
      
    

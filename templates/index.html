@@ -5,7 +5,7 @@
 
 {% block banner %}
 
-<!-- News Banner -->
+{# =============== NEWS BANNER =============== #}
 <section class="headline-banner">
   <a href="{{ url_for('routes.news') }}" class="news-btn">News</a>
   <div class="headlines">
@@ -19,21 +19,21 @@
 </section>
 {% endblock %}
 
+
+
+
+
+
 {% block content %}
-
-
-
-
-  
-
-
-
 
 <section class="layout">
 
-  <!-- Recent and Upcoming Events -->
+  
+
+  {# ================ RECENT EVENTS =============== #}
   <div class="calendar-card">
     
+
     <div class="calendar-header">
       Recent Events
     </div>
@@ -102,6 +102,9 @@
 
     
 
+
+
+    {# ================ UPCOMING EVENTS =============== #}
     <div class="calendar-header">
       Upcoming Events
     </div>
@@ -121,7 +124,7 @@
                   onerror="this.style.visibility='hidden';"
               >
             
-            {{ e.opponent_name }}
+              <span class="event-sport-away">{{ e.opponent_name }}</span>
           </div>
           
           <div class="event-meta">{{ e.game_date }} • {{ e.location }}</div>
@@ -132,10 +135,10 @@
 
 
 
-    <!-- Calendar -->
+    {# =============== CALENDAR =============== #}
     <div class="calendar">
 
-      <!-- Month navigation -->
+      
       <div class="calendar-month-nav">
         <a
           class="cal-nav-btn"
@@ -156,6 +159,7 @@
         </a>
       </div>
 
+      
       <!-- Month grid -->
       <div class="month-grid">
         {# Day-of-week header #}
@@ -216,10 +220,10 @@
 
 
 
-  <!-- Filter Sports Section -->
-  <!-- Filter Sports Section -->
+
+{# =============== FILTER SPORTS SECTION =============== #}
 <form id="sport-filter-form" class="filters" method="get">
-  <!-- Preserve current month when filtering -->
+
   <input type="hidden" name="month" value="{{ calendar_current }}">
 
   <div class="filters-header">Filter Sports</div>
@@ -264,7 +268,7 @@
         Football 
       </label><br>
 
-      <!-- Add others as you wire them up in DB -->
+
     </div>
 
     <div>
@@ -290,13 +294,13 @@
         Volleyball
       </label><br>
 
-      <!-- etc. -->
+ 
     </div>
 
     <div>
       <b>Other Sports</b><br>
 
-      <!-- Add cross country / track / swim etc. with the sport_name you store -->
+
     </div>
 
   </div>
@@ -308,12 +312,9 @@
 
 
 
-
-  <!-- Add favorite players here -->
+  {# =============== FAVORITE PLAYERS =============== #}
+  
   {% set fps = fav_players | default([]) %}
-
-
-  <!-- Favorite Players as its own section with similar design -->
   <section class="panel">
 
     <div class="panel-header">Saved Players</div>
@@ -343,6 +344,11 @@
 
 
 </section>
+
+
+
+
+
 <!-- hide 'all' checkbox -->
 <style>
   #deselect {
@@ -386,80 +392,3 @@
 {% endblock %}
 
 
-
-
-<!--
-
-  NEW SCHEDULE CODE
-
-    
-      <div class="calendar">
-        <div class="calendar-month-nav">
-          <a
-            class="cal-nav-btn"
-            href="{{ url_for('routes.home', month=calendar_prev) }}"
-          >
-            ‹ Prev
-          </a>
-  
-          <div class="cal-month-label">
-            {{ calendar_label }}
-          </div>
-  
-          <a
-            class="cal-nav-btn"
-            href="{{ url_for('routes.home', month=calendar_next) }}"
-          >
-            Next ›
-          </a>
-        </div>
-  
-        <div class="month-grid">
-     
-          <div class="dow">Sun</div>
-          <div class="dow">Mon</div>
-          <div class="dow">Tue</div>
-          <div class="dow">Wed</div>
-          <div class="dow">Thu</div>
-          <div class="dow">Fri</div>
-          <div class="dow">Sat</div>
-  
-     
-          {% for week in calendar_weeks %}
-            {% for day in week %}
-              {% set key = day.isoformat() %}
-              {% set in_current_month = (day.month == calendar_month and day.year == calendar_year) %}
-              <div class="month-day {% if not in_current_month %}other-month{% endif %}">
-                <div class="day-number">
-                  {{ day.day }}
-                </div>
-  
-                {% if games_by_date.get(key) %}
-                  <div class="day-games">
-                    {% for g in games_by_date[key] %}
-                      <a
-                        href="{{ url_for('routes.game_detail', game_id=g.id) }}"
-                        class="day-game-link"
-                      >
-                        <span class="day-game-sport">{{ g.sport_name }}</span>
-                        <span class="day-game-opponent">vs {{ g.opponent_name }}</span>
-                        {% if g.result %}
-                          <span class="day-game-result {{ 'win' if g.result == 'W' else 'loss' }}">
-                            {{ g.result }}
-                          </span>
-                        {% endif %}
-                      </a>
-                    {% endfor %}
-                  </div>
-                {% endif %}
-              </div>
-            {% endfor %}
-          {% endfor %}
-        </div>
-      </div>
-  
-
-
-
-
--->

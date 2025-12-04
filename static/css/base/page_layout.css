@@ -1,7 +1,17 @@
 /* Page Layout */
      
-     .container { display: flex; width: min(1200px, 100%); margin: 20px auto; padding: 0 16px; }
-     .layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
-     .team-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
-     
-   
+.container { 
+     display: flex; 
+     width: min(1300px, 100%); 
+     margin: 20px auto; 
+     padding: 0 16px; 
+}
+
+.layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+
+.team-layout { 
+     display: grid; 
+     grid-template-columns: 1fr 320px; 
+     gap: 20px; 
+     align-items: start; }
+

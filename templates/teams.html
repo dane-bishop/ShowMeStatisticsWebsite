@@ -11,9 +11,19 @@
   <div class="cards four">
     {% for team in teams if team.slug in ['football', 'baseball', 'mens-basketball', 'mens-golf'] %}
       <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug, team_year=2025) }}">
-        <div class="card-title">{{ team.name }}</div>
+        
+        {% if team.name == 'Missouri Football'%}
+          <div class="card-title">🏈 {{ team.name }}</div>
+        {% elif team.name == "Missouri Men's Basketball"%}
+          <div class="card-title">🏀 {{ team.name }}</div>     
+        {% elif team.name == "Missouri Baseball"%}
+          <div class="card-title">⚾ {{ team.name }}</div>
+        {% elif team.name == "Missouri Men's Golf"%}
+          <div class="card-title">⛳️ {{ team.name }}</div>
+        {% endif %}
         <div class="card-meta">Explore schedule, roster, stats</div>
       </a>
+      
     {% endfor %}
   </div>
 
@@ -23,7 +33,17 @@
   <div class="cards four">
     {% for team in teams if team.slug in ['womens-soccer', 'womens-basketball', 'softball', 'womens-golf', 'womens-volleyball'] %}
       <a class="card" href="{{ url_for('routes.team_detail', team_slug=team.slug, team_year=2025) }}">
-        <div class="card-title">{{ team.name }}</div>
+        {% if team.name == "Missouri Women's Basketball"%}
+          <div class="card-title">🏀 {{ team.name }}</div>
+        {% elif team.name == "Missouri Women's Volleyball"%}
+          <div class="card-title">🏐 {{ team.name }}</div>
+        {% elif team.name == "Missouri Women's Golf"%}
+          <div class="card-title">⛳️ {{ team.name }}</div>
+        {% elif team.name == "Missouri Softball"%}
+          <div class="card-title">🥎 {{ team.name }}</div>
+        {% elif team.name == "Missouri Women's Soccer"%}
+          <div class="card-title">⚽ {{ team.name }}</div>
+        {% endif %}
         <div class="card-meta">Explore schedule, roster, stats</div>
       </a>
     {% endfor %}

@@ -82,7 +82,8 @@
 
 /* Individual day cell */
 .calendar .month-day {
-  min-height: 90px;
+  min-height: 140px;
+  min-width: 110px;
   border-radius: 8px;
   padding: 6px 6px 8px;
   background: var(--white);

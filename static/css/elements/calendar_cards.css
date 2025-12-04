@@ -10,6 +10,9 @@
     color: var(--invert-black);
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    width: 100%;
+    max-width: 100%;
+    min-width: 800px;
   }
 
   
@@ -69,3 +72,34 @@
   .calendar-event:hover {
     border-color: var(--yellow); box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-1px);
   }
+
+
+  /* Quick Season Highs layout: stack title over content */
+.calendar-event.quick-highs-card {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Scrollable inner area */
+.quick-highs-scroll {
+  max-height: 220px;      /* adjust to taste */
+  overflow-y: auto;
+  margin-top: 8px;
+  padding-right: 4px;     /* room for scrollbar */
+}
+
+/* Optional: nicer look when lots of cards */
+.quick-highs-scroll .card {
+  margin-bottom: 8px;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Optional: prevent table from squishing too much */
+.table-wrap table {
+  min-width: 900px; /* or whatever fits your columns */
+}

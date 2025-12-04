@@ -2,38 +2,49 @@
 {% block title %}Sign In{% endblock %}
 {% block content %}
 
-<section class="form-card">
-  <h2 style="margin:0 0 .25rem 0;">Welcome back</h2>
-  <p class="hint" style="margin:.25rem 0 1rem;">Sign in to continue</p>
+<div class="auth-layout">
+  <section class="form-card">
+    <h2>Welcome back</h2>
+    <p class="hint">Sign in to continue</p>
 
-  <form method="post" action="{{ url_for('auth.login_submit') }}" class="auth-form" novalidate>
-    <label>
-      Email
-      <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
-    </label>
-
-    <label>
-      Password
-      <input type="password" name="password" required minlength="8" autocomplete="current-password" placeholder="••••••••">
-    </label>
-
-    <div style="display: flex; align-items:center; justify-content:space-between; gap:12px;">
-      <label class="checkbox">
-        
-        <span>Remember me</span>
-        <input type="checkbox" name="remember">
+    <form method="post" action="{{ url_for('auth.login_submit') }}" class="auth-form" novalidate>
+      <label>
+        Email
+        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
       </label>
-  
-      <a class="hint" href="#">Forgot password?</a>
-    </div>
 
-    <button type="submit" class="btn">Sign in</button>
-  </form>
+      <label>
+        Password
+        <input type="password" name="password" required minlength="8" autocomplete="current-password" placeholder="••••••••">
+      </label>
 
-  <p class="hint" style="margin-top:12px;">
-    No account?
-    <a href="{{ url_for('auth.register_form') }}">Create one</a>.
-  </p>
-</section>
+      <div class="remember-card">
+        <label class="checkbox">
+          <input type="checkbox" name="remember">
+          <span>Remember me</span>
+        </label>
+      
+        <a class="hint" href="#">Forgot password?</a>
+      </div>      
+
+      <button type="submit" class="btn">Sign in</button>
+    </form>
+
+    <p class="hint" style="margin-top:12px;">
+      No account?
+      <a href="{{ url_for('auth.register_form') }}">Create one</a>.
+    </p>
+  </section>
+
+  <section class="login-pic">
+    <img
+      class="login-pic-format"
+      src="{{ url_for('static', filename='assets/logos/Missouri.png') }}"
+      alt="Faurot Field"
+      loading="lazy"
+      onerror="this.style.visibility='hidden';"
+    >
+  </section>
+</div>
 
 {% endblock %}
