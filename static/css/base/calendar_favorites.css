@@ -8,7 +8,7 @@
         transition: transform .08s ease, color .15s ease, opacity .15s ease;
       }
       .calendar-card:not(:has(.calendar-header)) .favorite-btn { color: var(--black); } /* context override */
-      .calendar-header .favorite-btn:hover { transform: scale(1.06); }
+      .calendar-header .favorite-btn:hover { transform: scale(1.06); color: var(--stay-white); }
       .calendar-header .favorite-btn:active { transform: scale(0.96); }
       .calendar-header .favorite-btn.on,
       .calendar-header .favorite-btn[aria-pressed="true"] {
