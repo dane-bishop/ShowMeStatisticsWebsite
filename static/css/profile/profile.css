@@ -1,3 +1,4 @@
+
 /* Profile - Mizzou Athletics Version */
 
 .profile .auth-form {
@@ -45,3 +46,42 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
+
+/*          Profile Picture Styling          */
+
+.profile-avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#profile-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--yellow);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-upload-btn {
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--yellow);
+  color: var(--black);
+  font-weight: 600;
+  border: none;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.avatar-upload-btn:hover {
+  background: #e6b600;
+}
+
+.avatar-upload-btn:active {
+  transform: scale(0.97);
+}
+

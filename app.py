@@ -13,30 +13,33 @@ import os
 def create_app():
     app = Flask(__name__)
 
-    secret = os.environ.get("SECRET_KEY")
+    # Get secret key from environment, fallback for local development
+    secret = os.environ.get("FLASK_SECRET_KEY") or os.environ.get("SECRET_KEY")
+
     if not secret:
-        # Optional: allow a dev fallback locally
-        # secret = "dev-only-not-secure"
-        raise RuntimeError("FLASK_SECRET_KEY is not set")
-    
+        # LOCAL FALLBACK — safe for development
+        secret = "dev-secret-key"
+
     app.config["SECRET_KEY"] = secret
 
+    # Register blueprints
     app.register_blueprint(routes_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(favorites_bp)
+
     return app
 
-app = create_app()
 
+app = create_app()
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login_form"
 login_manager.init_app(app)
 
+
 @login_manager.user_loader
 def load_user(user_id: str):
     return load_user_by_id(user_id)
-
 
 
 if __name__ == "__main__":

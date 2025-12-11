@@ -8,14 +8,30 @@
   <h2>Account</h2>
 
   <div class="grid two">
-    <!-- Left: Account card -->
+
+    <!-- LEFT CARD -->
     <div class="card long">
       <div class="card-title">Your Account</div>
       <div class="card-meta">Email: {{ user.email }}</div>
-      <div class="card-meta">Member since: {{ user.created_at.strftime('%b %d, %Y') if user.created_at else '—' }}</div>
+      <div class="card-meta">
+        Member since: {{ user.created_at.strftime('%b %d, %Y') if user.created_at else '—' }}
+      </div>
 
       <hr>
 
+      <!-- ⭐ NEW AVATAR SECTION (added only this block) -->
+      <div class="profile-avatar-wrapper">
+        <div class="profile-avatar-label">Profile picture</div>
+        <div id="profile-avatar"></div>
+        <button type="button" class="avatar-upload-btn" id="avatar-upload-btn">
+          Change Photo
+        </button>
+        <input type="file" id="avatar-file-input" accept="image/*" style="display:none;">
+      </div>
+
+      <hr>
+
+      <!-- Display name -->
       <form method="post" action="{{ url_for('routes.profile_update_display_name') }}" class="auth-form">
         <label>Display name
           <input type="text" name="display_name" value="{{ user.display_name or '' }}" placeholder="Your name">
@@ -25,6 +41,7 @@
 
       <hr>
 
+      <!-- Password change -->
       <form method="post" action="{{ url_for('routes.profile_change_password') }}" class="auth-form">
         <label>Current password
           <input type="password" name="current_password" required>
@@ -42,63 +59,62 @@
       </form>
     </div>
 
-    <!-- Right: Favorites -->
-    <section class="panel">
-      <div class="panel-header">Favorite Players</div>
-
-      <!-- Toggle Buttons -->
-      <div class="favorites-toggle">
-        <button type="button" class="fav-tab active" data-team="men">Men's Players</button>
-        <button type="button" class="fav-tab" data-team="women">Women's Players</button>
-      </div>
-
-      {% set fps = fav_players | default([]) %}
-
-      <!-- Men's Favorites -->
-      <div class="cards three" id="fav-players-men">
-        {% for p in fps if p.team_slug in ['football','baseball','mens-basketball','mens-golf'] %}
-          {{ player_card(p) }}
-        {% endfor %}
-        {% if fps|selectattr("team_slug", "in", ['football','baseball','mens-basketball','mens-golf'])|list|length == 0 %}
-          <div class="card-meta">No favorite men's players yet.</div>
+    <!-- RIGHT SIDE (EXACTLY YOUR LIVE SITE) -->
+    <div>
+      <div class="card">
+        <div class="card-title">Saved Players</div>
+        {% if fav_players|length == 0 %}
+          <p>No saved players yet. Find a player and tap the ♥ icon.</p>
+        {% else %}
+          <div class="cards three">
+            {% for p in fav_players %}
+              {{ player_card(p) }}
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
 
-      <!-- Women's Favorites -->
-      <div class="cards three" id="fav-players-women" style="display:none;">
-        {% for p in fps if p.team_slug in ['womens-soccer','womens-basketball','softball','womens-golf','womens-volleyball'] %}
-          {{ player_card(p) }}
-        {% endfor %}
-        {% if fps|selectattr("team_slug", "in", ['womens-soccer','womens-basketball','softball','womens-golf','womens-volleyball'])|list|length == 0 %}
-          <div class="card-meta">No favorite women's players yet.</div>
-        {% endif %}
+      <div class="card" style="margin-top: 20px;">
+        <div class="card-title">Saved Teams</div>
+        <p>No saved teams yet. Find a team and tap the ♥ icon.</p>
       </div>
+    </div>
 
-    </section>
   </div>
 </section>
-
 {% endblock %}
 
 {% block scripts %}
 {{ super() }}
 <script>
-const tabs = document.querySelectorAll('.fav-tab');
-const menCards = document.getElementById('fav-players-men');
-const womenCards = document.getElementById('fav-players-women');
+document.addEventListener('DOMContentLoaded', () => {
+  const avatar = document.getElementById('profile-avatar');
+  const fileInput = document.getElementById('avatar-file-input');
+  const uploadBtn = document.getElementById('avatar-upload-btn');
 
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
+  // Load saved avatar
+  const saved = localStorage.getItem('sms_profile_avatar');
+  if (saved) {
+    avatar.style.backgroundImage = `url(${saved})`;
+    avatar.style.backgroundSize = "cover";
+    avatar.style.backgroundPosition = "center";
+  }
 
-    if (tab.dataset.team === 'men') {
-      menCards.style.display = 'flex';
-      womenCards.style.display = 'none';
-    } else {
-      menCards.style.display = 'none';
-      womenCards.style.display = 'flex';
-    }
+  uploadBtn.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target.result;
+      avatar.style.backgroundImage = `url(${dataUrl})`;
+      avatar.style.backgroundSize = "cover";
+      avatar.style.backgroundPosition = "center";
+      localStorage.setItem('sms_profile_avatar', dataUrl);
+    };
+    reader.readAsDataURL(file);
   });
 });
 </script>

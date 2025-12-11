@@ -5,6 +5,8 @@
     "search.exclude": {
       "**/__init__.py": true
     },
-    "explorer.excludeGitIgnore": false
+    "explorer.excludeGitIgnore": false,
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": []
   }
   
